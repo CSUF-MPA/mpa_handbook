@@ -956,77 +956,120 @@ input:focus, select:focus, textarea:focus {
         align-items: center;
     }
 }
+/* Mobile-First Header Styles */
+.header {
+    background: var(--primary);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+.header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.header h2 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.header p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Navigation Styles */
+.navigation {
+    background: var(--secondary);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none; /* Hidden by default on mobile */
+    flex-direction: column;
+}
+
+.nav-list.active {
+    display: flex;
+}
+
+.nav-list a {
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    display: block;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-list a:hover {
+    background: var(--accent);
+}
+
+/* Hamburger Menu */
+.menu-toggle {
+    display: block;
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.menu-toggle i {
+    margin-right: 0.5rem;
+}
+
+/* Desktop Styles */
+@media (min-width: 768px) {
     .header {
-        padding: 1rem;
+        padding: 2rem;
     }
+
     .header h1 {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
+
     .header h2 {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
+
+    .menu-toggle {
+        display: none;
+    }
+
     .nav-list {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    .nav-list a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
         padding: 0.5rem;
-        font-size: 0.9rem;
+        gap: 1rem;
     }
-    .section, .card {
-        padding: 1rem;
-    }
-    .hamburger {
-        display: block;
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 1000;
-        background: var(--primary);
+
+    .nav-list a {
         padding: 0.5rem 1rem;
+        border: none;
         border-radius: 4px;
-        color: white;
-        cursor: pointer;
-    }
-    .hamburger.active + .navigation {
-        display: block;
-        position: absolute;
-        top: 3rem;
-        left: 0;
-        width: 100%;
-        background: var(--secondary);
-        z-index: 100;
     }
 }
 
-/* Hide hamburger menu on larger screens */
-.hamburger {
-    display: none;
-}
-
-/* Show hamburger menu on screens smaller than 768px */
-@media (max-width: 768px) {
-    .hamburger {
-        display: block;
-    }
-
-    .navigation {
-        display: none; /* Hide the navigation menu by default */
-    }
-
-    .navigation.active {
-        display: flex; /* Show the menu when active */
-        flex-direction: column;
-        gap: 0.5rem;
-        background: var(--secondary); /* Match your menu style */
-        position: absolute;
-        top: 70px; /* Adjust for header height */
-        left: 0;
-        width: 100%;
-        padding: 1rem 0;
-        z-index: 100;
+/* Theme Toggle Position Adjustment */
+.theme-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    @media (min-width: 768px) {
+        top: 1rem;
+        bottom: auto;
     }
 }

@@ -199,17 +199,41 @@ function toggleMenu() {
     navigation.classList.toggle('active');
 }
 
-// Close menu when a navigation link is clicked
-document.querySelectorAll('.nav-list a').forEach(link => {
-    link.addEventListener('click', () => {
-        const hamburger = document.querySelector('.hamburger');
-        const navigation = document.querySelector('.navigation');
-        hamburger.classList.remove('active');
-        navigation.classList.remove('active');
-    });
+// Mobile Navigation
+function initializeMobileNav() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navList = document.querySelector('.nav-list');
+    
+    if (menuToggle && navList) {
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', 
+                navList.classList.contains('active'));
+        });
+
+        // Close menu when clicking a link
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navigation')) {
+                navList.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+}
+
+// Add to your DOM loaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    // ... other initializations ...
+    initializeMobileNav();
 });
-
-
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeTheme();
@@ -219,3 +243,48 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFAQ();
     initializeFooterDates();
 });
+
+/* Sticky Search Container */
+.search-container {
+    position: sticky;
+    top: 60px; /* Adjust based on your navigation height */
+    z-index: 90;
+    background: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+/* Add padding to content below search to prevent jump */
+#courseGrid,
+#facultyGrid {
+    padding-top: 1rem;
+}
+
+/* Ensure search container stays on top but below navigation */
+.search-container {
+    margin-top: -1rem; /* Compensate for section padding */
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .search-container {
+    background: var(--bg-primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .search-container {
+        top: 50px; /* Adjust for smaller mobile header */
+        padding: 0.75rem;
+    }
+
+    /* Prevent horizontal scroll on mobile */
+    .section {
+        overflow-x: hidden;
+    }
+}
