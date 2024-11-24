@@ -1,33 +1,47 @@
-/* Theme Variables */
+/* CSUF Brand Colors and Theme Variables */
 :root {
-    --primary: #00274C;
-    --secondary: #1B3D6D;
-    --accent: #F1C933;
-    --text: #333;
-    --light: #f5f5f5;
+    /* CSUF Colors */
+    --titan-blue: #00244E;
+    --medium-blue: #0F3F8C;
+    --sky-blue: #EBFBFF;
+    --light-gray: #F5F5F5;
+    --beige: #F8F7F3;
+    --titan-orange: #FF7900;
+    --text-dark: #222222;
+    
+    /* Utility Colors */
     --success: #28a745;
-    --warning: #ffc107;
+    --warning: var(--titan-orange);
     --danger: #dc3545;
 }
 
-/* Theme configurations */
+/* Light Theme */
 [data-theme="light"] {
+    --primary: var(--titan-blue);
+    --secondary: var(--medium-blue);
     --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #333333;
+    --bg-secondary: var(--light-gray);
+    --text-primary: var(--text-dark);
     --text-secondary: #666666;
-    --border-color: rgba(0,0,0,0.1);
+    --accent: var(--titan-orange);
+    --border-color: var(--light-gray);
+    --hover-bg: var(--sky-blue);
 }
 
+/* Dark Theme */
 [data-theme="dark"] {
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #cccccc;
-    --border-color: rgba(255,255,255,0.1);
+    --bg-primary: #1A2029;
+    --bg-secondary: #252A30;
+    --text-primary: #EBEBEB;
+    --text-secondary: #99B3B9;
+    --primary: #1A2F48;
+    --secondary: #3C4148;
+    --accent: var(--titan-orange);
+    --border-color: #3C4148;
+    --hover-bg: #1A2F48;
 }
 
-/* Base styles */
+/* Base Styles */
 body {
     font-family: system-ui, -apple-system, sans-serif;
     line-height: 1.6;
@@ -38,14 +52,48 @@ body {
     transition: background-color 0.3s ease;
 }
 
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary);
+    margin-top: 0;
+}
+
+a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
 /* Layout Components */
+/* Header styles update */
 .header {
     background: var(--primary);
-    color: white;
     padding: 2rem;
     text-align: center;
 }
 
+/* Ensure all text in header is white */
+.header h1,
+.header h2,
+.header p {
+    color: white;
+    margin: 0.5rem 0;
+}
+
+/* Optional: Add some subtle text shadow for better contrast */
+.header h1 {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    font-size: 2.5rem;
+}
+
+.header h2 {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    font-size: 1.8rem;
+}
 .navigation {
     background: var(--secondary);
     padding: 1rem;
@@ -69,12 +117,12 @@ body {
     text-decoration: none;
     padding: 0.5rem 1rem;
     transition: all 0.3s ease;
+    border-radius: 4px;
 }
 
 .nav-list a:hover {
     background: var(--accent);
-    color: var(--primary);
-    border-radius: 4px;
+    color: white;
 }
 
 .content {
@@ -83,7 +131,7 @@ body {
     padding: 2rem;
 }
 
-/* Components */
+/* Section and Card Components */
 .section {
     background: var(--bg-secondary);
     border-radius: 8px;
@@ -94,10 +142,15 @@ body {
 
 .card {
     background: var(--bg-primary);
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1rem;
     border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* Interactive Elements */
@@ -112,15 +165,65 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* Progress Bars */
+.theme-toggle:hover {
+    background: var(--accent);
+}
+
+/* Form Elements */
+input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Search Components */
+.search-container {
+    position: sticky;
+    top: 70px;
+    z-index: 90;
+    background: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.search-box {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Grid Layouts */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Progress Indicators */
 .progress-container {
     background: var(--bg-secondary);
     border-radius: 4px;
-    margin: 1rem 0;
-    height: 20px;
+    height: 8px;
     overflow: hidden;
+    margin: 1rem 0;
 }
 
 .progress-bar {
@@ -129,25 +232,23 @@ body {
     transition: width 0.3s ease;
 }
 
-/* Course Catalog Styles */
+/* Course Catalog Specific Styles */
 .course-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
-    margin-top: 2rem;
 }
 
 .course-card {
     background: var(--bg-primary);
-    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 1.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease;
 }
 
 .course-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .course-header {
@@ -159,7 +260,6 @@ body {
 
 .course-code {
     font-family: monospace;
-    font-size: 1.1rem;
     font-weight: bold;
     color: var(--primary);
 }
@@ -168,104 +268,95 @@ body {
     padding: 0.25rem 0.75rem;
     border-radius: 12px;
     font-size: 0.85rem;
-    font-weight: 500;
+    color: white;
 }
 
-.course-tag.core {
+.course-tag.core { background: var(--primary); }
+.course-tag.hr { background: var(--medium-blue); }
+.course-tag.finance { background: var(--success); }
+.course-tag.local { background: var(--warning); }
+.course-tag.policy { background: var(--medium-blue); }
+
+/* Tab System */
+.tab-container {
+    margin: 1.5rem 0;
+}
+
+.tab-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tab {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.tab.active {
     background: var(--primary);
     color: white;
 }
 
-.course-tag.hr {
-    background: #2196f3;
-    color: white;
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
 }
 
-.course-tag.finance {
-    background: #4caf50;
-    color: white;
+.tab-content.active {
+    display: block;
 }
 
-.course-tag.local {
-    background: #ff9800;
-    color: white;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.course-tag.policy {
-    background: #9c27b0;
-    color: white;
+/* Checklist Components */
+.checklist-section {
+    margin-bottom: 2rem;
 }
 
-.course-details {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.prereq-tag {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-/* Search and Filter Controls */
-.search-container {
-    position: sticky;
-    top: 70px;
-    z-index: 90;
-    background: var(--bg-primary);
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.filter-container {
+.checklist-item {
     display: flex;
+    align-items: center;
     gap: 1rem;
-    margin-top: 1rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.filter-select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    min-width: 150px;
+.checklist-item:last-child {
+    border-bottom: none;
 }
 
-/* Course Search Box */
-.search-box {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    transition: border-color 0.3s ease;
-}
-
-.search-box:focus {
-    border-color: var(--primary);
-    outline: none;
+.checklist-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
 }
 
 /* Faculty Directory */
 .faculty-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
 }
 
 .faculty-card {
     background: var(--bg-primary);
     border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1.5rem;
     transition: transform 0.2s ease;
 }
 
@@ -273,62 +364,79 @@ body {
     transform: translateY(-2px);
 }
 
-/* Search and Filter */
-.search-container {
-    margin-bottom: 1.5rem;
-}
-
-.search-box {
+.faculty-image {
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid var(--border-color);
+    aspect-ratio: 1;
+    overflow: hidden;
     border-radius: 4px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-/* Tabs */
-.tab-container {
-    margin: 1.5rem 0;
-}
-
-.tab-list {
-    display: flex;
-    gap: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
     margin-bottom: 1rem;
 }
 
-.tab {
-    padding: 0.5rem 1rem;
-    border: none;
-    background: none;
-    color: var(--text-primary);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -2px;
+.faculty-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.tab.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
+/* FAQ Components */
+.faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Alerts and Messages */
-.alert {
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem;
-    border-radius: 4px;
-    margin: 1rem 0;
+    background: var(--bg-secondary);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.alert-info {
-    background: var(--bg-secondary);
-    border-left: 4px solid var(--primary);
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1rem;
 }
 
-.alert-warning {
-    background: var(--bg-secondary);
-    border-left: 4px solid var(--warning);
+.faq-answer.active {
+    max-height: 500px;
+    padding: 1rem;
+}
+
+/* Contact Section */
+.contact-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-info li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Responsive Design */
@@ -338,20 +446,26 @@ body {
         align-items: center;
     }
     
+    .content {
+        padding: 1rem;
+    }
+    
+    .grid,
     .course-grid,
     .faculty-grid {
         grid-template-columns: 1fr;
     }
     
-    .tab-list {
-        flex-wrap: wrap;
+    .theme-toggle {
+        bottom: 1rem;
+        top: auto;
     }
 }
 
 /* Print Styles */
 @media print {
-    .theme-toggle,
-    .navigation {
+    .navigation,
+    .theme-toggle {
         display: none;
     }
     
@@ -364,6 +478,11 @@ body {
     .section {
         break-inside: avoid;
         box-shadow: none;
+    }
+    
+    a {
+        text-decoration: none;
+        color: var(--text-primary);
     }
 }
 
@@ -390,36 +509,154 @@ body {
     outline-offset: 2px;
 }
 
-/* Checklist Styles */
-.checklist-section {
-    margin-bottom: 2rem;
+/* Update the Dark Theme colors */
+[data-theme="dark"] {
+    --bg-primary: #1A2029;
+    --bg-secondary: #252A30;
+    --text-primary: #EBEBEB;
+    --text-secondary: #99B3B9;
+    --primary: #99B3B9;         /* Changed from #1A2F48 to improve contrast */
+    --secondary: #3C4148;
+    --accent: var(--titan-orange);
+    --border-color: #3C4148;
+    --hover-bg: #1A2F48;
 }
 
-.checklist-items {
-    margin-top: 1rem;
+/* Additional dark mode overrides for specific elements */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-primary);  /* Use light text color for headers in dark mode */
 }
 
-.checklist-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
+[data-theme="dark"] .course-code,
+[data-theme="dark"] .contact-header h3,
+[data-theme="dark"] .resource-header h3,
+[data-theme="dark"] .tab-content h4 {
+    color: var(--text-primary);  /* Ensure these specific elements are also readable */
 }
 
-.checklist-item:last-child {
-    border-bottom: none;
+/* Adjust other dark mode specific colors if needed */
+[data-theme="dark"] .card:hover {
+    box-shadow: 0 4px 8px rgba(255,255,255,0.1);
 }
 
-.checklist-item input[type="checkbox"] {
-    width: 1.2rem;
-    height: 1.2rem;
-    cursor: pointer;
+[data-theme="dark"] .contact-info h4,
+[data-theme="dark"] .resource-item h4,
+[data-theme="dark"] .criteria-item h4 {
+    color: var(--text-primary);
 }
 
-.checklist-item label {
-    cursor: pointer;
-    flex: 1;
+/* Dark mode card improvements */
+[data-theme="dark"] .card,
+[data-theme="dark"] .faculty-card,
+[data-theme="dark"] .course-card,
+[data-theme="dark"] .contact-card {
+    background: #252A30;  /* Slightly lighter than bg-primary for contrast */
+    border: 1px solid #3C4148;  /* More visible border */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .faculty-card:hover,
+[data-theme="dark"] .course-card:hover,
+[data-theme="dark"] .contact-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    border-color: #4C5158;  /* Lighter border on hover */
+}
+
+/* Improve section visibility in dark mode */
+[data-theme="dark"] .section {
+    background: #1E2431;  /* Slightly different from card background */
+    border: 1px solid #3C4148;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Improve visibility of dividers and borders */
+[data-theme="dark"] .contact-header,
+[data-theme="dark"] .resource-header {
+    border-bottom-color: #4C5158;
+}
+
+[data-theme="dark"] .checklist-item {
+    border-bottom-color: #3C4148;
+}
+
+/* Improve background contrast for secondary elements */
+[data-theme="dark"] .resource-item,
+[data-theme="dark"] .checklist-section,
+[data-theme="dark"] .prereq-info {
+    background: #252A30;
+    border: 1px solid #3C4148;
+}
+
+/* Dark mode text and link improvements */
+[data-theme="dark"] a {
+    color: var(--sky-blue);  /* Use CSUF's sky blue for better visibility */
+}
+
+[data-theme="dark"] a:hover {
+    color: var(--titan-orange);
+}
+
+/* Quick Links section specific */
+[data-theme="dark"] .quick-link {
+    color: var(--text-primary);
+    background: #252A30;
+    border: 1px solid #3C4148;
+}
+
+[data-theme="dark"] .quick-link:hover {
+    background: var(--titan-orange);
+    color: white;
+}
+
+/* FAQ section improvements */
+[data-theme="dark"] .faq-question {
+    color: var(--text-primary);
+    background: #252A30;
+    border: 1px solid #3C4148;
+}
+
+[data-theme="dark"] .faq-answer {
+    color: var(--text-primary);
+    background: #1E2431;
+}
+
+[data-theme="dark"] .faq-item {
+    border-color: #3C4148;
+}
+
+/* Search box in FAQ */
+[data-theme="dark"] .search-box {
+    background: #252A30;
+    border-color: #3C4148;
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .search-box:focus {
+    border-color: var(--titan-orange);
+}
+
+/* Resource items and links */
+[data-theme="dark"] .resource-item li,
+[data-theme="dark"] .contact-info li {
+    color: var(--text-primary);
+}
+
+/* External link icons */
+[data-theme="dark"] .external-link-icon {
+    color: var(--sky-blue);
+}
+
+/* Additional text contrast improvements */
+[data-theme="dark"] .prereq-tag,
+[data-theme="dark"] .course-details,
+[data-theme="dark"] .contact-note {
+    color: var(--text-primary);
 }
 
 /* Progress Bar Styles */
@@ -435,567 +672,7 @@ body {
 .progress-bar {
     height: 100%;
     background-color: var(--success);
-    width: 0;
+    width: 0; /* Start at 0 */
     transition: width 0.3s ease;
     border-radius: 4px;
-}
-
-/* Tab Container Styles */
-.tab-container {
-    margin-top: 2rem;
-}
-
-.tab-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-}
-
-.tab {
-    padding: 0.75rem 1.5rem;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.tab:hover {
-    background: var(--accent);
-    color: var(--primary);
-}
-
-.tab.active {
-    background: var(--primary);
-    color: white;
-}
-
-/* Tab Content Styles */
-.tab-content {
-    display: none;
-    animation: fadeIn 0.3s ease;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* Progress bar in concentration tabs */
-.tab-content .progress-container {
-    margin: 1.5rem 0;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Checklist items in concentrations */
-.tab-content .checklist-section {
-    margin-top: 1.5rem;
-}
-
-.tab-content h4 {
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--primary);
-}
-
-/* Tab Styles */
-.tab-container {
-    margin-top: 2rem;
-}
-
-.tab-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-}
-
-.tab {
-    padding: 0.75rem 1.5rem;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.tab:hover {
-    background: var(--accent);
-    color: var(--primary);
-}
-
-.tab.active {
-    background: var(--primary);
-    color: white;
-}
-
-/* Tab Content */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-    animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Progress Indicators */
-.checklist-section {
-    margin-top: 1.5rem;
-}
-
-.progress-container {
-    margin: 1rem 0;
-    height: 8px;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    background: var(--success);
-    width: 0;
-    transition: width 0.3s ease;
-}
-
-/* Resources Section Styles */
-.resource-header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.resource-header h3 {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--primary);
-    margin: 0;
-}
-
-.resource-header i {
-    color: var(--accent);
-}
-
-.resource-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.resource-item {
-    background: var(--bg-secondary);
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: transform 0.2s ease;
-}
-
-.resource-item:hover {
-    transform: translateY(-2px);
-}
-
-.resource-item h4 {
-    color: var(--primary);
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
-
-.resource-item ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.resource-item li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
-    position: relative;
-}
-
-.resource-item li::before {
-    content: "•";
-    color: var(--accent);
-    position: absolute;
-    left: 0;
-}
-
-/* Form Links */
-.form-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.form-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    background: var(--bg-primary);
-    border-radius: 4px;
-    text-decoration: none;
-    color: var(--text-primary);
-    transition: background-color 0.2s ease;
-}
-
-.form-link:hover {
-    background: var(--accent);
-    color: var(--primary);
-}
-
-.form-link i {
-    color: var(--primary);
-}
-
-/* Quick Links */
-.quick-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.quick-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    text-decoration: none;
-    color: var(--text-primary);
-    transition: all 0.2s ease;
-}
-
-.quick-link:hover {
-    background: var(--accent);
-    color: var(--primary);
-    transform: translateY(-2px);
-}
-
-.quick-link i {
-    font-size: 0.9em;
-}
-
-/* Dark Mode Adjustments */
-[data-theme="dark"] .resource-item {
-    background: var(--bg-primary);
-}
-
-[data-theme="dark"] .form-link {
-    background: var(--bg-secondary);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .resource-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .quick-links {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* FAQ Section Styles */
-.faq-container {
-    margin-top: 2rem;
-}
-
-.faq-category {
-    margin-bottom: 2rem;
-}
-
-.faq-category h3 {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.faq-category h3 i {
-    color: var(--accent);
-}
-
-.faq-item {
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.faq-question {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: var(--bg-secondary);
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: var(--text-primary);
-    text-align: left;
-    transition: background-color 0.2s ease;
-}
-
-.faq-question:hover {
-    background: var(--accent);
-    color: var(--primary);
-}
-
-.faq-question i {
-    transition: transform 0.3s ease;
-}
-
-.faq-question.active i {
-    transform: rotate(180deg);
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    background: var(--bg-primary);
-    padding: 0 1rem;
-}
-
-.faq-answer.active {
-    max-height: 500px;
-    padding: 1rem;
-}
-
-.faq-answer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.faq-answer li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
-    position: relative;
-}
-
-.faq-answer li::before {
-    content: "•";
-    color: var(--accent);
-    position: absolute;
-    left: 0;
-}
-
-/* Search Box Styles */
-.search-container {
-    margin-bottom: 2rem;
-}
-
-.search-box {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    transition: border-color 0.2s ease;
-}
-
-.search-box:focus {
-    outline: none;
-    border-color: var(--accent);
-}
-
-/* Dark Mode Adjustments */
-[data-theme="dark"] .faq-question {
-    background: var(--bg-primary);
-}
-
-[data-theme="dark"] .faq-answer {
-    background: var(--bg-secondary);
-}
-
-/* Capstone Section Styles */
-.timeline-grid {
-    display: grid;
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.timeline-item {
-    background: var(--bg-secondary);
-    padding: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--accent);
-}
-
-.timeline-item h5 {
-    color: var(--primary);
-    margin: 0 0 0.5rem 0;
-}
-
-.timeline-item p {
-    margin: 0;
-}
-
-.criteria-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
-
-.criteria-item {
-    background: var(--bg-secondary);
-    padding: 1.5rem;
-    border-radius: 8px;
-}
-
-.criteria-item h4 {
-    color: var(--primary);
-    margin-top: 0;
-}
-
-.exam-component {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-}
-
-.exam-component h4 {
-    color: var(--primary);
-    margin-top: 0;
-}
-
-.prereq-info {
-    background: var(--bg-secondary);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    border-left: 4px solid var(--warning);
-}
-
-/* Dark mode adjustments */
-[data-theme="dark"] .timeline-item,
-[data-theme="dark"] .criteria-item,
-[data-theme="dark"] .exam-component,
-[data-theme="dark"] .prereq-info {
-    background: var(--bg-primary);
-}
-
-/* Contact Section Styles */
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.contact-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-header {
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.contact-header h3 {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin: 0;
-    color: var(--primary);
-}
-
-.contact-header i {
-    color: var(--accent);
-}
-
-.contact-info {
-    flex: 1;
-}
-
-.contact-info h4 {
-    color: var(--primary);
-    margin: 0 0 1rem 0;
-}
-
-.contact-info ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1rem 0;
-}
-
-.contact-info li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-}
-
-.contact-info i {
-    color: var(--accent);
-    width: 1rem;
-    text-align: center;
-}
-
-.contact-note {
-    padding: 0.75rem;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    margin: 0;
-    font-style: italic;
-}
-
-.contact-tips {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.contact-tips li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.contact-tips li:last-child {
-    border-bottom: none;
-}
-
-.contact-tips li::before {
-    content: "•";
-    color: var(--accent);
-}
-
-/* Dark mode adjustments */
-[data-theme="dark"] .contact-note {
-    background: var(--bg-primary);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
 }

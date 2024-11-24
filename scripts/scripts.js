@@ -71,6 +71,44 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeChecklists();
 });
 
+// Checklist and Progress Bar Functionality
+function initializeChecklists() {
+    document.querySelectorAll('.checklist-section').forEach(section => {
+        const checkboxes = section.querySelectorAll('input[type="checkbox"]');
+        
+        // Load saved state for each checkbox
+        checkboxes.forEach(checkbox => {
+            const saved = localStorage.getItem(checkbox.id);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+
+            // Add change listener
+            checkbox.addEventListener('change', function() {
+                // Save state
+                localStorage.setItem(this.id, this.checked);
+                // Update progress bar
+                updateProgress(section);
+            });
+        });
+
+        // Initialize progress bar
+        updateProgress(section);
+    });
+}
+
+function updateProgress(section) {
+    const total = section.querySelectorAll('input[type="checkbox"]').length;
+    const checked = section.querySelectorAll('input[type="checkbox"]:checked').length;
+    const progressBar = section.querySelector('.progress-bar');
+    
+    if (progressBar && total > 0) {
+        const percentage = (checked / total) * 100;
+        progressBar.style.width = `${percentage}%`;
+        progressBar.setAttribute('aria-valuenow', percentage);
+    }
+}
+
 // FAQ Functionality
 function toggleFAQ(button) {
     // Toggle active class on button
