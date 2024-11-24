@@ -1,15 +1,15 @@
 // Theme Management
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.setAttribute('data-theme', savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme); // Changed from body to documentElement
     updateThemeToggleIcon(savedTheme);
 }
 
 function toggleTheme() {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
+    const root = document.documentElement; // Changed from body
+    const currentTheme = root.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    body.setAttribute('data-theme', newTheme);
+    root.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeToggleIcon(newTheme);
 }
@@ -17,7 +17,7 @@ function toggleTheme() {
 function updateThemeToggleIcon(theme) {
     const icon = document.querySelector('.theme-toggle i');
     if (icon) {
-        icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        icon.className = `fas fa-${theme === 'light' ? 'moon' : 'sun'}`;
     }
 }
 
@@ -31,7 +31,8 @@ function initializeTabs() {
 
     // Add click handlers to all tabs
     document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default behavior
             const tabId = this.getAttribute('data-tab');
             switchTab(tabId, this);
         });
@@ -39,20 +40,26 @@ function initializeTabs() {
 }
 
 function switchTab(tabId, clickedTab) {
+    if (!tabId || !clickedTab) return; // Add validation
+
     // Update tab buttons
     const allTabs = document.querySelectorAll('.tab');
     allTabs.forEach(tab => {
         tab.classList.remove('active');
         tab.setAttribute('aria-selected', 'false');
+        tab.setAttribute('tabindex', '-1'); // Improve accessibility
     });
+    
     clickedTab.classList.add('active');
     clickedTab.setAttribute('aria-selected', 'true');
+    clickedTab.setAttribute('tabindex', '0'); // Improve accessibility
 
     // Update content sections
     const allContent = document.querySelectorAll('.tab-content');
     allContent.forEach(content => {
         content.style.display = 'none';
         content.classList.remove('active');
+        content.setAttribute('aria-hidden', 'true'); // Improve accessibility
     });
 
     // Show selected content
@@ -60,24 +67,35 @@ function switchTab(tabId, clickedTab) {
     if (selectedContent) {
         selectedContent.style.display = 'block';
         selectedContent.classList.add('active');
+        selectedContent.setAttribute('aria-hidden', 'false'); // Improve accessibility
     }
 }
 
 // Checklist and Progress Bar Functionality
 function initializeChecklists() {
     document.querySelectorAll('.checklist-section').forEach(section => {
+        if (!section) return; // Add validation
+
         const checkboxes = section.querySelectorAll('input[type="checkbox"]');
         
         checkboxes.forEach(checkbox => {
+            // Ensure checkbox has an ID
+            if (!checkbox.id) {
+                console.warn('Checkbox missing ID:', checkbox);
+                return;
+            }
+
             // Load saved state
             const saved = localStorage.getItem(checkbox.id);
             if (saved === 'true') {
                 checkbox.checked = true;
+                checkbox.setAttribute('aria-checked', 'true'); // Improve accessibility
             }
 
             // Add change listener
             checkbox.addEventListener('change', function() {
                 localStorage.setItem(this.id, this.checked);
+                this.setAttribute('aria-checked', this.checked.toString()); // Improve accessibility
                 updateProgress(section);
             });
         });
@@ -87,101 +105,167 @@ function initializeChecklists() {
 }
 
 function updateProgress(section) {
+    if (!section) return; // Add validation
+
     const total = section.querySelectorAll('input[type="checkbox"]').length;
     const checked = section.querySelectorAll('input[type="checkbox"]:checked').length;
     const progressBar = section.querySelector('.progress-bar');
     
     if (progressBar && total > 0) {
-        const percentage = (checked / total) * 100;
+        const percentage = Math.round((checked / total) * 100);
         progressBar.style.width = `${percentage}%`;
         progressBar.setAttribute('aria-valuenow', percentage);
+        progressBar.setAttribute('aria-valuetext', `${percentage}% complete`); // Improve accessibility
     }
 }
 
 // Search Functionality
 function initializeSearch() {
-    initializeCourseSearch();
-    initializeFacultySearch();
-    initializeFAQSearch();
+    const throttledSearch = throttle(filterItems, 300); // Add throttling for performance
+
+    initializeCourseSearch(throttledSearch);
+    initializeFacultySearch(throttledSearch);
+    initializeFAQSearch(throttledSearch);
 }
 
-function initializeCourseSearch() {
+function initializeCourseSearch(throttledSearch) {
     const courseSearch = document.getElementById('courseSearch');
     const courseFilter = document.getElementById('courseFilter');
     const courses = document.querySelectorAll('#courseGrid .course-card');
 
-    if (courseSearch && courseFilter) {
+    if (courseSearch && courseFilter && courses.length) {
         function filterCourses() {
-            const searchTerm = courseSearch.value.toLowerCase();
+            const searchTerm = courseSearch.value.toLowerCase().trim();
             const filterValue = courseFilter.value;
 
             courses.forEach(course => {
                 const text = course.textContent.toLowerCase();
-                const categories = course.dataset.categories.split(' ');
+                const categories = (course.dataset.categories || '').split(' ');
                 
                 const matchesSearch = text.includes(searchTerm);
                 const matchesFilter = filterValue === 'all' || categories.includes(filterValue);
 
                 course.style.display = matchesSearch && matchesFilter ? '' : 'none';
+                course.setAttribute('aria-hidden', (!matchesSearch || !matchesFilter).toString());
             });
+
+            // Update results count for screen readers
+            announceSearchResults(courses);
         }
 
-        courseSearch.addEventListener('input', filterCourses);
+        courseSearch.addEventListener('input', () => throttledSearch(filterCourses));
         courseFilter.addEventListener('change', filterCourses);
     }
 }
 
-function initializeFacultySearch() {
+function initializeFacultySearch(throttledSearch) {
     const facultySearch = document.getElementById('facultySearch');
     const faculty = document.querySelectorAll('#facultyGrid .faculty-card');
 
-    if (facultySearch) {
-        facultySearch.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            faculty.forEach(member => {
-                const text = member.textContent.toLowerCase();
-                member.style.display = text.includes(searchTerm) ? '' : 'none';
+    if (facultySearch && faculty.length) {
+        facultySearch.addEventListener('input', (e) => {
+            throttledSearch(() => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                faculty.forEach(member => {
+                    const text = member.textContent.toLowerCase();
+                    const isVisible = text.includes(searchTerm);
+                    member.style.display = isVisible ? '' : 'none';
+                    member.setAttribute('aria-hidden', (!isVisible).toString());
+                });
+                announceSearchResults(faculty);
             });
         });
     }
 }
 
-function initializeFAQSearch() {
+function initializeFAQSearch(throttledSearch) {
     const searchInput = document.getElementById('faqSearch');
-    if (!searchInput) return;
+    const faqItems = document.querySelectorAll('.faq-item');
 
-    searchInput.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question').textContent.toLowerCase();
-            const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
-            const matches = question.includes(searchTerm) || answer.includes(searchTerm);
-            item.style.display = matches ? '' : 'none';
+    if (searchInput && faqItems.length) {
+        searchInput.addEventListener('input', (e) => {
+            throttledSearch(() => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question')?.textContent.toLowerCase() || '';
+                    const answer = item.querySelector('.faq-answer')?.textContent.toLowerCase() || '';
+                    const isVisible = question.includes(searchTerm) || answer.includes(searchTerm);
+                    item.style.display = isVisible ? '' : 'none';
+                    item.setAttribute('aria-hidden', (!isVisible).toString());
+                });
+                announceSearchResults(faqItems);
+            });
         });
-    });
+    }
+}
+
+// Helper function to announce search results to screen readers
+function announceSearchResults(items) {
+    const visibleItems = Array.from(items).filter(item => item.style.display !== 'none');
+    const announcement = `${visibleItems.length} results found`;
+    
+    let announcer = document.getElementById('search-announcer');
+    if (!announcer) {
+        announcer = document.createElement('div');
+        announcer.id = 'search-announcer';
+        announcer.className = 'sr-only';
+        announcer.setAttribute('aria-live', 'polite');
+        document.body.appendChild(announcer);
+    }
+    announcer.textContent = announcement;
+}
+
+// Throttle function to improve performance
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
 }
 
 // FAQ Functionality
 function initializeFAQ() {
     const faqButtons = document.querySelectorAll('.faq-question');
     faqButtons.forEach(button => {
+        if (!button.id) {
+            button.id = `faq-${Math.random().toString(36).substr(2, 9)}`;
+        }
+        
+        const answer = button.nextElementSibling;
+        if (answer) {
+            answer.id = `answer-${button.id}`;
+            button.setAttribute('aria-controls', answer.id);
+            button.setAttribute('aria-expanded', 'false');
+        }
+        
         button.addEventListener('click', () => toggleFAQ(button));
     });
 }
 
 function toggleFAQ(button) {
+    if (!button) return;
+
+    const isExpanded = button.classList.contains('active');
     button.classList.toggle('active');
+    button.setAttribute('aria-expanded', (!isExpanded).toString());
+
     const answer = button.nextElementSibling;
-    answer.classList.toggle('active');
+    if (answer) {
+        answer.classList.toggle('active');
+        answer.style.maxHeight = answer.classList.contains('active') ? 
+            `${answer.scrollHeight}px` : '0';
+    }
 }
 
 // Footer Functionality
 function initializeFooterDates() {
     const yearElement = document.getElementById('currentYear');
     if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+        yearElement.textContent = new Date().getFullYear().toString();
     }
 
     const lastUpdatedElement = document.getElementById('lastUpdated');
@@ -192,23 +276,17 @@ function initializeFooterDates() {
     }
 }
 
-function toggleMenu() {
-    const hamburger = document.querySelector('.hamburger');
-    const navigation = document.querySelector('.navigation');
-    hamburger.classList.toggle('active');
-    navigation.classList.toggle('active');
-}
-
 // Mobile Navigation
 function initializeMobileNav() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navList = document.querySelector('.nav-list');
     
     if (menuToggle && navList) {
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isExpanded = navList.classList.contains('active');
             navList.classList.toggle('active');
-            menuToggle.setAttribute('aria-expanded', 
-                navList.classList.contains('active'));
+            menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
         });
 
         // Close menu when clicking a link
@@ -221,19 +299,96 @@ function initializeMobileNav() {
 
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.navigation')) {
+            if (!e.target.closest('.navigation') && navList.classList.contains('active')) {
                 navList.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Add keyboard navigation
+        menuToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                menuToggle.click();
             }
         });
     }
 }
 
-// Add to your DOM loaded event listener
+// Course filtering functionality
+function initializeCourseFilters() {
+    console.log('Initializing course filters...'); // Debug log
+
+    // Get all necessary elements
+    const courseSearch = document.getElementById('courseSearch');
+    const courseFilter = document.getElementById('courseFilter');
+    const courseGrid = document.getElementById('courseGrid');
+    
+    if (!courseGrid) {
+        console.error('Course grid not found');
+        return;
+    }
+    
+    const courses = courseGrid.getElementsByClassName('course-card');
+    console.log(`Found ${courses.length} courses`); // Debug log
+
+    if (!courseFilter || !courses.length) {
+        console.error('Required elements not found');
+        return;
+    }
+
+    function filterCourses() {
+        const searchTerm = courseSearch ? courseSearch.value.toLowerCase().trim() : '';
+        const filterValue = courseFilter.value.toLowerCase();
+        
+        console.log(`Filtering - Search: "${searchTerm}", Filter: "${filterValue}"`); // Debug log
+
+        let visibleCount = 0;
+
+        Array.from(courses).forEach(course => {
+            const categories = course.dataset.categories || '';
+            const text = course.textContent.toLowerCase();
+            console.log(`Course categories: ${categories}`); // Debug log
+
+            const matchesSearch = !searchTerm || text.includes(searchTerm);
+            const matchesFilter = filterValue === 'all' || categories.split(' ').includes(filterValue);
+            const isVisible = matchesSearch && matchesFilter;
+
+            course.style.display = isVisible ? 'block' : 'none';
+            visibleCount += isVisible ? 1 : 0;
+        });
+
+        // Update counter
+        const resultsCounter = document.getElementById('courseResults');
+        if (resultsCounter) {
+            resultsCounter.textContent = `${visibleCount} course${visibleCount !== 1 ? 's' : ''} found`;
+        }
+    }
+
+    // Add event listeners
+    courseFilter.addEventListener('change', function() {
+        console.log('Filter changed:', this.value); // Debug log
+        filterCourses();
+    });
+
+    if (courseSearch) {
+        courseSearch.addEventListener('input', function() {
+            console.log('Search input:', this.value); // Debug log
+            filterCourses();
+        });
+    }
+
+    // Initial filter
+    filterCourses();
+    console.log('Course filters initialized'); // Debug log
+}
+
+// Make sure to call the initialization when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // ... other initializations ...
-    initializeMobileNav();
+    console.log('DOM loaded, initializing course filters...'); // Debug log
+    initializeCourseFilters();
 });
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeTheme();
@@ -242,49 +397,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSearch();
     initializeFAQ();
     initializeFooterDates();
+    initializeMobileNav();
+    initializeCourseFilters();
 });
-
-/* Sticky Search Container */
-.search-container {
-    position: sticky;
-    top: 60px; /* Adjust based on your navigation height */
-    z-index: 90;
-    background: var(--bg-primary);
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 1.5rem;
-}
-
-/* Add padding to content below search to prevent jump */
-#courseGrid,
-#facultyGrid {
-    padding-top: 1rem;
-}
-
-/* Ensure search container stays on top but below navigation */
-.search-container {
-    margin-top: -1rem; /* Compensate for section padding */
-    margin-left: -1rem;
-    margin-right: -1rem;
-    width: calc(100% + 2rem);
-}
-
-/* Dark mode adjustments */
-[data-theme="dark"] .search-container {
-    background: var(--bg-primary);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .search-container {
-        top: 50px; /* Adjust for smaller mobile header */
-        padding: 0.75rem;
-    }
-
-    /* Prevent horizontal scroll on mobile */
-    .section {
-        overflow-x: hidden;
-    }
-}

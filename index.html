@@ -139,37 +139,32 @@
     <div class="card">
         <p>Students must choose one of four concentrations to complete their MPA degree. Each concentration consists of three courses (9 units).</p>
         
-        <div class="tab-container">
-            <div class="tab-list" role="tablist">
-                <button class="tab active" 
-                        role="tab" 
-                        onclick="switchTab('hr', this)" 
-                        data-tab="hr" 
-                        aria-selected="true">
-                    Human Resources
-                </button>
-                <button class="tab" 
-                        role="tab" 
-                        onclick="switchTab('finance', this)" 
-                        data-tab="finance" 
-                        aria-selected="false">
-                    Public Finance
-                </button>
-                <button class="tab" 
-                        role="tab" 
-                        onclick="switchTab('local', this)" 
-                        data-tab="local" 
-                        aria-selected="false">
-                    Local Government
-                </button>
-                <button class="tab" 
-                        role="tab" 
-                        onclick="switchTab('policy', this)" 
-                        data-tab="policy" 
-                        aria-selected="false">
-                    Public Policy
-                </button>
-            </div>
+        <div class="tab-list" role="tablist">
+            <button class="tab active" role="tab" 
+                    onclick="switchTab('hr', this)"
+                    data-tab="hr" 
+                    aria-selected="true">
+                Human Resources
+            </button>
+            <button class="tab" role="tab"
+                    onclick="switchTab('finance', this)"
+                    data-tab="finance"
+                    aria-selected="false">
+                Public Finance
+            </button>
+            <button class="tab" role="tab"
+                    onclick="switchTab('local', this)"
+                    data-tab="local"
+                    aria-selected="false">
+                Local Government
+            </button>
+            <button class="tab" role="tab"
+                    onclick="switchTab('policy', this)"
+                    data-tab="policy"
+                    aria-selected="false">
+                Public Policy
+            </button>
+        </div>
 
                     <!-- HR Concentration -->
                     <div id="hr" class="tab-content active">
@@ -393,27 +388,30 @@
         <!-- Courses Section -->
         <section id="courses" class="section">
             <h2>Course Catalog</h2>
-            
             <div class="card">
+                <!-- Search and Filter Controls -->
                 <div class="search-container">
-                    <input type="text" 
-                           class="search-box" 
-                           id="courseSearch" 
-                           placeholder="Search courses by code, title, or description..."
-                           aria-label="Search courses">
-                    
-                    <div class="filter-container">
-                        <select id="courseFilter" class="filter-select" aria-label="Filter courses">
-                            <option value="all">All Courses</option>
-                            <option value="core">Core Requirements</option>
-                            <option value="hr">Human Resources</option>
-                            <option value="finance">Public Finance</option>
-                            <option value="local">Local Government</option>
-                            <option value="policy">Public Policy</option>
-                        </select>
+                    <div class="filter-controls">
+                        <div class="search-field">
+                            <label for="courseSearch" class="sr-only">Search courses</label>
+                            <input type="text" id="courseSearch" class="search-box" placeholder="Search courses...">
+                        </div>
+                        
+                        <div class="filter-field">
+                            <label for="courseFilter" class="sr-only">Filter by concentration</label>
+                            <select id="courseFilter" class="filter-select">
+                                <option value="all">All Courses</option>
+                                <option value="core">Core Requirements</option>
+                                <option value="hr">Human Resources</option>
+                                <option value="finance">Public Finance</option>
+                                <option value="local">Local Government</option>
+                                <option value="policy">Public Policy</option>
+                            </select>
+                        </div>
                     </div>
+                    <div id="courseResults" class="results-count" aria-live="polite"></div>
                 </div>
-
+        
                 <div class="course-grid" id="courseGrid">
                     <!-- Core Courses -->
                     <div class="course-card" data-categories="core">

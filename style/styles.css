@@ -1073,3 +1073,208 @@ input:focus, select:focus, textarea:focus {
         bottom: auto;
     }
 }
+
+/* Course Filter Styles */
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+    }
+}
+
+.search-field,
+.filter-field {
+    flex: 1;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.results-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* Ensure course cards have proper spacing */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Animation for filtering */
+.course-card {
+    transition: opacity 0.3s ease;
+}
+
+.course-card[aria-hidden="true"] {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .filter-select {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .filter-select:focus {
+    border-color: var(--accent);
+}
+
+/* Course Card Enhancements */
+.course-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.course-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.course-code {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.course-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: white;
+    font-weight: 500;
+}
+
+/* Tag Colors */
+.course-tag.core { background: var(--titan-blue); }
+.course-tag.hr { background: var(--medium-blue); }
+.course-tag.finance { background: var(--success); }
+.course-tag.local { background: var(--titan-orange); }
+.course-tag.policy { background: var(--medium-blue); }
+
+.course-card h3 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.course-card p {
+    color: var(--text-secondary);
+    margin: 0;
+    flex-grow: 1;
+}
+
+.course-details {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.prereq-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .course-card {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .course-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .prereq-tag {
+    background: var(--bg-primary);
+}
+
+/* Animation for filtering */
+.course-card {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.course-card[style*="display: none"] {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.course-card {
+    display: block; /* Ensure proper display when toggling visibility */
+}
+
+.search-container {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+    }
+}
+
+.results-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
