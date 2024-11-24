@@ -20,10 +20,25 @@ function updateThemeToggleIcon(theme) {
         icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
     }
 }
-// Tab Switching
+
+// Tab Functionality
+function initializeTabs() {
+    const defaultTab = document.querySelector('.tab.active');
+    if (defaultTab) {
+        const tabId = defaultTab.getAttribute('data-tab');
+        switchTab(tabId, defaultTab);
+    }
+
+    // Add click handlers to all tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            switchTab(tabId, this);
+        });
+    });
+}
+
 function switchTab(tabId, clickedTab) {
-    console.log('Switching to tab:', tabId); // Debug line
-    
     // Update tab buttons
     const allTabs = document.querySelectorAll('.tab');
     allTabs.forEach(tab => {
@@ -48,36 +63,13 @@ function switchTab(tabId, clickedTab) {
     }
 }
 
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize tabs
-    const defaultTab = document.querySelector('.tab.active');
-    if (defaultTab) {
-        const tabId = defaultTab.getAttribute('data-tab');
-        switchTab(tabId, defaultTab);
-    }
-
-    // Add click handlers to all tabs
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            switchTab(tabId, this);
-        });
-    });
-
-    // Other initializations...
-    initializeTheme();
-    initializeSearch();
-    initializeChecklists();
-});
-
 // Checklist and Progress Bar Functionality
 function initializeChecklists() {
     document.querySelectorAll('.checklist-section').forEach(section => {
         const checkboxes = section.querySelectorAll('input[type="checkbox"]');
         
-        // Load saved state for each checkbox
         checkboxes.forEach(checkbox => {
+            // Load saved state
             const saved = localStorage.getItem(checkbox.id);
             if (saved === 'true') {
                 checkbox.checked = true;
@@ -85,14 +77,11 @@ function initializeChecklists() {
 
             // Add change listener
             checkbox.addEventListener('change', function() {
-                // Save state
                 localStorage.setItem(this.id, this.checked);
-                // Update progress bar
                 updateProgress(section);
             });
         });
 
-        // Initialize progress bar
         updateProgress(section);
     });
 }
@@ -109,43 +98,14 @@ function updateProgress(section) {
     }
 }
 
-// FAQ Functionality
-function toggleFAQ(button) {
-    // Toggle active class on button
-    button.classList.toggle('active');
-    
-    // Toggle answer visibility
-    const answer = button.nextElementSibling;
-    answer.classList.toggle('active');
-}
-
-// FAQ Search Functionality
-function initializeFAQSearch() {
-    const searchInput = document.getElementById('faqSearch');
-    if (!searchInput) return;
-
-    searchInput.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        const faqItems = document.querySelectorAll('.faq-item');
-
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question').textContent.toLowerCase();
-            const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
-            const matches = question.includes(searchTerm) || answer.includes(searchTerm);
-            
-            item.style.display = matches ? '' : 'none';
-        });
-    });
-}
-
-// Add to your DOM loaded event listener
-document.addEventListener('DOMContentLoaded', function() {
-    initializeFAQSearch();
-});
-
-// Search and Filter Functionality
+// Search Functionality
 function initializeSearch() {
-    // Course search
+    initializeCourseSearch();
+    initializeFacultySearch();
+    initializeFAQSearch();
+}
+
+function initializeCourseSearch() {
     const courseSearch = document.getElementById('courseSearch');
     const courseFilter = document.getElementById('courseFilter');
     const courses = document.querySelectorAll('#courseGrid .course-card');
@@ -169,15 +129,15 @@ function initializeSearch() {
         courseSearch.addEventListener('input', filterCourses);
         courseFilter.addEventListener('change', filterCourses);
     }
+}
 
-    // Faculty search
+function initializeFacultySearch() {
     const facultySearch = document.getElementById('facultySearch');
     const faculty = document.querySelectorAll('#facultyGrid .faculty-card');
 
     if (facultySearch) {
         facultySearch.addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
-            
             faculty.forEach(member => {
                 const text = member.textContent.toLowerCase();
                 member.style.display = text.includes(searchTerm) ? '' : 'none';
@@ -186,8 +146,58 @@ function initializeSearch() {
     }
 }
 
+function initializeFAQSearch() {
+    const searchInput = document.getElementById('faqSearch');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question').textContent.toLowerCase();
+            const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+            const matches = question.includes(searchTerm) || answer.includes(searchTerm);
+            item.style.display = matches ? '' : 'none';
+        });
+    });
+}
+
+// FAQ Functionality
+function initializeFAQ() {
+    const faqButtons = document.querySelectorAll('.faq-question');
+    faqButtons.forEach(button => {
+        button.addEventListener('click', () => toggleFAQ(button));
+    });
+}
+
+function toggleFAQ(button) {
+    button.classList.toggle('active');
+    const answer = button.nextElementSibling;
+    answer.classList.toggle('active');
+}
+
+// Footer Functionality
+function initializeFooterDates() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+
+    const lastUpdatedElement = document.getElementById('lastUpdated');
+    if (lastUpdatedElement) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const lastUpdated = new Date().toLocaleDateString('en-US', options);
+        lastUpdatedElement.textContent = lastUpdated;
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeTheme();
+    initializeTabs();
+    initializeChecklists();
     initializeSearch();
+    initializeFAQ();
+    initializeFooterDates();
 });
