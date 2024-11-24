@@ -192,6 +192,24 @@ function initializeFooterDates() {
     }
 }
 
+function toggleMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navigation = document.querySelector('.navigation');
+    hamburger.classList.toggle('active');
+    navigation.classList.toggle('active');
+}
+
+// Close menu when a navigation link is clicked
+document.querySelectorAll('.nav-list a').forEach(link => {
+    link.addEventListener('click', () => {
+        const hamburger = document.querySelector('.hamburger');
+        const navigation = document.querySelector('.navigation');
+        hamburger.classList.remove('active');
+        navigation.classList.remove('active');
+    });
+});
+
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeTheme();

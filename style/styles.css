@@ -956,3 +956,77 @@ input:focus, select:focus, textarea:focus {
         align-items: center;
     }
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    .header h2 {
+        font-size: 1.2rem;
+    }
+    .nav-list {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .nav-list a {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .section, .card {
+        padding: 1rem;
+    }
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1000;
+        background: var(--primary);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+    }
+    .hamburger.active + .navigation {
+        display: block;
+        position: absolute;
+        top: 3rem;
+        left: 0;
+        width: 100%;
+        background: var(--secondary);
+        z-index: 100;
+    }
+}
+
+/* Hide hamburger menu on larger screens */
+.hamburger {
+    display: none;
+}
+
+/* Show hamburger menu on screens smaller than 768px */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .navigation {
+        display: none; /* Hide the navigation menu by default */
+    }
+
+    .navigation.active {
+        display: flex; /* Show the menu when active */
+        flex-direction: column;
+        gap: 0.5rem;
+        background: var(--secondary); /* Match your menu style */
+        position: absolute;
+        top: 70px; /* Adjust for header height */
+        left: 0;
+        width: 100%;
+        padding: 1rem 0;
+        z-index: 100;
+    }
+}
