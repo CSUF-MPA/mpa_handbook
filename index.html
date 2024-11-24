@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSUF MPA Student Handbook 2024-2025</title>
+    <link rel="stylesheet" href="style/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body data-theme="light">
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <header class="header">
+        <h1>Master of Public Administration</h1>
+        <h2>Student Handbook 2024-2025</h2>
+        <p>Division of Politics, Administration & Justice<br>
+        California State University, Fullerton</p>
+    </header>
+
+    <nav class="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#requirements">Degree Requirements</a></li>
+            <li><a href="#concentrations">Concentrations</a></li>
+            <li><a href="#capstone">Capstone</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#faculty">Faculty</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <!-- Introduction Section -->
+        <section id="introduction" class="section">
+            <h2>Introduction</h2>
+            
+            <div class="card">
+                <h3>Mission</h3>
+                <p>The mission of the MPA program at CSUF is to prepare our students for a career in public service by providing a core set of competencies anchored on the foundations of scholarly research and professional practice.</p>
+            </div>
+
+            <div class="card">
+                <h3>NASPAA Accreditation</h3>
+                <p>Our MPA program is accredited by the Network of Schools of Public Policy, Affairs and Administration (NASPAA) since 1989.</p>
+                <h4>Core Competencies:</h4>
+                <ul>
+                    <li>Lead and manage in public governance</li>
+                    <li>Participate in and contribute to the policy process</li>
+                    <li>Analyze, synthesize, think critically, solve problems and make decisions</li>
+                    <li>Articulate and apply a public service perspective</li>
+                    <li>Communicate and interact productively with a diverse and changing workforce and citizenry</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Degree Requirements Section -->
+        <section id="requirements" class="section">
+            <h2>Degree Requirements</h2>
+            
+            <!-- Prerequisites Card -->
+            <div class="card checklist-section">
+                <h3>Prerequisites</h3>
+                <div class="progress-container">
+                    <div class="progress-bar" 
+                         role="progressbar" 
+                         aria-valuenow="0" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                    </div>
+                </div>
+                <div class="checklist-items">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="prereq1">
+                        <label for="prereq1">American Government or U.S. History</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="prereq2">
+                        <label for="prereq2">Statistics or Research Methods</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="prereq3">
+                        <label for="prereq3">Economics</label>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Core Courses Card -->
+            <div class="card checklist-section">
+                <h3>Core Courses (21 units)</h3>
+                <div class="progress-container">
+                    <div class="progress-bar" 
+                         role="progressbar" 
+                         aria-valuenow="0" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                    </div>
+                </div>
+                <div class="checklist-items">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="core1">
+                        <label for="core1">POSC 509: Foundations of Public Administration</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="core2">
+                        <label for="core2">POSC 521: Capstone Seminar in Public Administration Theory</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="core3">
+                        <label for="core3">POSC 523: Administrative Research and Analysis</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="core4">
+                        <label for="core4">POSC 526: Public Organizational Theory & Behavior</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="core5">
+                        <label for="core5">POSC 571: Public Budgeting and Finance</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="core6">
+                        <label for="core6">POSC 572: Human Resources Management</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Concentrations Section -->
+<section id="concentrations" class="section">
+    <h2>Concentrations</h2>
+    
+    <div class="card">
+        <p>Students must choose one of four concentrations to complete their MPA degree. Each concentration consists of three courses (9 units).</p>
+        
+        <div class="tab-container">
+            <div class="tab-list" role="tablist">
+                <button class="tab active" 
+                        role="tab" 
+                        onclick="switchTab('hr', this)" 
+                        data-tab="hr" 
+                        aria-selected="true">
+                    Human Resources
+                </button>
+                <button class="tab" 
+                        role="tab" 
+                        onclick="switchTab('finance', this)" 
+                        data-tab="finance" 
+                        aria-selected="false">
+                    Public Finance
+                </button>
+                <button class="tab" 
+                        role="tab" 
+                        onclick="switchTab('local', this)" 
+                        data-tab="local" 
+                        aria-selected="false">
+                    Local Government
+                </button>
+                <button class="tab" 
+                        role="tab" 
+                        onclick="switchTab('policy', this)" 
+                        data-tab="policy" 
+                        aria-selected="false">
+                    Public Policy
+                </button>
+            </div>
+
+                    <!-- HR Concentration -->
+                    <div id="hr" class="tab-content active">
+                        <h3>Human Resources Management</h3>
+                        <p>Prepare for a career in personnel management with courses focused on managing human resource functions in public or non-profit organizations.</p>
+                        
+                        <div class="checklist-section">
+                            <h4>Required Core Course:</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hr-core">
+                                <label for="hr-core">POSC 572: Human Resources Management for Public Organizations</label>
+                            </div>
+
+                            <h4>Concentration Electives (choose any two):</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hr-1">
+                                <label for="hr-1">POSC 423: Diversity in Public Management</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hr-2">
+                                <label for="hr-2">POSC 475: Administrative Law</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hr-3">
+                                <label for="hr-3">POSC 522: Seminar in Public Personnel Administration</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hr-4">
+                                <label for="hr-4">POSC 582: Organizational Development and Change</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="hr-5">
+                                <label for="hr-5">MGMT 441: Labor-Management Relations</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Finance Concentration -->
+                    <div id="finance" class="tab-content">
+                        <h3>Public Finance</h3>
+                        <p>Prepare for a career in public financial management by developing expertise in public finance concepts, financial management best practices, and economic analysis.</p>
+                        
+                        <div class="checklist-section">
+                            <h4>Required Core Courses:</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fin-core1">
+                                <label for="fin-core1">POSC 571: Public Budgeting and Finance</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fin-core2">
+                                <label for="fin-core2">POSC 583: Public Budgeting and Finance II</label>
+                            </div>
+
+                            <h4>Concentration Electives (choose one):</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fin-1">
+                                <label for="fin-1">POSC 421: Government & the Economy</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fin-2">
+                                <label for="fin-2">POSC 425: Policy Analysis</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fin-3">
+                                <label for="fin-3">ECON 416: Benefit Cost and Microeconomic Policy Analysis</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="fin-4">
+                                <label for="fin-4">ECON 417: Public Finance</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Local Government Concentration -->
+                    <div id="local" class="tab-content">
+                        <h3>Local Government Management</h3>
+                        <p>Prepare for a career in local government through courses that combine theoretical knowledge with practical skills essential for local government managers.</p>
+                        
+                        <div class="checklist-section">
+                            <h4>Required Core Course:</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="local-core">
+                                <label for="local-core">POSC 525: Local Government Management</label>
+                            </div>
+
+                            <h4>Choose One Core Course:</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="local-core1">
+                                <label for="local-core1">POSC 427: Metropolitan Politics and Policymaking</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="local-core2">
+                                <label for="local-core2">POSC 519: State and Local Government</label>
+                            </div>
+
+                            <h4>Concentration Electives (choose one):</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="local-1">
+                                <label for="local-1">POSC/GEOG 478: Urban Planning Principles</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="local-2">
+                                <label for="local-2">POSC/GEOG 484: Planning Methods</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="local-3">
+                                <label for="local-3">POSC 580: Emergency Management in Public Administration</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="local-4">
+                                <label for="local-4">POSC 588: Collaborative Governance</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Public Policy Concentration -->
+                    <div id="policy" class="tab-content">
+                        <h3>Public Policy</h3>
+                        <p>Prepare for a career in policy analysis and development through courses focused on the policy process, analysis techniques, and specific policy domains.</p>
+                        
+                        <div class="checklist-section">
+                            <h4>Required Core Courses:</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="policy-core1">
+                                <label for="policy-core1">POSC 425: Policy Analysis</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="policy-core2">
+                                <label for="policy-core2">POSC 528: Seminar in Public Policy</label>
+                            </div>
+
+                            <h4>Concentration Electives (choose one):</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="policy-1">
+                                <label for="policy-1">POSC 421: Government and the Economy</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="policy-2">
+                                <label for="policy-2">POSC 426: Education Politics and Policy</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="policy-3">
+                                <label for="policy-3">POSC 427: Metropolitan Politics and Policymaking</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="policy-4">
+                                <label for="policy-4">POSC 539: Seminar in Nonprofit Sector Management</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="policy-5">
+                                <label for="policy-5">PUBH 524: Public Health Administration</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capstone Section -->
+<!-- Capstone & Comprehensive Exam Section -->
+<section id="capstone" class="section">
+    <h2>Capstone & Comprehensive Exam</h2>
+
+    <div class="card">
+        <h3>Overview</h3>
+        <p>The MPA Comprehensive Examination is administered as part of POSC 521 (Capstone Seminar in Public Administration Theory). Students must successfully complete both components of the comprehensive exam to graduate from the MPA program.</p>
+    </div>
+
+    <div class="card">
+        <h3>Comprehensive Exam Components</h3>
+        
+        <div class="exam-component">
+            <h4>General Theory Essay</h4>
+            <p>Tests knowledge of core public administration theories and concepts covered in the MPA program.</p>
+            <ul>
+                <li>Take-home format</li>
+                <li>One week to complete</li>
+                <li>Based on core public administration theories and readings</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <h3>Exam Process</h3>
+        
+        <div class="process-info">
+            <h4>Initial Attempt</h4>
+            <ul>
+                <li>Administered during POSC 521</li>
+                <li>Graded as Pass/Fail</li>
+                <li>Both components must be passed</li>
+            </ul>
+
+            <h4>Retake Process</h4>
+            <ul>
+                <li><strong>First Retake:</strong> During finals week of the same semester</li>
+                <li><strong>Second Retake (if necessary):</strong> Oral examination
+                    <ul>
+                        <li>Student receives an Incomplete in POSC 521</li>
+                        <li>Final opportunity to pass the comprehensive exam</li>
+                        <li>Must be completed within department guidelines</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Prerequisites</h3>
+        <div class="prereq-info">
+            <ul>
+                <li>Must be in final six units of graduate work</li>
+                <li>All core courses must be completed</li>
+                <li>All concentration courses must be completed</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+        <!-- Courses Section -->
+        <section id="courses" class="section">
+            <h2>Course Catalog</h2>
+            
+            <div class="card">
+                <div class="search-container">
+                    <input type="text" 
+                           class="search-box" 
+                           id="courseSearch" 
+                           placeholder="Search courses by code, title, or description..."
+                           aria-label="Search courses">
+                    
+                    <div class="filter-container">
+                        <select id="courseFilter" class="filter-select" aria-label="Filter courses">
+                            <option value="all">All Courses</option>
+                            <option value="core">Core Requirements</option>
+                            <option value="hr">Human Resources</option>
+                            <option value="finance">Public Finance</option>
+                            <option value="local">Local Government</option>
+                            <option value="policy">Public Policy</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="course-grid" id="courseGrid">
+                    <!-- Core Courses -->
+                    <div class="course-card" data-categories="core">
+                        <div class="course-header">
+                            <span class="course-code">POSC 509</span>
+                            <span class="course-tag core">Core</span>
+                        </div>
+                        <h3>Foundations of Public Administration</h3>
+                        <p>Organizational theory and practice, decision-making, systems analysis, performance evaluation and administrative improvement.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Required First Semester</div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-categories="core">
+                        <div class="course-header">
+                            <span class="course-code">POSC 521</span>
+                            <span class="course-tag core">Core</span>
+                        </div>
+                        <h3>Capstone Seminar: Public Administration Theory</h3>
+                        <p>Concepts, models and ideologies of public administration within the larger political system.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Take in final semester</div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-categories="core">
+                        <div class="course-header">
+                            <span class="course-code">POSC 523</span>
+                            <span class="course-tag core">Core</span>
+                        </div>
+                        <h3>Administrative Research and Analysis</h3>
+                        <p>Conceptual methods employed in administrative research and analysis: Organization and procedure of surveys, performance evaluation, social impact assessment, computer data analysis and report writing.</p>
+                    </div>
+
+                    <div class="course-card" data-categories="core">
+                        <div class="course-header">
+                            <span class="course-code">POSC 526</span>
+                            <span class="course-tag core">Core</span>
+                        </div>
+                        <h3>Public Organizational Theory & Behavior</h3>
+                        <p>Management-oriented analysis of organizational behavior. Treatments of decision-making, leadership, communication, group dynamics and ethical aspects of organization.</p>
+                    </div>
+
+                    <!-- HR Concentration Courses -->
+                    <div class="course-card" data-categories="hr">
+                        <div class="course-header">
+                            <span class="course-code">POSC 423</span>
+                            <span class="course-tag hr">HR</span>
+                        </div>
+                        <h3>Diversity in Public Management</h3>
+                        <p>Issues in public employment related to gender, race and ethnicity, disability, veteran status, age, culture and other current topics.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">HR Concentration Elective</div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-categories="hr">
+                        <div class="course-header">
+                            <span class="course-code">POSC 475</span>
+                            <span class="course-tag hr">HR</span>
+                        </div>
+                        <h3>Administrative Law</h3>
+                        <p>Law as it affects public officials and agencies in their relations with private citizens and the business community. Case materials and regulatory practices.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">HR Concentration Elective</div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-categories="hr">
+                        <div class="course-header">
+                            <span class="course-code">POSC 522</span>
+                            <span class="course-tag hr">HR</span>
+                        </div>
+                        <h3>Seminar in Public Personnel Administration</h3>
+                        <p>Advanced topics in public personnel administration and human resource management.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">HR Concentration Elective</div>
+                        </div>
+                    </div>
+
+                    <!-- Finance Concentration Courses -->
+                    <div class="course-card" data-categories="finance core">
+                        <div class="course-header">
+                            <span class="course-code">POSC 571</span>
+                            <span class="course-tag finance">Finance</span>
+                        </div>
+                        <h3>Public Budgeting and Finance</h3>
+                        <p>Surveys state and local budgeting and taxes. Local financial management and cost benefit analysis.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Core & Finance Required Course</div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-categories="finance">
+                        <div class="course-header">
+                            <span class="course-code">POSC 583</span>
+                            <span class="course-tag finance">Finance</span>
+                        </div>
+                        <h3>Public Budgeting and Finance II</h3>
+                        <p>Advanced topics in public sector financial management and accounting.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Finance Required Course</div>
+                        </div>
+                    </div>
+
+                    <!-- Local Government Courses -->
+                    <div class="course-card" data-categories="local">
+                        <div class="course-header">
+                            <span class="course-code">POSC 525</span>
+                            <span class="course-tag local">Local</span>
+                        </div>
+                        <h3>Local Government Management</h3>
+                        <p>Critical administrative issues that local government professionals face.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Local Government Required Course</div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-categories="local">
+                        <div class="course-header">
+                            <span class="course-code">POSC 519</span>
+                            <span class="course-tag local">Local</span>
+                        </div>
+                        <h3>State and Local Government</h3>
+                        <p>Structure, processes, functions and interrelationships of state and local governments in American society.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Local Government Core Option</div>
+                        </div>
+                    </div>
+
+                    <!-- Public Policy Courses -->
+                    <div class="course-card" data-categories="policy">
+                        <div class="course-header">
+                            <span class="course-code">POSC 425</span>
+                            <span class="course-tag policy">Policy</span>
+                        </div>
+                        <h3>Policy Analysis</h3>
+                        <p>Conceptual approach and skills required to understand and project policy outcomes.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Policy Required Course</div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-card" data-categories="core policy">
+                        <div class="course-header">
+                            <span class="course-code">POSC 528</span>
+                            <span class="course-tag policy">Policy</span>
+                        </div>
+                        <h3>Seminar in Public Policy</h3>
+                        <p>Interplay between public policy and program administration in federal government. Discussion of administrators' role in policy development, administrative discretion in implementing policy, use of political resources by administrators.</p>
+                        <div class="course-details">
+                            <div class="prereq-tag">Policy Required Course & Core Option</div>
+                        </div>
+                    </div>
+                </div>
+            </div>                    
+        </section>
+
+
+        <!-- Faculty Section -->
+
+        <section id="faculty" class="section">
+            <h2>Faculty</h2>
+
+            <div class="card">
+                <div class="search-container">
+                    <input type="text" 
+                           class="search-box" 
+                           id="facultySearch" 
+                           placeholder="Search faculty by name, research interests, or expertise..."
+                           aria-label="Search faculty">
+                </div>
+
+                <div class="faculty-grid" id="facultyGrid">
+                    <!-- Faculty Cards -->
+                    <div class="faculty-card" data-searchable="faculty">
+                        <div class="faculty-image">
+                            <img src="/api/placeholder/200/200" alt="Placeholder faculty photo" class="faculty-photo">
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Dr. David Adams</h3>
+                            <p class="faculty-title">Associate Professor</p>
+                            <p class="faculty-education">Ph.D. in Public Policy and Public Administration from Auburn University</p>
+                            <div class="faculty-contact">
+                                <i class="fas fa-envelope"></i> 
+                                <a href="mailto:example@fullerton.edu">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faculty-card" data-searchable="faculty">
+                        <div class="faculty-image">
+                            <img src="/api/placeholder/200/200" alt="Placeholder faculty photo" class="faculty-photo">
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Dr. Shelly Arsneault</h3>
+                            <p class="faculty-title">Professor</p>
+                            <p class="faculty-education">Ph.D. in Political Science from Michigan State University</p>
+                            <div class="faculty-contact">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:example@fullerton.edu">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faculty-card" data-searchable="faculty">
+                        <div class="faculty-image">
+                            <img src="/api/placeholder/200/200" alt="Placeholder faculty photo" class="faculty-photo">
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Antonia Castro-Graham</h3>
+                            <p class="faculty-title">Lecturer and Internship Coordinator</p>
+                            <p class="faculty-education">MPA from California State University, Fullerton</p>
+                            <div class="faculty-contact">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:example@fullerton.edu">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faculty-card" data-searchable="faculty">
+                        <div class="faculty-image">
+                            <img src="/api/placeholder/200/200" alt="Placeholder faculty photo" class="faculty-photo">
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Dr. Meriem Doucette</h3>
+                            <p class="faculty-title">Associate Professor</p>
+                            <p class="faculty-education">Ph.D. in Public Administration and Policy from the University of Georgia</p>
+                            <div class="faculty-contact">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:example@fullerton.edu">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faculty-card" data-searchable="faculty">
+                        <div class="faculty-image">
+                            <img src="/api/placeholder/200/200" alt="Placeholder faculty photo" class="faculty-photo">
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Dr. Sarah A. Hill</h3>
+                            <p class="faculty-title">Associate Professor</p>
+                            <p class="faculty-education">Ph.D. in Social Science from the California Institute of Technology</p>
+                            <div class="faculty-contact">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:example@fullerton.edu">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faculty-card" data-searchable="faculty">
+                        <div class="faculty-image">
+                            <img src="/api/placeholder/200/200" alt="Placeholder faculty photo" class="faculty-photo">
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Dr. Myungjung "MJ" Kwon</h3>
+                            <p class="faculty-title">Professor and MPA Director</p>
+                            <p class="faculty-education">Ph.D. in Public Administration and Policy from Florida State University</p>
+                            <div class="faculty-contact">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:example@fullerton.edu">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+         <!-- Resources Section -->
+<section id="resources" class="section">
+    <h2>Campus Resources and Support</h2>
+
+    <!-- Academic Support Card -->
+    <div class="card">
+        <div class="resource-header">
+            <h3><i class="fas fa-graduation-cap"></i> Academic Support</h3>
+        </div>
+        <div class="resource-grid">
+            <div class="resource-item">
+                <h4>Graduate Studies Office</h4>
+                <p>Forms, documents, and graduate policies</p>
+                <ul>
+                    <li>Location: Langsdorf Hall 216</li>
+                    <li>Website: <a href="http://www.fullerton.edu/graduate/">Graduate Studies</a></li>
+                </ul>
+            </div>
+            
+            <div class="resource-item">
+                <h4>Pollak Library</h4>
+                <p>Research resources and study spaces</p>
+                <ul>
+                    <li>Website: <a href="http://www.library.fullerton.edu/">Library Services</a></li>
+                    <li>Research Guides</li>
+                    <li>Database Access</li>
+                </ul>
+            </div>
+
+            <div class="resource-item">
+                <h4>Graduate Writing Support</h4>
+                <p>Writing assistance and workshops</p>
+                <ul>
+                    <li>Location: Graduate Studies Center</li>
+                    <li>Writing Tutors</li>
+                    <li>Research Paper Support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Services Card -->
+    <div class="card">
+        <div class="resource-header">
+            <h3><i class="fas fa-hand-holding-heart"></i> Student Services</h3>
+        </div>
+        <div class="resource-grid">
+            <div class="resource-item">
+                <h4>Student Wellness</h4>
+                <ul>
+                    <li>Counseling and Psychological Services</li>
+                    <li>Disability Support Services</li>
+                    <li>Health Services</li>
+                    <li>TitanWell</li>
+                </ul>
+            </div>
+
+            <div class="resource-item">
+                <h4>Career Center</h4>
+                <p>Career development and job search support</p>
+                <ul>
+                    <li>Location: Langsdorf Hall 208</li>
+                    <li>Career Counseling</li>
+                    <li>Job Search Resources</li>
+                    <li>Interview Preparation</li>
+                </ul>
+            </div>
+
+            <div class="resource-item">
+                <h4>Basic Needs Services</h4>
+                <p>Support for essential student needs</p>
+                <ul>
+                    <li>Tuffy's Basic Needs</li>
+                    <li>Food Pantry</li>
+                    <li>Emergency Housing Support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Administrative Services Card -->
+    <div class="card">
+        <div class="resource-header">
+            <h3><i class="fas fa-clipboard-list"></i> Administrative Services</h3>
+        </div>
+        <div class="resource-grid">
+            <div class="resource-item">
+                <h4>Important Forms</h4>
+                <div class="form-list">
+                    <a href="#" class="form-link">
+                        <i class="fas fa-file-pdf"></i>
+                        Study Plan
+                    </a>
+                    <a href="#" class="form-link">
+                        <i class="fas fa-file-pdf"></i>
+                        Graduation Check
+                    </a>
+                    <a href="#" class="form-link">
+                        <i class="fas fa-file-pdf"></i>
+                        Leave of Absence
+                    </a>
+                    <a href="#" class="form-link">
+                        <i class="fas fa-file-pdf"></i>
+                        Course Substitution
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-item">
+                <h4>TitanCard</h4>
+                <p>Student ID and campus services access</p>
+                <ul>
+                    <li>Location: Pollak Library 1st Floor</li>
+                    <li>Library Access</li>
+                    <li>Campus Services</li>
+                </ul>
+            </div>
+
+            <div class="resource-item">
+                <h4>Parking Services</h4>
+                <ul>
+                    <li>Permit Information</li>
+                    <li>Campus Maps</li>
+                    <li>Shuttle Services</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links Card -->
+    <div class="card">
+        <div class="resource-header">
+            <h3><i class="fas fa-link"></i> Quick Links</h3>
+        </div>
+        <div class="quick-links">
+            <a href="http://www.fullerton.edu/graduate/" class="quick-link">
+                <i class="fas fa-external-link-alt"></i>
+                Graduate Studies
+            </a>
+            <a href="http://www.fullerton.edu/financialaid/" class="quick-link">
+                <i class="fas fa-external-link-alt"></i>
+                Financial Aid
+            </a>
+            <a href="http://titanium.fullerton.edu" class="quick-link">
+                <i class="fas fa-external-link-alt"></i>
+                Titanium (Canvas)
+            </a>
+            <a href="https://my.fullerton.edu" class="quick-link">
+                <i class="fas fa-external-link-alt"></i>
+                Student Portal
+            </a>
+        </div>
+    </div>
+</section>
+
+    <!-- FAQ Section -->
+<section id="faq" class="section">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="card">
+        <div class="search-container">
+            <input type="text" 
+                   class="search-box" 
+                   id="faqSearch" 
+                   placeholder="Search frequently asked questions..."
+                   aria-label="Search FAQs">
+        </div>
+
+        <div class="faq-container">
+            <!-- Admissions Category -->
+            <div class="faq-category">
+                <h3><i class="fas fa-university"></i> Admissions</h3>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What are the admission requirements?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The minimum requirements include:</p>
+                        <ul>
+                            <li>2.75 GPA in undergraduate degree</li>
+                            <li>Completed prerequisites</li>
+                            <li>Statement of purpose</li>
+                            <li>Two letters of recommendation</li>
+                            <li>Current resume</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>When are the application deadlines?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Application deadlines are:</p>
+                        <ul>
+                            <li>Fall Admission: April 30</li>
+                            <li>Spring Admission: November 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Program Requirements Category -->
+            <div class="faq-category">
+                <h3><i class="fas fa-graduation-cap"></i> Program Requirements</h3>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How many units are required to graduate?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The MPA program requires 36 units total:</p>
+                        <ul>
+                            <li>21 units of core courses</li>
+                            <li>9 units in your chosen concentration</li>
+                            <li>6 units of electives</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What are the prerequisites?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Three prerequisites are required:</p>
+                        <ul>
+                            <li>American Government or U.S. History</li>
+                            <li>Statistics or Research Methods</li>
+                            <li>Economics</li>
+                        </ul>
+                        <p>These must be completed with a grade of "C" or better.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Planning Category -->
+            <div class="faq-category">
+                <h3><i class="fas fa-calendar-alt"></i> Course Planning</h3>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How long does it take to complete the program?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The timeline varies based on your course load:</p>
+                        <ul>
+                            <li>Full-time (9 units/semester): 2 years</li>
+                            <li>Part-time (6 units/semester): 3 years</li>
+                            <li>Maximum time allowed: 5 years</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>When are classes offered?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Classes are scheduled with working professionals in mind:</p>
+                        <ul>
+                            <li>Evening classes (7:00-9:45 PM)</li>
+                            <li>Monday through Thursday</li>
+                            <li>Mix of in-person and online formats</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graduation Category -->
+            <div class="faq-category">
+                <h3><i class="fas fa-award"></i> Graduation</h3>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What are the graduation requirements?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>To graduate, you must:</p>
+                        <ul>
+                            <li>Complete all required courses (36 units)</li>
+                            <li>Maintain a minimum 3.0 GPA</li>
+                            <li>Pass the comprehensive exam</li>
+                            <li>Complete the graduation check process</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What is the comprehensive exam?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The comprehensive exam consists of:</p>
+                        <ul>
+                            <li>Two essay questions</li>
+                            <li>Taken in January of final semester</li>
+                            <li>Covers general public administration and concentration area</li>
+                            <li>One retake allowed if needed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="section">
+    <h2>Program Contacts</h2>
+
+    <div class="contact-grid">
+        <!-- MPA Director -->
+        <div class="card contact-card">
+            <div class="contact-header">
+                <h3><i class="fas fa-user-tie"></i> MPA Program Director</h3>
+            </div>
+            <div class="contact-info">
+                <h4>Dr. Myungjung "MJ" Kwon</h4>
+                <ul>
+                    <li><i class="fas fa-building"></i> Office: Gordon Hall 523</li>
+                    <li><i class="fas fa-phone"></i> Phone: (657) 278-7279</li>
+                    <li><i class="fas fa-envelope"></i> Email: mkwon@fullerton.edu</li>
+                    <li><i class="fas fa-clock"></i> Office Hours: By appointment</li>
+                </ul>
+                <p class="contact-note">Contact for: Program policies, curriculum matters, and overall program direction</p>
+            </div>
+        </div>
+
+        <!-- MPA Coordinator -->
+        <div class="card contact-card">
+            <div class="contact-header">
+                <h3><i class="fas fa-user-cog"></i> MPA Program Coordinator</h3>
+            </div>
+            <div class="contact-info">
+                <h4>Dr. Samuel Stone</h4>
+                <ul>
+                    <li><i class="fas fa-building"></i> Office: Gordon Hall 521</li>
+                    <li><i class="fas fa-phone"></i> Phone: (657) 278-2446</li>
+                    <li><i class="fas fa-envelope"></i> Email: mpaadvising@fullerton.edu</li>
+                    <li><i class="fas fa-clock"></i> Office Hours: Schedule via email</li>
+                </ul>
+                <p class="contact-note">Contact for: Advising, course planning, and academic progress questions</p>
+            </div>
+        </div>
+
+        <!-- Division Office -->
+        <div class="card contact-card">
+            <div class="contact-header">
+                <h3><i class="fas fa-building"></i> Division Office</h3>
+            </div>
+            <div class="contact-info">
+                <h4>Division of Politics, Administration & Justice</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Location: Gordon Hall 511</li>
+                    <li><i class="fas fa-phone"></i> Phone: (657) 278-3521</li>
+                    <li><i class="fas fa-fax"></i> Fax: (657) 278-3524</li>
+                    <li><i class="fas fa-clock"></i> Hours: Monday-Friday, 8:00 AM - 5:00 PM</li>
+                </ul>
+                <p class="contact-note">Contact for: Administrative support, forms, and general inquiries</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
+        <ul class="contact-tips">
+            <li>For the quickest response, please use your CSUF email when contacting program staff</li>
+            <li>Include your CWID in all correspondence</li>
+            <li>Allow 24-48 hours for email responses during business days</li>
+            <li>For urgent matters, please call the Division Office</li>
+        </ul>
+    </div>
+</section>
+
+    </main>
+
+    <script src="scripts/scripts.js"></script>
+</body>
+</html>
