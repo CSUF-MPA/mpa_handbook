@@ -357,11 +357,20 @@ input:focus, select:focus, textarea:focus {
     background: var(--bg-primary);
     border-radius: 8px;
     padding: 1.5rem;
+    border: 1px solid var(--border-color); /* Changed from .5px to 1px */
     transition: transform 0.2s ease;
 }
 
-.faculty-card:hover {
+.faculty-card:hover { /* Fixed nesting */
     transform: translateY(-2px);
+}
+
+  /* Add header section to match course card */
+.faculty-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .faculty-image {
@@ -1277,4 +1286,39 @@ input:focus, select:focus, textarea:focus {
 .results-count {
     font-size: 0.9rem;
     color: var(--text-secondary);
+}
+
+.faculty-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: white;
+    background: var(--primary);
+}
+
+.faculty-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.faculty-header h3 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.faculty-contact {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.faculty-contact a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.faculty-contact a:hover {
+    color: var(--accent);
 }

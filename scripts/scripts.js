@@ -261,21 +261,6 @@ function toggleFAQ(button) {
     }
 }
 
-// Footer Functionality
-function initializeFooterDates() {
-    const yearElement = document.getElementById('currentYear');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear().toString();
-    }
-
-    const lastUpdatedElement = document.getElementById('lastUpdated');
-    if (lastUpdatedElement) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const lastUpdated = new Date().toLocaleDateString('en-US', options);
-        lastUpdatedElement.textContent = lastUpdated;
-    }
-}
-
 // Mobile Navigation
 function initializeMobileNav() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -389,14 +374,17 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCourseFilters();
 });
 
-// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    initializeTheme();
-    initializeTabs();
-    initializeChecklists();
-    initializeSearch();
-    initializeFAQ();
-    initializeFooterDates();
-    initializeMobileNav();
-    initializeCourseFilters();
+    console.log('DOM Content Loaded'); // Debug log
+    try {
+        initializeTheme();
+        initializeTabs();
+        initializeChecklists();
+        initializeSearch();
+        initializeFAQ();
+        initializeMobileNav();
+        initializeCourseFilters();
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
 });

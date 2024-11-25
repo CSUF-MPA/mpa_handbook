@@ -1317,6 +1317,23 @@
     </div>
 </footer>
 
+<script>
+    // Immediate execution
+    (function() {
+        const yearElement = document.getElementById('currentYear');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear().toString();
+        }
+        
+        const lastUpdatedElement = document.getElementById('lastUpdated');
+        if (lastUpdatedElement) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const lastUpdated = new Date().toLocaleDateString('en-US', options);
+            lastUpdatedElement.textContent = lastUpdated;
+        }
+    })();
+</script>
+
     </main>
 
     <script src="scripts/scripts.js"></script>
