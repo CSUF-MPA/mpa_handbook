@@ -822,6 +822,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* Footer */
+/* Footer */
 .footer {
     margin-top: 4rem;
     padding: 2rem 0;
@@ -843,7 +844,8 @@ input:focus, select:focus, textarea:focus {
 }
 
 .footer-logo {
-    max-width: 200px;
+    width: 100%;
+    max-width: 1000px;
     height: auto;
     margin-bottom: 1rem;
 }
