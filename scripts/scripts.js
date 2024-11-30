@@ -1,12 +1,12 @@
 // Theme Management
 function initializeTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme); // Changed from body to documentElement
+    document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeToggleIcon(savedTheme);
 }
 
 function toggleTheme() {
-    const root = document.documentElement; // Changed from body
+    const root = document.documentElement;
     const currentTheme = root.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     root.setAttribute('data-theme', newTheme);
@@ -17,9 +17,13 @@ function toggleTheme() {
 function updateThemeToggleIcon(theme) {
     const icon = document.querySelector('.theme-toggle i');
     if (icon) {
-        icon.className = `fas fa-${theme === 'light' ? 'moon' : 'sun'}`;
+        icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
     }
 }
+
+// Add click handler to theme toggle button
+document.querySelector('.theme-toggle')?.addEventListener('click', toggleTheme);
+
 
 // Tab Functionality
 function initializeTabs() {
@@ -374,16 +378,18 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCourseFilters();
 });
 
+
+// Combine the two DOMContentLoaded listeners into one
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded'); // Debug log
     try {
         initializeTheme();
         initializeTabs();
         initializeChecklists();
-        initializeSearch();
         initializeFAQ();
         initializeMobileNav();
         initializeCourseFilters();
+        // Remove initializeSearch() since filterItems function is missing
     } catch (error) {
         console.error('Error during initialization:', error);
     }
