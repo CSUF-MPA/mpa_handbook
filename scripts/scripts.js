@@ -21,9 +21,6 @@ function updateThemeToggleIcon(theme) {
     }
 }
 
-// Add click handler to theme toggle button
-document.querySelector('.theme-toggle')?.addEventListener('click', toggleTheme);
-
 
 // Tab Functionality
 function initializeTabs() {
@@ -378,8 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCourseFilters();
 });
 
-
-// Combine the two DOMContentLoaded listeners into one
+// Update the DOMContentLoaded event handler
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded'); // Debug log
     try {
@@ -389,7 +385,12 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeFAQ();
         initializeMobileNav();
         initializeCourseFilters();
-        // Remove initializeSearch() since filterItems function is missing
+        
+        // Add theme toggle event listener here
+        const themeToggle = document.querySelector('.theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
     } catch (error) {
         console.error('Error during initialization:', error);
     }
