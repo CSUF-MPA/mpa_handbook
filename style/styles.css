@@ -973,6 +973,15 @@ input:focus, select:focus, textarea:focus {
     transition: width 0.3s ease;
 }
 
+.progress-bar {
+    background-color: var(--medium-blue); /* Ensure high contrast */
+    color: var(--text-primary); /* Text inside progress bar (if any) */
+}
+
+.finance.course-tag {
+    color: var(--titan-blue); /* Darker text */
+    background-color: var(--light-gray); /* Contrasting background */
+}
 
 /* Print Styles */
 @media print {
@@ -987,3 +996,4 @@ input:focus, select:focus, textarea:focus {
         border: 1px solid #ddd;
     }
 }
+
