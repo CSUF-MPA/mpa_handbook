@@ -983,6 +983,68 @@ input:focus, select:focus, textarea:focus {
     background-color: var(--light-gray); /* Contrasting background */
 }
 
+/* Timeline Container */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 3px solid var(--titan-blue); /* Adjust to your theme color */
+    margin: 2rem 0;
+}
+
+/* Individual Timeline Item */
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-left: 2rem; /* Ensure text doesn't overlap the line */
+}
+
+/* Circle Icon Before Each Item */
+.timeline-item:before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Center the circle vertically */
+    transform: translateY(-50%);
+    left: -12px; /* Position relative to the timeline line */
+    width: 16px; /* Adjust size for better visibility */
+    height: 16px;
+    background-color: var(--titan-orange); /* Circle color */
+    border-radius: 50%; /* Makes it a circle */
+    border: 3px solid var(--titan-blue); /* Outline matching the timeline line */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Timeline Header Style */
+.timeline-item h3 {
+    font-size: 1.25rem; /* Uniform font size */
+    color: var(--titan-blue);
+    margin-bottom: 0.5rem;
+}
+
+/* Hover Effects */
+.timeline-item:hover:before {
+    background-color: var(--accent); /* Highlight color on hover */
+    transform: translateY(-50%) scale(1.1); /* Slightly enlarge the circle */
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 768px) {
+    .timeline {
+        border-left: none; /* Remove vertical line for mobile */
+        padding-left: 0;
+    }
+
+    .timeline-item {
+        padding-left: 0; /* Align text to the left */
+    }
+
+    .timeline-item:before {
+        left: 0; /* Position the icon closer to the text */
+        top: auto; /* Reset top alignment */
+        transform: translateY(0); /* Reset translate */
+    }
+}
+
+
 /* Print Styles */
 @media print {
     body {
