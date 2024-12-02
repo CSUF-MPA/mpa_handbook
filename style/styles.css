@@ -326,29 +326,6 @@ a:hover {
     color: white;
 }
 
-/* Faculty Card Improvements */
-.faculty-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease;
-}
-
-.faculty-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.faculty-info h3,
-.faculty-info h4 {
-    color: var(--text-primary);
-}
-
-.faculty-info p {
-    color: var(--text-secondary);
-}
 
 /* Search Components - Improved */
 .search-container {
@@ -786,42 +763,7 @@ input:focus, select:focus, textarea:focus {
     color: var(--text-secondary);
 }
 
-/* Faculty Card - Complete Styling */
-.faculty-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
 
-.faculty-image {
-    width: 100%;
-    aspect-ratio: 1;
-    overflow: hidden;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-}
-
-.faculty-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.faculty-info {
-    flex: 1;
-}
-
-.faculty-contact {
-    margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
-}
-
-/* Footer */
 /* Footer */
 .footer {
     margin-top: 4rem;
@@ -1044,6 +986,40 @@ input:focus, select:focus, textarea:focus {
     }
 }
 
+/* Pop-Out Button */
+.popout-button {
+    position: fixed; /* Keeps it anchored */
+    top: 1rem; /* Adjust relative to the viewport */
+    right: 6rem; /* Adjust placement */
+    z-index: 1000; /* Ensures visibility */
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.popout-button:hover {
+    background: var(--accent);
+    transform: translateY(-1px);
+}
+
+/* Handle Narrow Screens */
+@media (max-width: 768px) {
+    .popout-button {
+        top: auto; /* Prevent overlap with the nav bar */
+        bottom: 2.5rem; /* Stack it above the theme toggle */
+        right: 1rem; /* Align with the theme toggle */
+    }
+}
 
 /* Print Styles */
 @media print {
