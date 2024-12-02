@@ -1020,6 +1020,31 @@ input:focus, select:focus, textarea:focus {
         right: 1rem; /* Align with the theme toggle */
     }
 }
+/* Default state: Show only the first three cards */
+.course-card {
+    display: none; /* Hide all cards */
+}
+
+.course-card:nth-child(-n+3) {
+    display: block; /* Show the first three cards */
+}
+
+/* Expanded state: Show all cards */
+.course-grid.expanded .course-card {
+    display: block; /* Show all cards */
+}
+
+/* Optional: Smooth expansion/collapse effect */
+.course-grid {
+    max-height: 300px; /* Height of 3 cards by default */
+    overflow: hidden; /* Hide extra content */
+    transition: max-height 0.3s ease-in-out;
+}
+
+.course-grid.expanded {
+    max-height: 2000px; /* Large enough to fit all cards */
+}
+
 
 /* Print Styles */
 @media print {

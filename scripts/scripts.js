@@ -374,22 +374,50 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing course filters...'); // Debug log
     initializeCourseFilters();
 });
-
-// Update the DOMContentLoaded event handler
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM Content Loaded'); // Debug log
+
     try {
+        // Initialize other features
         initializeTheme();
         initializeTabs();
         initializeChecklists();
         initializeFAQ();
         initializeMobileNav();
         initializeCourseFilters();
-        
-        // Add theme toggle event listener here
+
+        // Add theme toggle event listener
         const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
             themeToggle.addEventListener('click', toggleTheme);
+        }
+
+        // Initialize course interaction features
+        const courseGrid = document.getElementById('courseGrid');
+        if (courseGrid) {
+            // Ensure cards are initially collapsed (CSS handles first 3)
+            console.log('Course grid found. Adding click and observer listeners.');
+
+            // Expand/collapse the course grid on click
+            courseGrid.addEventListener('click', () => {
+                console.log('Course grid clicked.');
+                courseGrid.classList.toggle('expanded'); // Toggle 'expanded' class
+            });
+
+            // Expand the course grid on scroll into view (auto-expand only)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        console.log('Course grid scrolled into view. Expanding...');
+                        courseGrid.classList.add('expanded'); // Add 'expanded' class
+                        observer.disconnect(); // Stop observing after auto-expansion
+                    }
+                });
+            });
+
+            observer.observe(courseGrid); // Observe the course grid
+        } else {
+            console.warn('Course grid not found in DOM.');
         }
     } catch (error) {
         console.error('Error during initialization:', error);
