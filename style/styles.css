@@ -1060,3 +1060,364 @@ input:focus, select:focus, textarea:focus {
     }
 }
 
+/* Capstone Section Styles */
+.exam-component {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.exam-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exam-details li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.exam-details li:last-child {
+    border-bottom: none;
+}
+
+.process-step {
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.process-step:nth-child(2) {
+    border-left-color: var(--warning);
+}
+
+.process-step:nth-child(3) {
+    border-left-color: var(--danger);
+}
+
+.prereq-info .grid-cols-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.checklist li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .prereq-info .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .exam-details li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+/* Timeline Container */
+.timeline {
+    position: relative;
+    padding-left: 3rem;
+    margin: 2rem 0;
+}
+
+/* Timeline Vertical Line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--primary);
+}
+
+/* Timeline Items */
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Timeline Marker/Icon */
+.timeline-marker {
+    position: absolute;
+    left: -3rem;
+    width: 3rem;
+    height: 3rem;
+    background: var(--bg-primary);
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.timeline-marker i {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.timeline-item:hover .timeline-marker {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+.timeline-item:hover .timeline-marker i {
+    color: var(--bg-primary);
+}
+
+/* Timeline Content */
+.timeline-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Timeline Date */
+.timeline-date {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0.5rem 0 1rem;
+}
+
+/* Checklist Container */
+.checklist-container {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+/* Checklist Items */
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.checklist-item:last-child {
+    border-bottom: none;
+}
+
+.checklist-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.checklist-item label {
+    flex: 1;
+    cursor: pointer;
+}
+
+/* Timeline Notes */
+.timeline-note {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.timeline-note i {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-top: 0.2rem;
+}
+
+.timeline-note.warning {
+    background: #fff3e0;
+    border-left: 4px solid var(--warning);
+}
+
+.timeline-note.warning i {
+    color: var(--warning);
+}
+
+.timeline-note.honor-society {
+    background: #e3f2fd;
+    border-left: 4px solid var(--primary);
+}
+
+/* Timeline Resources */
+.timeline-resources {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.timeline-resources h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-resources ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.timeline-resources li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.25rem 0;
+    color: var(--text-secondary);
+}
+
+.timeline-resources i {
+    color: var(--primary);
+}
+
+/* Progress Container */
+.progress-container {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    height: 0.5rem;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .timeline {
+        padding-left: 2rem;
+    }
+
+    .timeline-marker {
+        left: -2rem;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .timeline-marker i {
+        font-size: 1rem;
+    }
+
+    .timeline-content {
+        padding: 1rem;
+    }
+
+    .checklist-container {
+        padding: 0.75rem;
+    }
+
+    .timeline-note {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .timeline-note.warning {
+    background: rgba(255, 152, 0, 0.1);
+}
+
+[data-theme="dark"] .timeline-note.honor-society {
+    background: rgba(33, 150, 243, 0.1);
+}
+
+/* Print Styles */
+@media print {
+    .timeline::before {
+        display: none;
+    }
+
+    .timeline-marker {
+        border: none;
+        background: none;
+    }
+
+    .timeline-content {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .checklist-container {
+        border: 1px solid #ddd;
+    }
+}
+.footer {
+    background: var(--bg-secondary);
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-section {
+    margin-bottom: 2rem;
+}
+
+.footer-logo {
+    max-width: 200px;
+    margin-bottom: 1rem;
+}
+
+.footer-address p {
+    margin-bottom: 0.5rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent);
+}
