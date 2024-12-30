@@ -1579,50 +1579,71 @@
     </div>
 </section>
 
-<footer role="contentinfo">
-    <div class="footer-content">
+<footer role="contentinfo" class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Contact Info -->
-        <div class="footer-section contact-info">
-            <img src="images/pa_logo.png" alt="CSUF Logo" class="footer-logo">
-            <address class="footer-address">
-                <p>Division of Politics, Administration & Justice</p>
+        <div class="footer-section contact-info text-sm">
+            <img src="images/pa_logo.png" alt="CSUF Logo" class="footer-logo mb-4 w-32">
+            <address class="not-italic">
+                <p class="font-semibold">Division of Politics, Administration & Justice</p>
                 <p>College of Humanities and Social Sciences</p>
                 <p>California State University, Fullerton</p>
                 <p>800 N. State College Blvd.</p>
                 <p>Fullerton, CA 92834</p>
-                <p><a href="tel:+16572783521">(657) 278-3521</a></p>
-                <p><a href="mailto:mpaadvising@fullerton.edu">mpaadvising@fullerton.edu</a></p>
+                <p>
+                    <a href="tel:+16572783521" class="text-blue-400 hover:underline">(657) 278-3521</a>
+                </p>
+                <p>
+                    <a href="mailto:mpaadvising@fullerton.edu" class="text-blue-400 hover:underline">mpaadvising@fullerton.edu</a>
+                </p>
             </address>
         </div>
 
         <!-- Footer Navigation -->
-        <nav class="footer-nav" aria-label="Footer Navigation">
-            <h3>Quick Links</h3>
-            <a href="#home">Home</a>
-            <a href="#courses">Courses</a>
-            <a href="#resources">Resources</a>
-            <a href="#milestones">Milestones</a>
-            <a href="#contact">Contact</a>
+        <nav class="footer-section footer-nav text-sm" aria-label="Footer Navigation">
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+                <li><a href="#home" class="text-blue-400 hover:underline">Home</a></li>
+                <li><a href="#courses" class="text-blue-400 hover:underline">Courses</a></li>
+                <li><a href="#resources" class="text-blue-400 hover:underline">Resources</a></li>
+                <li><a href="#milestones" class="text-blue-400 hover:underline">Milestones</a></li>
+                <li><a href="#contact" class="text-blue-400 hover:underline">Contact</a></li>
+            </ul>
         </nav>
 
         <!-- Social Media -->
-        <div class="footer-section social-media">
-            <h3>Stay Connected</h3>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/groups/13516938/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.facebook.com/p/MPA-Cal-State-Fullerton-100057608433230/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="X"><i class="fab fa-twitter"></i></a>
+        <div class="footer-section social-media text-sm">
+            <h3 class="text-lg font-semibold mb-4">Stay Connected</h3>
+            <div class="flex gap-4">
+                <a href="https://www.linkedin.com/groups/13516938/" aria-label="LinkedIn" class="hover:text-blue-400">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="https://www.facebook.com/p/MPA-Cal-State-Fullerton-100057608433230/" aria-label="Facebook" class="hover:text-blue-400">
+                    <i class="fab fa-facebook text-xl"></i>
+                </a>
+                <a href="#" aria-label="Instagram" class="hover:text-blue-400">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#" aria-label="Twitter" class="hover:text-blue-400">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Footer Legal and Copyright -->
-    <div class="footer-legal">
+    <div class="footer-legal text-sm text-gray-400 border-t border-gray-700 mt-8 pt-4 text-center">
         <p>&copy; <span id="currentYear"></span> California State University, Fullerton</p>
         <p>Last Updated: <span id="lastUpdated"></span></p>
+        <p class="mt-2">This handbook serves as a guide only and does not supersede the University Catalog, University Policy Statements, or student TDA (Titan Degree Audit). Students should consult official university documents and their academic advisors for definitive information.</p>
+        <div class="footer-links mt-2 space-x-4">
+            <a href="#" class="hover:underline">Terms of Use</a>
+            <a href="#" class="hover:underline">Privacy Policy</a>
+            <a href="#" class="hover:underline">Accessibility</a>
+        </div>
     </div>
 </footer>
+
 
 <script>
     // Dynamically set the current year and last updated date
