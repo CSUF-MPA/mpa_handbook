@@ -589,35 +589,26 @@
         <!-- Courses Section -->
         <section id="courses" class="section">
             <h2>Course Catalog</h2>
-            <div class="card">
-                <p>Choose from a variety of courses to fulfill your MPA degree requirements. Filter by concentration or search for specific courses below.</p>
+            <div class="card intro-text">
+                <p>Choose from a variety of courses to fulfill your MPA degree requirements. Filter by concentration to view relevant courses.</p>
             </div>
+            
             <div class="card">
-                <!-- Search and Filter Controls -->
-                <div class="search-container">
-                    <div class="filter-controls">
-                        <div class="search-field">
-                            <label for="courseSearch" class="sr-only">Search courses</label>
-                            <input type="text" id="courseSearch" class="search-box" placeholder="Search courses...">
-                        </div>
-                        
-                        <div class="filter-field">
-                            <label for="courseFilter" class="sr-only">Filter by concentration</label>
-                            <select id="courseFilter" class="filter-select">
-                                <option value="all">All Courses</option>
-                                <option value="core">Core Requirements</option>
-                                <option value="hr">Human Resources</option>
-                                <option value="finance">Public Finance</option>
-                                <option value="local">Local Government</option>
-                                <option value="policy">Public Policy</option>
-                                <option value="advisor">Advisor Electives</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="courseResults" class="results-count" aria-live="polite"></div>
+                <div class="filter-controls">
+                    <select id="courseFilter" class="filter-select">
+                        <option value="all">All Courses</option>
+                        <option value="core">Core Requirements</option>
+                        <option value="hr">Human Resources</option>
+                        <option value="finance">Public Finance</option>
+                        <option value="local">Local Government</option>
+                        <option value="policy">Public Policy</option>
+                        <option value="advisor">Advisor Electives</option>
+                    </select>
                 </div>
+                <div id="courseResults" class="results-count" aria-live="polite"></div>
+            </div>
         
-                <div class="course-grid" id="courseGrid">
+            <div class="course-grid" id="courseGrid">
                     <!-- Core Courses -->
                     <div class="course-card" data-categories="core">
                         <div class="course-header">
@@ -1253,9 +1244,8 @@
             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <p class="text-center text-sm mt-2">Track your progress through the program milestones</p>
+        <p class="text-center text-sm">This timeline represents typical program progression. Your actual path may vary depending on your enrollment status (full-time/part-time), course availability, and individual circumstances. Always consult with the MPA advisor to plan your specific course sequence.</p>
     </div>
-
-    <div class="timeline">
         <!-- Orientation -->
         <div class="timeline-item">
             <div class="timeline-marker">
@@ -1309,14 +1299,6 @@
                     <div class="checklist-item">
                         <input type="checkbox" id="first2">
                         <label for="first2">Take one additional core course</label>
-                    </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="first3">
-                        <label for="first3">Research concentration options</label>
-                    </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="first4">
-                        <label for="first4">Meet with faculty mentor</label>
                     </div>
                 </div>
                 <div class="timeline-note">
@@ -1408,10 +1390,6 @@
                         <input type="checkbox" id="conc2">
                         <label for="conc2">Finish remaining core courses</label>
                     </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="conc3">
-                        <label for="conc3">Begin capstone preparation</label>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1456,7 +1434,7 @@
                 <div class="checklist-container">
                     <div class="checklist-item">
                         <input type="checkbox" id="final1">
-                        <label for="final1">File graduation check (Deadline: October 1 for Spring/June 1 for Fall)</label>
+                        <label for="final1">File graduation check (Deadline: Early February for Spring / Early September for Fall)</label>
                     </div>
                     <div class="checklist-item">
                         <input type="checkbox" id="final2">
@@ -1581,37 +1559,56 @@
     </div>
 </section>
 
-<footer>
-    <footer class="footer">
-        <div class="footer-content">
-            <!-- Contact Info -->
-            <div class="footer-section">
-                <img src="images/pa_logo.png" alt="CSUF Logo" class="footer-logo">
-                <div class="footer-address">
-                    <p>Division of Politics, Administration & Justice</p>
-                    <p>College of Humanities and Social Sciences</p>
-                    <p>California State University, Fullerton</p>
-                    <p>800 N. State College Blvd.</p>
-                    <p>Fullerton, CA 92834</p>
-                    <p>(657) 278-3521</p>
-                    <p><a href="mailto:mpaadvising@fullerton.edu">mpaadvising@fullerton.edu</a></p>
-                </div>
-            </div>
-    
-            <!-- Social Media -->
-            <div class="footer-section">
-                <h3>Stay Connected</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
+<footer role="contentinfo">
+    <div class="footer-content">
+        <!-- Contact Info -->
+        <div class="footer-section contact-info">
+            <img src="images/pa_logo.png" alt="CSUF Logo" class="footer-logo">
+            <address class="footer-address">
+                <p>Division of Politics, Administration & Justice</p>
+                <p>College of Humanities and Social Sciences</p>
+                <p>California State University, Fullerton</p>
+                <p>800 N. State College Blvd.</p>
+                <p>Fullerton, CA 92834</p>
+                <p><a href="tel:+16572783521">(657) 278-3521</a></p>
+                <p><a href="mailto:mpaadvising@fullerton.edu">mpaadvising@fullerton.edu</a></p>
+            </address>
+        </div>
+
+        <!-- Footer Navigation -->
+        <nav class="footer-nav" aria-label="Footer Navigation">
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#resources">Resources</a>
+            <a href="#milestones">Milestones</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <!-- Social Media -->
+        <div class="footer-section social-media">
+            <h3>Stay Connected</h3>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- Footer Legal and Copyright -->
+    <div class="footer-legal">
+        <p>&copy; <span id="currentYear"></span> California State University, Fullerton</p>
+        <p>Last Updated: <span id="lastUpdated"></span></p>
+    </div>
 </footer>
 
+<script>
+    // Dynamically set the current year and last updated date
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+    document.getElementById("lastUpdated").textContent = document.lastModified;
+</script>
 
 <script>
     // Immediate execution

@@ -1398,7 +1398,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .footer-logo {
-    max-width: 200px;
+    max-width: 400px;
     margin-bottom: 1rem;
 }
 
@@ -1420,4 +1420,36 @@ input:focus, select:focus, textarea:focus {
 
 .social-links a:hover {
     color: var(--accent);
+}
+
+/.search-container {
+    padding: 1rem;
+    width: 100%;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.search-box,
+.filter-select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    height: 40px;
+}
+
+.results-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .filter-controls {
+        flex-direction: column;
+    }
 }
