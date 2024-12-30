@@ -1453,3 +1453,43 @@ input:focus, select:focus, textarea:focus {
         flex-direction: column;
     }
 }
+
+/* Create a container for both buttons */
+.utility-buttons {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 100;
+}
+
+.theme-toggle,
+.popout-button {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover,
+.popout-button:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .utility-buttons {
+        bottom: env(safe-area-inset-bottom, 1rem); /* For devices with home indicator */
+    }
+}
