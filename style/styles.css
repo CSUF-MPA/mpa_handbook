@@ -410,7 +410,7 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] .course-tag.core { background: #4A9EFF; }
 [data-theme="dark"] .course-tag.hr { background: #3182CE; }
 [data-theme="dark"] .course-tag.finance { background: #38A169; }
-[data-theme="dark"] .course-tag.local { background: #D69E2E; }
+[data-theme="dark"] .course-tag.local { background: #B45309; }
 [data-theme="dark"] .course-tag.policy { background: #805AD5; }
 
 /* Accessibility Improvements */
@@ -1492,4 +1492,70 @@ input:focus, select:focus, textarea:focus {
     .utility-buttons {
         bottom: env(safe-area-inset-bottom, 1rem); /* For devices with home indicator */
     }
+}
+.filter-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: medium;
+}
+
+.filter-select {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .timeline-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .checklist-item {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .checklist-item input[type="checkbox"] {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .checklist-item:hover {
+    background: var(--hover-bg);
+}
+
+[data-theme="dark"] .checklist-label {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .timeline-date {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .timeline-item {
+    color: #e2e8f0; /* Lighter text color for better contrast */
+}
+
+[data-theme="dark"] .progress-bar {
+    background: #3b82f6; /* Brighter blue for progress bar */
+}
+
+[data-theme="dark"] .checklist-item label {
+    color: #e2e8f0; /* Lighter text */
+}
+
+[data-theme="dark"] .timeline-milestone {
+    color: #e2e8f0; /* Lighter text */
+    background: var(--card-bg);
+}
+
+[data-theme="dark"] .timeline-date {
+    color: #94a3b8; /* Softer secondary text color */
+}
+
+[data-theme="dark"] h3,
+[data-theme="dark"] h4 {
+    color: #f8fafc; /* Very light headings */
 }
