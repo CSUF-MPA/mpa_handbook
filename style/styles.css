@@ -892,14 +892,6 @@ input:focus, select:focus, textarea:focus {
     transform: translateY(-1px);
 }
 
-@media (max-width: 768px) {
-    .theme-toggle {
-        top: auto;
-        bottom: 1rem;
-        right: 1rem;
-    }
-}
-
 /* Progress Indicators */
 .progress-container {
     background: var(--bg-secondary);
@@ -1013,13 +1005,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* Handle Narrow Screens */
-@media (max-width: 768px) {
-    .popout-button {
-        top: auto; /* Prevent overlap with the nav bar */
-        bottom: 2.5rem; /* Stack it above the theme toggle */
-        right: 1rem; /* Align with the theme toggle */
-    }
-}
+
 /* Default state: Show only the first three cards */
 .course-card {
     display: none; /* Hide all cards */
@@ -1559,3 +1545,78 @@ input:focus, select:focus, textarea:focus {
 [data-theme="dark"] h4 {
     color: #f8fafc; /* Very light headings */
 }
+
+img {
+    width: 100%;
+    max-width: 18rem; /* Adjust for desired size */
+    height: auto; /* Maintain aspect ratio */
+}
+
+@media (min-width: 640px) {
+    img {
+        max-width: 24rem;
+    }
+}
+
+@media (min-width: 768px) {
+    img {
+        max-width: 32rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    img {
+        max-width: 36rem;
+    }
+}
+
+
+/* Media query to adjust buttons on mobile */
+@media (max-width: 768px) {
+    .utility-buttons {
+      position: fixed; 
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 1000;
+    }
+   
+    .theme-toggle,
+    .popout-button {
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0.5rem;
+    }
+   }
+
+   ```css
+.utility-buttons {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 1000;
+}
+
+.theme-toggle,
+.popout-button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--secondary);
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.theme-toggle i,
+.popout-button i {
+    font-size: 16px;
+}
+```
