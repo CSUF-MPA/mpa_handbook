@@ -1591,7 +1591,6 @@ img {
     }
    }
 
-   ```css
 .utility-buttons {
     position: fixed;
     bottom: 1rem;
@@ -1619,4 +1618,3 @@ img {
 .popout-button i {
     font-size: 16px;
 }
-```
