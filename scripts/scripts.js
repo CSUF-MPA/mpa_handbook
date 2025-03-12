@@ -18,215 +18,163 @@ function updateThemeToggleIcon(theme) {
     const icon = document.querySelector('.theme-toggle i');
     if (icon) {
         icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    } else {
+        console.warn('Theme toggle icon not found.');
     }
 }
 
-
-// Tab Functionality
+// Concentration Tabs Functionality
 function initializeTabs() {
+    const tabs = document.querySelectorAll('.tab');
+    const tabPanels = document.querySelectorAll('.tab-content');
+
+    // Set initial state
     const defaultTab = document.querySelector('.tab.active');
     if (defaultTab) {
-        const tabId = defaultTab.getAttribute('data-tab');
-        switchTab(tabId, defaultTab);
+        const targetPanelId = defaultTab.getAttribute('aria-controls');
+        const targetPanel = document.getElementById(targetPanelId);
+        if (targetPanel) {
+            targetPanel.hidden = false;
+            targetPanel.classList.add('active');
+        }
     }
 
-    // Add click handlers to all tabs
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default behavior
-            const tabId = this.getAttribute('data-tab');
-            switchTab(tabId, this);
-        });
+    // Add event listeners to tabs
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => switchTab(tab));
+        tab.addEventListener('keydown', (e) => handleTabKeydown(e, tab));
     });
 }
 
-function switchTab(tabId, clickedTab) {
-    if (!tabId || !clickedTab) return; // Add validation
+function switchTab(newTab) {
+    const targetPanelId = newTab.getAttribute('aria-controls');
+    const targetPanel = document.getElementById(targetPanelId);
+
+    if (!targetPanel) return;
 
     // Update tab buttons
     const allTabs = document.querySelectorAll('.tab');
     allTabs.forEach(tab => {
-        tab.classList.remove('active');
         tab.setAttribute('aria-selected', 'false');
-        tab.setAttribute('tabindex', '-1'); // Improve accessibility
-    });
-    
-    clickedTab.classList.add('active');
-    clickedTab.setAttribute('aria-selected', 'true');
-    clickedTab.setAttribute('tabindex', '0'); // Improve accessibility
-
-    // Update content sections
-    const allContent = document.querySelectorAll('.tab-content');
-    allContent.forEach(content => {
-        content.style.display = 'none';
-        content.classList.remove('active');
-        content.setAttribute('aria-hidden', 'true'); // Improve accessibility
+        tab.setAttribute('tabindex', '-1');
+        tab.classList.remove('active');
     });
 
-    // Show selected content
-    const selectedContent = document.getElementById(tabId);
-    if (selectedContent) {
-        selectedContent.style.display = 'block';
-        selectedContent.classList.add('active');
-        selectedContent.setAttribute('aria-hidden', 'false'); // Improve accessibility
+    newTab.setAttribute('aria-selected', 'true');
+    newTab.setAttribute('tabindex', '0');
+    newTab.classList.add('active');
+    newTab.focus();
+
+    // Update content panels
+    const allPanels = document.querySelectorAll('.tab-content');
+    allPanels.forEach(panel => {
+        panel.hidden = true;
+        panel.classList.remove('active');
+    });
+
+    targetPanel.hidden = false;
+    targetPanel.classList.add('active');
+}
+
+function handleTabKeydown(e, tab) {
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const currentIndex = tabs.indexOf(tab);
+
+    switch (e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+            e.preventDefault();
+            const nextTab = tabs[(currentIndex + 1) % tabs.length];
+            switchTab(nextTab);
+            break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+            e.preventDefault();
+            const prevTab = tabs[(currentIndex - 1 + tabs.length) % tabs.length];
+            switchTab(prevTab);
+            break;
+        case 'Home':
+            e.preventDefault();
+            switchTab(tabs[0]);
+            break;
+        case 'End':
+            e.preventDefault();
+            switchTab(tabs[tabs.length - 1]);
+            break;
     }
 }
 
-// Checklist and Progress Bar Functionality
+// Initialize checklists and progress bars
 function initializeChecklists() {
     document.querySelectorAll('.checklist-section').forEach(section => {
-        if (!section) return; // Add validation
-
         const checkboxes = section.querySelectorAll('input[type="checkbox"]');
-        
-        checkboxes.forEach(checkbox => {
-            // Ensure checkbox has an ID
-            if (!checkbox.id) {
-                console.warn('Checkbox missing ID:', checkbox);
-                return;
-            }
+        const progressBar = section.querySelector('.progress-bar');
+        const progressLabel = section.querySelector('.progress-container label');
 
-            // Load saved state
+        // Load saved state
+        checkboxes.forEach(checkbox => {
             const saved = localStorage.getItem(checkbox.id);
             if (saved === 'true') {
                 checkbox.checked = true;
-                checkbox.setAttribute('aria-checked', 'true'); // Improve accessibility
+                checkbox.setAttribute('aria-checked', 'true');
             }
 
             // Add change listener
             checkbox.addEventListener('change', function() {
                 localStorage.setItem(this.id, this.checked);
-                this.setAttribute('aria-checked', this.checked.toString()); // Improve accessibility
+                this.setAttribute('aria-checked', this.checked.toString());
                 updateProgress(section);
             });
         });
 
+        // Initial progress update
         updateProgress(section);
     });
 }
 
+// Update progress bar and announce changes
 function updateProgress(section) {
-    if (!section) return; // Add validation
-
-    const total = section.querySelectorAll('input[type="checkbox"]').length;
-    const checked = section.querySelectorAll('input[type="checkbox"]:checked').length;
+    const checkboxes = section.querySelectorAll('input[type="checkbox"]');
     const progressBar = section.querySelector('.progress-bar');
-    
-    if (progressBar && total > 0) {
-        const percentage = Math.round((checked / total) * 100);
-        progressBar.style.width = `${percentage}%`;
-        progressBar.setAttribute('aria-valuenow', percentage);
-        progressBar.setAttribute('aria-valuetext', `${percentage}% complete`); // Improve accessibility
-    }
+    const progressLabel = section.querySelector('.progress-container label');
+
+    if (!progressBar || !progressLabel) return;
+
+    const total = checkboxes.length;
+    const checked = section.querySelectorAll('input[type="checkbox"]:checked').length;
+    const percentage = Math.round((checked / total) * 100);
+
+    // Update progress bar
+    progressBar.style.width = `${percentage}%`;
+    progressBar.setAttribute('aria-valuenow', percentage);
+    progressBar.setAttribute('aria-valuetext', `${percentage}% complete`);
+
+    // Announce progress to screen readers
+    const announcement = `${percentage}% of ${section.querySelector('h3').textContent} completed`;
+    announceToScreenReader(announcement);
 }
 
-// Search Functionality
-function initializeSearch() {
-    const throttledSearch = throttle(filterItems, 300); // Add throttling for performance
-
-    initializeCourseSearch(throttledSearch);
-    initializeFacultySearch(throttledSearch);
-    initializeFAQSearch(throttledSearch);
+// Announce changes to screen readers
+function announceToScreenReader(message) {
+    const announcer = document.getElementById('aria-announcer') || createAriaAnnouncer();
+    announcer.textContent = message;
 }
 
-function initializeCourseSearch(throttledSearch) {
-    const courseSearch = document.getElementById('courseSearch');
-    const courseFilter = document.getElementById('courseFilter');
-    const courses = document.querySelectorAll('#courseGrid .course-card');
-
-    if (courseSearch && courseFilter && courses.length) {
-        function filterCourses() {
-            const searchTerm = courseSearch.value.toLowerCase().trim();
-            const filterValue = courseFilter.value;
-
-            courses.forEach(course => {
-                const text = course.textContent.toLowerCase();
-                const categories = (course.dataset.categories || '').split(' ');
-                
-                const matchesSearch = text.includes(searchTerm);
-                const matchesFilter = filterValue === 'all' || categories.includes(filterValue);
-
-                course.style.display = matchesSearch && matchesFilter ? '' : 'none';
-                course.setAttribute('aria-hidden', (!matchesSearch || !matchesFilter).toString());
-            });
-
-            // Update results count for screen readers
-            announceSearchResults(courses);
-        }
-
-        courseSearch.addEventListener('input', () => throttledSearch(filterCourses));
-        courseFilter.addEventListener('change', filterCourses);
-    }
+// Create an ARIA live region for announcements
+function createAriaAnnouncer() {
+    const announcer = document.createElement('div');
+    announcer.id = 'aria-announcer';
+    announcer.setAttribute('aria-live', 'polite');
+    announcer.setAttribute('aria-atomic', 'true');
+    announcer.classList.add('sr-only');
+    document.body.appendChild(announcer);
+    return announcer;
 }
 
-function initializeFacultySearch(throttledSearch) {
-    const facultySearch = document.getElementById('facultySearch');
-    const faculty = document.querySelectorAll('#facultyGrid .faculty-card');
-
-    if (facultySearch && faculty.length) {
-        facultySearch.addEventListener('input', (e) => {
-            throttledSearch(() => {
-                const searchTerm = e.target.value.toLowerCase().trim();
-                faculty.forEach(member => {
-                    const text = member.textContent.toLowerCase();
-                    const isVisible = text.includes(searchTerm);
-                    member.style.display = isVisible ? '' : 'none';
-                    member.setAttribute('aria-hidden', (!isVisible).toString());
-                });
-                announceSearchResults(faculty);
-            });
-        });
-    }
-}
-
-function initializeFAQSearch(throttledSearch) {
-    const searchInput = document.getElementById('faqSearch');
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    if (searchInput && faqItems.length) {
-        searchInput.addEventListener('input', (e) => {
-            throttledSearch(() => {
-                const searchTerm = e.target.value.toLowerCase().trim();
-                faqItems.forEach(item => {
-                    const question = item.querySelector('.faq-question')?.textContent.toLowerCase() || '';
-                    const answer = item.querySelector('.faq-answer')?.textContent.toLowerCase() || '';
-                    const isVisible = question.includes(searchTerm) || answer.includes(searchTerm);
-                    item.style.display = isVisible ? '' : 'none';
-                    item.setAttribute('aria-hidden', (!isVisible).toString());
-                });
-                announceSearchResults(faqItems);
-            });
-        });
-    }
-}
-
-// Helper function to announce search results to screen readers
-function announceSearchResults(items) {
-    const visibleItems = Array.from(items).filter(item => item.style.display !== 'none');
-    const announcement = `${visibleItems.length} results found`;
-    
-    let announcer = document.getElementById('search-announcer');
-    if (!announcer) {
-        announcer = document.createElement('div');
-        announcer.id = 'search-announcer';
-        announcer.className = 'sr-only';
-        announcer.setAttribute('aria-live', 'polite');
-        document.body.appendChild(announcer);
-    }
-    announcer.textContent = announcement;
-}
-
-// Throttle function to improve performance
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+    initializeChecklists();
+});
 
 // FAQ Functionality
 function initializeFAQ() {
@@ -248,8 +196,6 @@ function initializeFAQ() {
 }
 
 function toggleFAQ(button) {
-    if (!button) return;
-
     const isExpanded = button.classList.contains('active');
     button.classList.toggle('active');
     button.setAttribute('aria-expanded', (!isExpanded).toString());
@@ -301,125 +247,19 @@ function initializeMobileNav() {
     }
 }
 
-// Course filtering functionality
-function initializeCourseFilters() {
-    console.log('Initializing course filters...'); // Debug log
+// Initialize all functionality
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded');
 
-    // Get all necessary elements
-    const courseSearch = document.getElementById('courseSearch');
-    const courseFilter = document.getElementById('courseFilter');
-    const courseGrid = document.getElementById('courseGrid');
-    
-    if (!courseGrid) {
-        console.error('Course grid not found');
-        return;
-    }
-    
-    const courses = courseGrid.getElementsByClassName('course-card');
-    console.log(`Found ${courses.length} courses`); // Debug log
+    initializeTheme();
+    initializeTabs();
+    initializeChecklists();
+    initializeFAQ();
+    initializeMobileNav();
 
-    if (!courseFilter || !courses.length) {
-        console.error('Required elements not found');
-        return;
-    }
-
-    function filterCourses() {
-        const searchTerm = courseSearch ? courseSearch.value.toLowerCase().trim() : '';
-        const filterValue = courseFilter.value.toLowerCase();
-        
-        console.log(`Filtering - Search: "${searchTerm}", Filter: "${filterValue}"`); // Debug log
-
-        let visibleCount = 0;
-
-        Array.from(courses).forEach(course => {
-            const categories = course.dataset.categories || '';
-            const text = course.textContent.toLowerCase();
-            console.log(`Course categories: ${categories}`); // Debug log
-
-            const matchesSearch = !searchTerm || text.includes(searchTerm);
-            const matchesFilter = filterValue === 'all' || categories.split(' ').includes(filterValue);
-            const isVisible = matchesSearch && matchesFilter;
-
-            course.style.display = isVisible ? 'block' : 'none';
-            visibleCount += isVisible ? 1 : 0;
-        });
-
-        // Update counter
-        const resultsCounter = document.getElementById('courseResults');
-        if (resultsCounter) {
-            resultsCounter.textContent = `${visibleCount} course${visibleCount !== 1 ? 's' : ''} found`;
-        }
-    }
-
-    // Add event listeners
-    courseFilter.addEventListener('change', function() {
-        console.log('Filter changed:', this.value); // Debug log
-        filterCourses();
-    });
-
-    if (courseSearch) {
-        courseSearch.addEventListener('input', function() {
-            console.log('Search input:', this.value); // Debug log
-            filterCourses();
-        });
-    }
-
-    // Initial filter
-    filterCourses();
-    console.log('Course filters initialized'); // Debug log
-}
-
-// Make sure to call the initialization when the DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing course filters...'); // Debug log
-    initializeCourseFilters();
-});
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOM Content Loaded'); // Debug log
-
-    try {
-        // Initialize other features
-        initializeTheme();
-        initializeTabs();
-        initializeChecklists();
-        initializeFAQ();
-        initializeMobileNav();
-        initializeCourseFilters();
-
-        // Add theme toggle event listener
-        const themeToggle = document.querySelector('.theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', toggleTheme);
-        }
-
-        // Initialize course interaction features
-        const courseGrid = document.getElementById('courseGrid');
-        if (courseGrid) {
-            // Ensure cards are initially collapsed (CSS handles first 3)
-            console.log('Course grid found. Adding click and observer listeners.');
-
-            // Expand/collapse the course grid on click
-            courseGrid.addEventListener('click', () => {
-                console.log('Course grid clicked.');
-                courseGrid.classList.toggle('expanded'); // Toggle 'expanded' class
-            });
-
-            // Expand the course grid on scroll into view (auto-expand only)
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        console.log('Course grid scrolled into view. Expanding...');
-                        courseGrid.classList.add('expanded'); // Add 'expanded' class
-                        observer.disconnect(); // Stop observing after auto-expansion
-                    }
-                });
-            });
-
-            observer.observe(courseGrid); // Observe the course grid
-        } else {
-            console.warn('Course grid not found in DOM.');
-        }
-    } catch (error) {
-        console.error('Error during initialization:', error);
+    // Add theme toggle event listener
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
     }
 });
