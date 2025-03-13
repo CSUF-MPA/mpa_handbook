@@ -176,37 +176,67 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeChecklists();
 });
 
-// FAQ Functionality
-function initializeFAQ() {
-    const faqButtons = document.querySelectorAll('.faq-question');
-    faqButtons.forEach(button => {
-        if (!button.id) {
-            button.id = `faq-${Math.random().toString(36).substr(2, 9)}`;
-        }
-        
-        const answer = button.nextElementSibling;
-        if (answer) {
-            answer.id = `answer-${button.id}`;
-            button.setAttribute('aria-controls', answer.id);
-            button.setAttribute('aria-expanded', 'false');
-        }
-        
-        button.addEventListener('click', () => toggleFAQ(button));
-    });
-}
+// Course Filtering and Accordion Functionality
+document.addEventListener('DOMContentLoaded', function () {
+    // Dropdown Filtering Logic
+    const courseFilter = document.getElementById('courseFilter');
+    const courses = document.querySelectorAll('.course-card');
+    const courseGrid = document.getElementById('courseGrid');
 
-function toggleFAQ(button) {
-    const isExpanded = button.classList.contains('active');
-    button.classList.toggle('active');
-    button.setAttribute('aria-expanded', (!isExpanded).toString());
+    if (courseFilter) {
+        courseFilter.addEventListener('change', function () {
+            const selectedCategory = this.value;
+            let visibleCourses = 0;
 
-    const answer = button.nextElementSibling;
-    if (answer) {
-        answer.classList.toggle('active');
-        answer.style.maxHeight = answer.classList.contains('active') ? 
-            `${answer.scrollHeight}px` : '0';
+            courses.forEach(course => {
+                const categories = course.getAttribute('data-categories').split(' ');
+                
+                if (selectedCategory === 'all' || categories.includes(selectedCategory)) {
+                    course.style.display = 'block';
+                    visibleCourses++;
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+            
+            // Adjust section height dynamically
+            if (visibleCourses > 0) {
+                courseGrid.style.minHeight = (visibleCourses * 100) + 'px';
+            } else {
+                courseGrid.style.minHeight = 'auto';
+            }
+        });
     }
-}
+
+    // Accordion Functionality
+    const accordions = document.querySelectorAll('.accordion-header');
+
+    if (accordions.length > 0) {
+        accordions.forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                
+                if (!content.classList.contains('active')) {
+                    // Close all open accordions
+                    document.querySelectorAll('.accordion-content').forEach(item => {
+                        item.style.maxHeight = null;
+                        item.classList.remove('active');
+                    });
+                    
+                    // Open clicked accordion
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    content.classList.add('active');
+                    content.style.overflow = 'visible'; // Ensure content is fully shown
+                } else {
+                    content.style.maxHeight = null;
+                    content.classList.remove('active');
+                    content.style.overflow = 'hidden';
+                }
+            });
+        });
+    }
+});
+
 
 // Mobile Navigation
 function initializeMobileNav() {
