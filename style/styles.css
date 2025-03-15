@@ -41,8 +41,8 @@
 [data-theme="light"] {
     --bg-primary: #FFFFFF;
     --bg-secondary: #F5F5F5;
-    --text-primary: #222222;
-    --text-secondary: #666666;
+    --text-primary: #1A1A1A;
+    --text-secondary: #4A4A4A;
     --primary: #00244E;
     --secondary: #0F3F8C;
     --accent: #FF7900;
@@ -59,8 +59,8 @@
     --bg-primary: #121620;
     --bg-secondary: #1E2433;
     --text-primary: #FFFFFF;
-    --text-secondary: #B8C4E0;
-    --primary: #4A9EFF;
+    --text-secondary: #D0DBF7;
+    --primary: #3B85E0;
     --secondary: #2D3748;
     --accent: #FF7900;
     --border-color: #2D3748;
@@ -114,8 +114,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-    color: var(--primary);
-    text-decoration: none;
+    color: #00244E; /* Darker CSUF blue */
+    font-weight: bold;
+    text-decoration: underline;
     transition: color 0.2s ease;
 }
 
@@ -363,11 +364,11 @@ a:hover {
     padding: 0.25rem 0.75rem;
     border-radius: 12px;
     font-size: 0.85rem;
-    color: white;
+    color: #FDFDFF;
     font-weight: 500;
 }
 
-.course-tag.core { background: var(--titan-blue); }
+.course-tag.core { background: #0D3480; }
 .course-tag.hr { background: var(--medium-blue); }
 .course-tag.finance { background: var(--success); }
 .course-tag.local { background: var(--warning); }
