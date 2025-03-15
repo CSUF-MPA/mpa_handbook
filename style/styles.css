@@ -275,6 +275,11 @@ a:hover {
     color: white;
 }
 
+[data-theme="dark"] .tab.active {
+    background: var(--secondary);
+    color: white;
+}
+
 .tab-content {
     display: none;
     animation: fadeIn 0.3s ease;
@@ -1612,15 +1617,6 @@ footer a[href^="tel"], footer a[href^="mailto"] {
     color: #fdfdff !important; /* Brighter white text */
 }
 
-[data-theme="light"] button.tab {
-    background-color: #2c76d1 !important;
-    color: #FFFFFF !important; /* High contrast white */
-}
-
-[data-theme="dark"] button.tab {
-    background-color: #3B85E0 !important;
-    color: #FFFFFF !important; /* High contrast white */
-}
 
 [data-theme="light"] a[href*="mpa_handbook/CSUF_MPA_Handbook_2025-2026.pdf"] {
     color: #00244E !important; /* Darker CSUF Blue for Light Mode */
