@@ -1136,106 +1136,14 @@ img {
     }
 }
 
-/* Ensure flex layout works properly for mission/vision/values sections */
-.mission-section, .vision-section, .values-section {
-    margin-bottom: 1.5rem;
-}
+/* 
+ * Component-Specific Styles
+ * Consolidated and organized to remove redundancies
+ */
 
-/* Fix the header icon layout */
-.mission-section .flex,
-.vision-section .flex,
-.values-section .flex,
-.values-section li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    line-height: row; /* Force horizontal layout */
-}
-
-/* Specific vertical alignment for icons */
-.fas.fa-bullseye,
-.fas.fa-eye,
-.fas.fa-heart,
-.fas.fa-check-circle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: 0;  /* Reset any top positioning */
-    margin-top: 0;  /* Reset any margin */
-    margin-bottom: 0;  /* Reset any margin */
-    vertical-align: middle;  /* Improve vertical alignment */
-    transform: translateY(0);  /* Reset any transforms */
-}
-
-/* Ensure text wraps properly */
-.mission-section p,
-.vision-section p,
-.values-section ul {
-    width: 100%;
-}
-
-/* Media query to handle very small screens */
-@media (max-width: 480px) {
-    .mission-section .flex,
-    .vision-section .flex,
-    .values-section .flex {
-        flex-wrap: wrap; /* Allow wrapping on very small screens */
-    }
-}
-
-/* Override any problematic global styles */
-.flex {
-    display: flex !important;
-}
-
-.items-center {
-    align-items: center !important;
-}
-
-.gap-2 {
-    gap: 0.5rem !important;
-}
-
-
-
-/* Fix for heading alignment */
-.mission-section h3,
-.vision-section h3,
-.values-section h3 {
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    vertical-align: middle;
-    line-height: 1;
-}
-
-/* Fix for list item alignment */
-.values-section li {
-    margin-bottom: 0.5rem;
-}
-
-.values-section li span {
-    display: inline-flex;
-    align-items: center;
-    vertical-align: middle;
-}
-
-/* Grid layout adjustments for better overall alignment */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    align-items: start;  /* Align grid items to the top */
-}
-
-@media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* NASPAA Accreditation Card Styles */
+/* =========================================
+   1. Common Element Styling
+   ========================================= */
 
 /* Card base styling */
 .card {
@@ -1247,13 +1155,56 @@ img {
     box-shadow: var(--shadow-sm);
 }
 
-/* Flex container alignment */
+/* Section styling */
+.section {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography base styles */
+h3, h4, h5 {
+    margin-top: 0;
+    color: var(--text-primary);
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+ul, ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+ul li, ol li {
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   2. Utility Classes
+   ========================================= */
+
+/* Flex utilities */
 .flex {
     display: flex !important;
 }
 
 .items-center {
     align-items: center !important;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+/* Gap utilities */
+.gap-2 {
+    gap: 0.5rem !important;
 }
 
 .gap-3 {
@@ -1264,18 +1215,55 @@ img {
     gap: 1rem !important;
 }
 
-/* Icon styling for better alignment */
-.fas {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important;
+/* Margin utilities */
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+    margin-bottom: 0.75rem;
+}
+
+.mt-1 {
+    margin-top: 0.25rem;
+}
+
+/* Spacing utilities */
+.space-x-4 > * + * {
+    margin-left: 1rem;
+}
+
+.space-y-2 > * + * {
+    margin-top: 0.5rem;
+}
+
+.space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+/* Padding utilities */
+.p-4 {
+    padding: 1rem;
+}
+
+/* Text styling */
+.text-xl {
+    font-size: 1.25rem;
 }
 
 .text-4xl {
     font-size: 2.25rem !important;
 }
 
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+/* Color utilities */
 .text-blue-600 {
     color: var(--medium-blue) !important;
 }
@@ -1284,7 +1272,46 @@ img {
     color: var(--success) !important;
 }
 
-/* Competency grid layout */
+.text-orange-500 {
+    color: var(--titan-orange);
+}
+
+.text-orange-700, .text-orange-800 {
+    color: #c05621; /* Darker orange */
+}
+
+.text-gray-600 {
+    color: var(--text-secondary);
+}
+
+/* Background utilities */
+.bg-blue-50 {
+    background-color: rgba(0, 36, 78, 0.05);
+}
+
+.bg-gray-50 {
+    background-color: var(--bg-secondary);
+}
+
+.bg-orange-50 {
+    background-color: rgba(255, 121, 0, 0.1);
+}
+
+/* Border utilities */
+.border-l-4 {
+    border-left-width: 4px;
+    border-left-style: solid;
+}
+
+.border-orange-500 {
+    border-color: var(--titan-orange);
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+/* Grid utilities */
 .grid {
     display: grid;
 }
@@ -1292,6 +1319,86 @@ img {
 .md\:grid-cols-2 {
     grid-template-columns: repeat(2, 1fr);
 }
+
+/* =========================================
+   3. Icon Styling
+   ========================================= */
+
+/* Universal icon styling */
+.fas {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    position: relative;
+    top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    transform: translateY(0);
+}
+
+/* Card heading icons */
+.card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.card h3 i {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   4. Mission/Vision/Values Sections
+   ========================================= */
+
+.mission-section, .vision-section, .values-section {
+    margin-bottom: 1.5rem;
+}
+
+.mission-section .flex,
+.vision-section .flex,
+.values-section .flex,
+.values-section li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1; /* Fix for vertical alignment */
+}
+
+.mission-section h3,
+.vision-section h3,
+.values-section h3 {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.mission-section p,
+.vision-section p,
+.values-section ul {
+    width: 100%;
+}
+
+.values-section li {
+    margin-bottom: 0.5rem;
+}
+
+.values-section li span {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+/* =========================================
+   5. NASPAA Accreditation
+   ========================================= */
 
 /* Competency item styling */
 .competency-item {
@@ -1304,12 +1411,7 @@ img {
     background: var(--hover-bg);
 }
 
-/* Typography adjustments */
-h3, h4, h5 {
-    margin-top: 0;
-    color: var(--text-primary);
-}
-
+/* Typography refinements */
 h3.text-xl {
     font-size: 1.25rem;
     line-height: 1.3;
@@ -1326,170 +1428,9 @@ h5.font-medium {
     margin-bottom: 0.25rem;
 }
 
-/* Spacing utilities */
-.mb-2 {
-    margin-bottom: 0.5rem;
-}
-
-.mb-3 {
-    margin-bottom: 0.75rem;
-}
-
-.space-y-2 > * + * {
-    margin-top: 0.5rem;
-}
-
-.space-y-4 > * + * {
-    margin-top: 1rem;
-}
-
-/* Background colors */
-.bg-blue-50 {
-    background-color: rgba(0, 36, 78, 0.05); /* Lighter version of your titan-blue */
-}
-
-.bg-gray-50 {
-    background-color: var(--bg-secondary);
-}
-
-/* Text colors */
-.text-sm {
-    font-size: 0.875rem;
-}
-
-.text-gray-600 {
-    color: var(--text-secondary);
-}
-
-/* Border radius */
-.rounded-lg {
-    border-radius: 0.5rem;
-}
-
-/* Padding */
-.p-4 {
-    padding: 1rem;
-}
-
-/* Dark mode adjustments */
-[data-theme="dark"] .bg-blue-50 {
-    background-color: rgba(74, 158, 255, 0.1);
-}
-
-[data-theme="dark"] .bg-gray-50 {
-    background-color: rgba(45, 55, 72, 0.5);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .md\:grid-cols-2 {
-        grid-template-columns: 1fr;
-    }
-    
-    .flex {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .flex.items-center {
-        flex-direction: row;
-    }
-}
-
-/* Capstone & Comprehensive Exam Section Styles */
-
-/* Section styling */
-.section {
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-}
-
-/* Card styling */
-.card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-}
-
-/* Alert styling */
-.bg-orange-50 {
-    background-color: rgba(255, 121, 0, 0.1);
-}
-
-.border-l-4 {
-    border-left-width: 4px;
-    border-left-style: solid;
-}
-
-.border-orange-500 {
-    border-color: var(--titan-orange);
-}
-
-.text-orange-500 {
-    color: var(--titan-orange);
-}
-
-.text-orange-700, .text-orange-800 {
-    color: #c05621; /* Darker orange */
-}
-
-/* Spacing utilities */
-.p-4 {
-    padding: 1rem;
-}
-
-.space-x-4 > * + * {
-    margin-left: 1rem;
-}
-
-.mb-2 {
-    margin-bottom: 0.5rem;
-}
-
-.mt-1 {
-    margin-top: 0.25rem;
-}
-
-/* Typography */
-.text-xl {
-    font-size: 1.25rem;
-}
-
-.font-semibold {
-    font-weight: 600;
-}
-
-/* Flex alignment */
-.flex {
-    display: flex;
-}
-
-.items-start {
-    align-items: flex-start;
-}
-
-/* Icon styling */
-.card h3 {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-    color: var(--text-primary);
-}
-
-.card h3 i {
-    color: var(--primary);
-    font-size: 1.2rem;
-}
+/* =========================================
+   6. Capstone & Exam Components
+   ========================================= */
 
 /* Exam component styling */
 .exam-component {
@@ -1503,7 +1444,6 @@ h5.font-medium {
     font-size: 1.125rem;
     margin-top: 0;
     margin-bottom: 1rem;
-    color: var(--text-primary);
 }
 
 /* Exam details styling */
@@ -1544,7 +1484,6 @@ h5.font-medium {
     margin-bottom: 0;
 }
 
-/* Alternate colors for process steps */
 .process-step:nth-child(2) {
     border-left-color: var(--warning);
 }
@@ -1557,7 +1496,6 @@ h5.font-medium {
     font-size: 1.125rem;
     margin-top: 0;
     margin-bottom: 0.75rem;
-    color: var(--text-primary);
 }
 
 .process-step::before {
@@ -1579,22 +1517,18 @@ h5.font-medium {
     background-color: var(--danger);
 }
 
-/* General content styling */
-ul, ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
+/* =========================================
+   7. Dark Mode Adjustments
+   ========================================= */
+
+[data-theme="dark"] .bg-blue-50 {
+    background-color: rgba(74, 158, 255, 0.1);
 }
 
-ul li, ol li {
-    margin-bottom: 0.5rem;
+[data-theme="dark"] .bg-gray-50 {
+    background-color: rgba(45, 55, 72, 0.5);
 }
 
-p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-/* Dark mode adjustments */
 [data-theme="dark"] .bg-orange-50 {
     background-color: rgba(255, 121, 0, 0.15);
 }
@@ -1604,8 +1538,12 @@ p {
     color: #fbd38d; /* Lighter orange for dark mode */
 }
 
-/* Responsive adjustments */
+/* =========================================
+   8. Responsive Design
+   ========================================= */
+
 @media (max-width: 768px) {
+    /* Section and card adjustments */
     .section {
         padding: 1.5rem;
     }
@@ -1614,11 +1552,39 @@ p {
         padding: 1.25rem;
     }
     
+    /* Grid adjustments */
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Flex adjustments */
+    .flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .flex.items-center {
+        flex-direction: row;
+    }
+    
+    /* Component-specific adjustments */
     .exam-component {
         padding: 1rem;
     }
     
     .process-step {
         padding-left: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mission-section .flex,
+    .vision-section .flex,
+    .values-section .flex {
+        flex-wrap: wrap; /* Allow wrapping on very small screens */
     }
 }
