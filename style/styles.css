@@ -1593,9 +1593,16 @@ h5.font-medium {
 footer a[href^="tel"], footer a[href^="mailto"] {
     color: #fdfeff !important; /* High contrast white */
 }
+[data-theme="light"] #resources a, 
+[data-theme="light"] #introduction footer a {
+    color: #00244E !important; /* Darker CSUF Blue for Light Mode */
+    text-decoration: underline;
+    font-weight: bold;
+}
 
-#resources a, #introduction footer a {
-    color: #fdfeff !important; /* High contrast white */
+[data-theme="dark"] #resources a, 
+[data-theme="dark"] #introduction footer a {
+    color: #fdfeff !important; /* High contrast white for Dark Mode */
     text-decoration: underline;
     font-weight: bold;
 }
@@ -1605,8 +1612,13 @@ footer a[href^="tel"], footer a[href^="mailto"] {
     color: #fdfdff !important; /* Brighter white text */
 }
 
-button.tab {
+[data-theme="light"] button.tab {
     background-color: #2c76d1 !important;
+    color: #FFFFFF !important; /* High contrast white */
+}
+
+[data-theme="dark"] button.tab {
+    background-color: #3B85E0 !important;
     color: #FFFFFF !important; /* High contrast white */
 }
 
