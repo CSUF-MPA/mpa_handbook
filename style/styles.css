@@ -117,7 +117,7 @@ a {
     color: #00244E; /* Darker CSUF blue */
     font-weight: bold;
     text-decoration: underline;
-    transition: color 0.2s ease;
+    transition: color 0.3s ease;
 }
 
 a:hover {
@@ -142,7 +142,7 @@ a:hover {
 
 /* Header Styles */
 .header {
-    background: var(--primary);
+    background: #2c76d1;
     color: white;
     padding: 1rem;
     text-align: center;
@@ -163,7 +163,7 @@ a:hover {
 .header p {
     font-size: 0.9rem;
     margin: 0;
-    color: white;
+    color: #ffffff;
 }
 
 /* =========================================
@@ -258,8 +258,8 @@ a:hover {
 
 .tab {
     padding: 0.75rem 1.5rem;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
+    color: #ffffff;
+    background: #2c76d1;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -267,7 +267,7 @@ a:hover {
 }
 
 .tab:hover {
-    background: var(--hover-bg);
+    background: var(--accent);
 }
 
 .tab.active {
