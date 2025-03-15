@@ -1589,3 +1589,48 @@ h5.font-medium {
         flex-wrap: wrap; /* Allow wrapping on very small screens */
     }
 }
+
+footer a[href^="tel"], footer a[href^="mailto"] {
+    color: #fdfeff !important; /* High contrast white */
+}
+
+#resources a, #introduction footer a {
+    color: #fdfeff !important; /* High contrast white */
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.course-tag.core {
+    background-color: #001d3f !important;
+    color: #fdfdff !important; /* Brighter white text */
+}
+
+button.tab {
+    background-color: #2c76d1 !important;
+    color: #FFFFFF !important; /* High contrast white */
+}
+
+[data-theme="light"] a[href*="mpa_handbook/CSUF_MPA_Handbook_2025-2026.pdf"] {
+    color: #00244E !important; /* Darker CSUF Blue for Light Mode */
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+[data-theme="dark"] a[href*="mpa_handbook/CSUF_MPA_Handbook_2025-2026.pdf"] {
+    color: #fcfeff !important; /* High contrast white for Dark Mode */
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+[data-theme="light"] #contact a[href="https://dadams.io/appt"] {
+    color: #00244E !important; /* Darker CSUF Blue for Light Mode */
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+[data-theme="dark"] #contact a[href="https://dadams.io/appt"] {
+    color: #fcfeff !important; /* High contrast white for Dark Mode */
+    font-weight: bold;
+    text-decoration: underline;
+}
