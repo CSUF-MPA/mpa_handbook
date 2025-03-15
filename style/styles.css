@@ -1,202 +1,27 @@
-/* Navigation - Fixed */
-.navigation {
-    background: var(--secondary);
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+/* 
+ * CSUF Website Styles - Refactored
+ * --------------------------------
+ * Organization:
+ * 1. Theme Variables & Color Schemes
+ * 2. Base & Typography
+ * 3. Layout Components
+ * 4. Navigation
+ * 5. Card & Section Components  
+ * 6. Course Components
+ * 7. Form Elements
+ * 8. Timeline Components
+ * 9. Footer
+ * 10. Utility Classes
+ * 11. Responsive Design
+ * 12. Accessibility
+ * 13. Print Styles
+ */
 
-.nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-}
+/* =========================================
+   1. Theme Variables & Color Schemes
+   ========================================= */
 
-.nav-list a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-    display: block;
-}
-
-.nav-list a:hover {
-    background: var(--accent);
-}
-
-@media (max-width: 768px) {
-    .nav-list {
-        display: none;
-        flex-direction: column;
-        padding: 0;
-    }
-
-    .nav-list.active {
-        display: flex;
-    }
-
-    .nav-list a {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .nav-list a:last-child {
-        border-bottom: none;
-    }
-}
-
-/* Search Container - Fixed */
-.search-container {
-    position: sticky;
-    top: 56px;
-    z-index: 90;
-    background: var(--bg-primary);
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-    margin-bottom: 2rem;
-}
-
-@media (max-width: 768px) {
-    .search-container {
-        position: relative;
-        top: 0;
-        margin-top: 1rem;
-    }
-}
-
-/* Layout Components */
-.content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-/* Navigation - Fixed */
-.navigation {
-    background: var(--secondary);
-    padding: 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-}
-
-.nav-list a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-}
-
-.nav-list a:hover {
-    background: var(--accent);
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .nav-list {
-        display: none;
-        flex-direction: column;
-    }
-
-    .nav-list.active {
-        display: flex;
-    }
-
-    .nav-list a {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-}
-
-/* Grid Layouts - Fixed */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-/* Course Grid */
-.course-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-}
-
-@media (max-width: 768px) {
-    .course-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Faculty Grid - Fixed size */
-.faculty-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-}
-
-/* Mobile-First Header Styles */
-.header {
-    background: var(--primary);
-    color: white;
-    padding: 1rem;
-    text-align: center;
-}
-
-.header h1 {
-    font-size: 1.5rem;
-    margin: 0;
-    color: white;
-}
-
-.header h2 {
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-    color: white;
-}
-
-.header p {
-    font-size: 0.9rem;
-    margin: 0;
-    color: white;
-}
-
-@media (min-width: 768px) {
-    .header {
-        padding: 2rem;
-    }
-
-    .header h1 {
-        font-size: 2rem;
-    }
-
-    .header h2 {
-        font-size: 1.5rem;
-    }
-}
-
-/* CSUF Brand Colors and Theme Variables */
-:root {
+   :root {
     /* CSUF Colors */
     --titan-blue: #00244E;
     --medium-blue: #0F3F8C;
@@ -229,7 +54,7 @@
     --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
 }
 
-/* Dark Theme - Improved Colors */
+/* Dark Theme */
 [data-theme="dark"] {
     --bg-primary: #121620;
     --bg-secondary: #1E2433;
@@ -246,7 +71,33 @@
     --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
 }
 
-/* Base Styles */
+/* Dark Mode Specific Overrides */
+[data-theme="dark"] .course-tag.core { background: #4A9EFF; }
+[data-theme="dark"] .course-tag.hr { background: #3182CE; }
+[data-theme="dark"] .course-tag.finance { background: #38A169; }
+[data-theme="dark"] .course-tag.local { background: #B45309; }
+[data-theme="dark"] .course-tag.policy { background: #805AD5; }
+
+[data-theme="dark"] .timeline-note.warning { background: rgba(255, 152, 0, 0.1); }
+[data-theme="dark"] .timeline-note.honor-society { background: rgba(33, 150, 243, 0.1); }
+
+[data-theme="dark"] .timeline-item { background: var(--card-bg); border: 1px solid var(--border-color); }
+[data-theme="dark"] .checklist-item { color: var(--text-primary); }
+[data-theme="dark"] .checklist-item input[type="checkbox"] { background: var(--bg-primary); border-color: var(--border-color); }
+[data-theme="dark"] .checklist-item:hover { background: var(--hover-bg); }
+[data-theme="dark"] .checklist-label { color: var(--text-primary); }
+[data-theme="dark"] .timeline-date { background: var(--bg-secondary); color: var(--text-secondary); }
+[data-theme="dark"] .timeline-item { color: #e2e8f0; }
+[data-theme="dark"] .progress-bar { background: #3b82f6; }
+[data-theme="dark"] .checklist-item label { color: #e2e8f0; }
+[data-theme="dark"] .timeline-milestone { color: #e2e8f0; background: var(--card-bg); }
+[data-theme="dark"] .timeline-date { color: #94a3b8; }
+[data-theme="dark"] h3, [data-theme="dark"] h4 { color: #f8fafc; }
+
+/* =========================================
+   2. Base & Typography
+   ========================================= */
+
 body {
     font-family: system-ui, -apple-system, sans-serif;
     line-height: 1.6;
@@ -257,7 +108,6 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Typography */
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
     margin-top: 0;
@@ -273,7 +123,102 @@ a:hover {
     color: var(--accent);
 }
 
-/* Card Components - Improved */
+/* =========================================
+   3. Layout Components
+   ========================================= */
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Header Styles */
+.header {
+    background: var(--primary);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: white;
+}
+
+.header h2 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: white;
+}
+
+.header p {
+    font-size: 0.9rem;
+    margin: 0;
+    color: white;
+}
+
+/* =========================================
+   4. Navigation
+   ========================================= */
+
+.navigation {
+    background: var(--secondary);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.nav-list a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    display: block;
+}
+
+.nav-list a:hover {
+    background: var(--accent);
+}
+
+/* Mobile Navigation */
+.menu-toggle {
+    display: none;
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+}
+
+/* =========================================
+   5. Card & Section Components
+   ========================================= */
+
 .card {
     background: var(--card-bg);
     border-radius: 8px;
@@ -289,7 +234,6 @@ a:hover {
     box-shadow: var(--shadow-md);
 }
 
-/* Section Components - Improved */
 .section {
     background: var(--bg-secondary);
     border-radius: 8px;
@@ -297,148 +241,6 @@ a:hover {
     margin-bottom: 2rem;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
-}
-
-/* Course Card Improvements */
-.course-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
-}
-
-.course-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.course-code {
-    color: var(--text-primary);
-    font-weight: bold;
-}
-
-.course-tag {
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    color: white;
-}
-
-
-/* Navigation Improvements */
-.navigation {
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-}
-
-.nav-list a {
-    color: var(--text-primary);
-}
-
-.nav-list a:hover {
-    background: var(--hover-bg);
-    color: var(--primary);
-}
-
-/* Tab System Improvements */
-.tab {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-}
-
-.tab:hover {
-    background: var(--hover-bg);
-}
-
-.tab.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-/* Form Elements */
-input, select, textarea {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border: 1px solid var(--border-color);
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
-}
-
-/* Dark Mode Specific Overrides */
-[data-theme="dark"] .course-tag.core { background: #4A9EFF; }
-[data-theme="dark"] .course-tag.hr { background: #3182CE; }
-[data-theme="dark"] .course-tag.finance { background: #38A169; }
-[data-theme="dark"] .course-tag.local { background: #B45309; }
-[data-theme="dark"] .course-tag.policy { background: #805AD5; }
-
-/* Accessibility Improvements */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        transition: none !important;
-    }
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
-
-:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .content {
-        padding: 1rem;
-    }
-    
-    .grid,
-    .course-grid,
-    .faculty-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Contact Grid */
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.contact-card {
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-}
-
-.contact-header {
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-}
-
-.contact-info {
-    color: var(--text-secondary);
 }
 
 /* Tab System */
@@ -464,8 +266,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .tab:hover {
-    background: var(--accent);
-    color: white;
+    background: var(--hover-bg);
 }
 
 .tab.active {
@@ -487,151 +288,46 @@ input:focus, select:focus, textarea:focus {
     to { opacity: 1; }
 }
 
-/* Checklist Components */
-.checklist-section {
-    margin-bottom: 2rem;
-}
-
-.checklist-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-primary);
-}
-
-.checklist-item:last-child {
-    border-bottom: none;
-}
-
-.checklist-item input[type="checkbox"] {
-    width: 1.2rem;
-    height: 1.2rem;
-    cursor: pointer;
-}
-
-/* Resources Section */
-.resources-container {
+/* Contact Components */
+.contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-top: 1.5rem;
-}
-
-.resource-section {
-    background: var(--bg-secondary);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-}
-
-.resource-header {
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-}
-
-.resource-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.resource-list li {
-    padding: 0.5rem 0;
-    color: var(--text-secondary);
-}
-
-/* Quick Links */
-.quick-links-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.quick-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    border: 1px solid var(--border-color);
-}
-
-.quick-link:hover {
-    background: var(--hover-bg);
-    transform: translateY(-2px);
-}
-
-/* Course Filter Controls */
-.filter-controls {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    width: 100%;
-}
-
-.search-field,
-.filter-field {
-    flex: 1;
-}
-
-.filter-select {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    cursor: pointer;
-}
-
-.search-box {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-.search-container {
-    position: sticky;
-    top: 70px;
-    z-index: 90;
-    background: var(--bg-primary);
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: var(--shadow-sm);
     margin-bottom: 2rem;
-    width: 100%;
 }
 
-.results-count {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
+.contact-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.contact-header {
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-    .filter-controls {
-        flex-direction: column;
-    }
-    
-    .search-container {
-        top: auto;
-        position: relative;
-    }
+.contact-info {
+    color: var(--text-secondary);
 }
 
-/* Course Card - Complete Styling */
+/* =========================================
+   6. Course Components
+   ========================================= */
+
+/* Course Grid */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    min-height: auto;
+}
+
+/* Course Card */
 .course-card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -641,6 +337,12 @@ input:focus, select:focus, textarea:focus {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .course-header {
@@ -675,6 +377,14 @@ input:focus, select:focus, textarea:focus {
     margin-top: auto;
     padding-top: 1rem;
     border-top: 1px solid var(--border-color);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    display: block;
+}
+
+.course-card.active .course-details {
+    max-height: 500px;
 }
 
 .prereq-tag {
@@ -686,133 +396,117 @@ input:focus, select:focus, textarea:focus {
     color: var(--text-secondary);
 }
 
-
-/* Footer */
-.footer {
-    margin-top: 4rem;
-    padding: 2rem 0;
-    background: var(--bg-secondary);
-    border-top: 1px solid var(--border-color);
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.footer-section {
-    color: var(--text-secondary);
-}
-
-.footer-logo {
+/* Search & Filter Components */
+.search-container {
+    position: sticky;
+    top: 56px;
+    z-index: 90;
+    background: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
     width: 100%;
-    max-width: 1000px;
-    height: auto;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.search-box {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.filter-select {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.filter-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: medium;
+}
+
+.results-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
     margin-bottom: 1rem;
 }
 
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+/* Default state: Show only the first three cards */
+.course-grid:not(.expanded) .course-card:nth-child(n+4) {
+    display: none;
 }
 
-.footer-links a {
-    color: var(--text-primary);
-}
-
-/* Mobile Navigation */
-.menu-toggle {
+/* Expanded state */
+.course-grid.expanded .course-card {
     display: block;
-    padding: 1rem;
-    background: none;
-    border: none;
+}
+
+/* =========================================
+   7. Form Elements
+   ========================================= */
+
+input, select, textarea {
+    background: var(--bg-primary);
     color: var(--text-primary);
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    font-size: 1rem;
-}
-
-@media (min-width: 768px) {
-    .menu-toggle {
-        display: none;
-    }
-}
-
-/* Policies Section */
-.policies-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 1.5rem;
-}
-
-.policy-section {
-    background: var(--bg-secondary);
-    padding: 1.5rem;
-    border-radius: 8px;
     border: 1px solid var(--border-color);
 }
 
-.policy-section h4 {
-    color: var(--text-primary);
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
 }
 
-.policy-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* Checklist Components */
+.checklist-container {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
 }
 
-.policy-list li {
-    margin-bottom: 0.75rem;
-}
-
-.policy-list a {
-    color: var(--text-primary);
-    text-decoration: none;
-    display: block;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.policy-list a:hover {
-    background: var(--hover-bg);
-    transform: translateX(4px);
-}
-
-/* Theme Toggle */
-.theme-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1000;
-    background: var(--secondary);
-    color: white;
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
+.checklist-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    box-shadow: var(--shadow-md);
-    transition: all 0.2s ease;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
 }
 
-.theme-toggle:hover {
-    background: var(--accent);
-    transform: translateY(-1px);
+.checklist-item:last-child {
+    border-bottom: none;
+}
+
+.checklist-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+}
+
+.checklist-item label {
+    flex: 1;
+    cursor: pointer;
 }
 
 /* Progress Indicators */
@@ -826,216 +520,14 @@ input:focus, select:focus, textarea:focus {
 
 .progress-bar {
     height: 100%;
-    background: var(--success);
+    background: var(--medium-blue);
     transition: width 0.3s ease;
 }
 
-.progress-bar {
-    background-color: var(--medium-blue); /* Ensure high contrast */
-    color: var(--text-primary); /* Text inside progress bar (if any) */
-}
+/* =========================================
+   8. Timeline Components
+   ========================================= */
 
-.finance.course-tag {
-    color: var(--titan-blue); /* Darker text */
-    background-color: var(--light-gray); /* Contrasting background */
-}
-
-/* Timeline Container */
-.timeline {
-    position: relative;
-    padding-left: 2rem;
-    border-left: 3px solid var(--titan-blue); /* Adjust to your theme color */
-    margin: 2rem 0;
-}
-
-/* Individual Timeline Item */
-.timeline-item {
-    position: relative;
-    margin-bottom: 1.5rem;
-    padding-left: 2rem; /* Ensure text doesn't overlap the line */
-}
-
-/* Circle Icon Before Each Item */
-.timeline-item:before {
-    content: '';
-    position: absolute;
-    top: 50%; /* Center the circle vertically */
-    transform: translateY(-50%);
-    left: -12px; /* Position relative to the timeline line */
-    width: 16px; /* Adjust size for better visibility */
-    height: 16px;
-    background-color: var(--titan-orange); /* Circle color */
-    border-radius: 50%; /* Makes it a circle */
-    border: 3px solid var(--titan-blue); /* Outline matching the timeline line */
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-/* Timeline Header Style */
-.timeline-item h3 {
-    font-size: 1.25rem; /* Uniform font size */
-    color: var(--titan-blue);
-    margin-bottom: 0.5rem;
-}
-
-/* Hover Effects */
-.timeline-item:hover:before {
-    background-color: var(--accent); /* Highlight color on hover */
-    transform: translateY(-50%) scale(1.1); /* Slightly enlarge the circle */
-}
-
-/* Responsive Design for Mobile Screens */
-@media (max-width: 768px) {
-    .timeline {
-        border-left: none; /* Remove vertical line for mobile */
-        padding-left: 0;
-    }
-
-    .timeline-item {
-        padding-left: 0; /* Align text to the left */
-    }
-
-    .timeline-item:before {
-        left: 0; /* Position the icon closer to the text */
-        top: auto; /* Reset top alignment */
-        transform: translateY(0); /* Reset translate */
-    }
-}
-
-/* Pop-Out Button */
-.popout-button {
-    position: fixed; /* Keeps it anchored */
-    top: 1rem; /* Adjust relative to the viewport */
-    right: 6rem; /* Adjust placement */
-    z-index: 1000; /* Ensures visibility */
-    background: var(--secondary);
-    color: white;
-    border: none;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    box-shadow: var(--shadow-md);
-    transition: all 0.2s ease;
-    text-decoration: none;
-}
-
-.popout-button:hover {
-    background: var(--accent);
-    transform: translateY(-1px);
-}
-
-/* Handle Narrow Screens */
-
-/* Default state: Show only the first three cards */
-.course-card {
-    display: none; /* Hide all cards */
-}
-
-.course-card:nth-child(-n+3) {
-    display: block; /* Show the first three cards */
-}
-
-/* Expanded state: Show all cards */
-.course-grid.expanded .course-card {
-    display: block; /* Show all cards */
-}
-
-/* Optional: Smooth expansion/collapse effect */
-.course-grid {
-    max-height: 300px; /* Height of 3 cards by default */
-    overflow: hidden; /* Hide extra content */
-    transition: max-height 0.3s ease-in-out;
-}
-
-.course-grid.expanded {
-    max-height: 2000px; /* Large enough to fit all cards */
-}
-
-
-/* Print Styles */
-@media print {
-    body {
-        background: white;
-        color: black;
-    }
-    
-    .card,
-    .section {
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
-}
-
-/* Capstone Section Styles */
-.exam-component {
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-top: 1rem;
-}
-
-.exam-details ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.exam-details li {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.exam-details li:last-child {
-    border-bottom: none;
-}
-
-.process-step {
-    border-left: 4px solid var(--primary);
-    padding-left: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.process-step:nth-child(2) {
-    border-left-color: var(--warning);
-}
-
-.process-step:nth-child(3) {
-    border-left-color: var(--danger);
-}
-
-.prereq-info .grid-cols-2 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.checklist li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .prereq-info .grid-cols-2 {
-        grid-template-columns: 1fr;
-    }
-    
-    .exam-details li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-}
-
-/* Timeline Container */
 .timeline {
     position: relative;
     padding-left: 3rem;
@@ -1121,40 +613,6 @@ input:focus, select:focus, textarea:focus {
     margin: 0.5rem 0 1rem;
 }
 
-/* Checklist Container */
-.checklist-container {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-}
-
-/* Checklist Items */
-.checklist-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.checklist-item:last-child {
-    border-bottom: none;
-}
-
-.checklist-item input[type="checkbox"] {
-    width: 1.2rem;
-    height: 1.2rem;
-    border: 2px solid var(--primary);
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.checklist-item label {
-    flex: 1;
-    cursor: pointer;
-}
-
 /* Timeline Notes */
 .timeline-note {
     margin-top: 1rem;
@@ -1216,103 +674,212 @@ input:focus, select:focus, textarea:focus {
     color: var(--primary);
 }
 
-/* Progress Container */
-.progress-container {
+/* Resource Card Layout Improvements */
+
+/* Ensure resources container displays in 3 columns */
+.resources-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+    width: 100%; /* Ensure it takes full width of parent */
+}
+
+/* Ensure policies container displays in 3 columns as well */
+.policies-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* Adjust the resource sections to properly fit */
+.resource-section {
     background: var(--bg-secondary);
+    padding: 1.25rem;
     border-radius: 8px;
-    height: 0.5rem;
-    overflow: hidden;
-    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+    height: 100%; /* Ensure equal height */
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
-.progress-bar {
+/* Adjust policy sections similarly */
+.policy-section {
+    background: var(--bg-secondary);
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
     height: 100%;
-    background: var(--primary);
-    transition: width 0.3s ease;
+    box-sizing: border-box;
 }
 
-/* Responsive Adjustments */
+/* Quick links container should also use a 3-column grid */
+
+/* Quick links container adjustments */
+.quick-links-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+/* Better responsive adjustments with earlier breakpoints */
+@media (max-width: 1100px) {
+    .resources-container,
+    .policies-container,
+    .quick-links-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .timeline {
-        padding-left: 2rem;
+    .resources-container,
+    .policies-container,
+    .quick-links-container {
+        grid-template-columns: 1fr;
     }
-
-    .timeline-marker {
-        left: -2rem;
-        width: 2rem;
-        height: 2rem;
-    }
-
-    .timeline-marker i {
-        font-size: 1rem;
-    }
-
-    .timeline-content {
+    
+    .resource-section,
+    .policy-section {
         padding: 1rem;
     }
-
-    .checklist-container {
-        padding: 0.75rem;
-    }
-
-    .timeline-note {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
 }
 
-/* Dark Mode Adjustments */
-[data-theme="dark"] .timeline-note.warning {
-    background: rgba(255, 152, 0, 0.1);
+/* Ensure resource lists have appropriate spacing and sizing */
+.resource-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-[data-theme="dark"] .timeline-note.honor-society {
-    background: rgba(33, 150, 243, 0.1);
+.resource-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    font-size: 0.95rem; /* Slightly smaller font for better fit */
 }
 
-/* Print Styles */
-@media print {
-    .timeline::before {
-        display: none;
-    }
-
-    .timeline-marker {
-        border: none;
-        background: none;
-    }
-
-    .timeline-content {
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
-
-    .checklist-container {
-        border: 1px solid #ddd;
-    }
+.resource-list i {
+    margin-top: 0.25rem;
+    color: var(--primary);
+    min-width: 1rem;
+    text-align: center;
 }
+
+/* Adjust heading sizes for better fit */
+.resource-section h4,
+.policy-section h4 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+/* Ensure links don't overflow */
+.resource-list a,
+.policy-list a {
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* Policy list styling */
+.policy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.policy-list li {
+    margin-bottom: 0.75rem;
+}
+
+.policy-list a {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.policy-list a:hover {
+    background: var(--hover-bg);
+    transform: translateX(4px);
+}
+
+.policy-list i {
+    color: var(--primary);
+    min-width: 1rem;
+    text-align: center;
+}
+
+/* Resource header styling */
+.resource-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.resource-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.resource-header i {
+    color: var(--primary);
+}
+
+/* =========================================
+   9. Footer
+   ========================================= */
+
 .footer {
     background: var(--bg-secondary);
     padding: 2rem 0;
     margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
 }
 
 .footer-section {
     margin-bottom: 2rem;
+    color: var(--text-secondary);
 }
 
 .footer-logo {
     max-width: 400px;
     margin-bottom: 1rem;
+    width: 100%;
+    height: auto;
 }
 
 .footer-address p {
     margin-bottom: 0.5rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--text-primary);
 }
 
 .social-links {
@@ -1331,189 +898,22 @@ input:focus, select:focus, textarea:focus {
     color: var(--accent);
 }
 
-/.search-container {
-    padding: 1rem;
-    width: 100%;
+/* =========================================
+   10. Utility Classes
+   ========================================= */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
-.filter-controls {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.search-box,
-.filter-select {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    height: 40px;
-}
-
-.results-count {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .filter-controls {
-        flex-direction: column;
-    }
-}
-
-/* Create a container for both buttons */
-.utility-buttons {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    display: flex;
-    gap: 0.5rem;
-    z-index: 100;
-}
-
-.theme-toggle,
-.popout-button {
-    background: var(--secondary);
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    box-shadow: var(--shadow-md);
-    transition: all 0.2s ease;
-}
-
-.theme-toggle:hover,
-.popout-button:hover {
-    background: var(--accent);
-    transform: translateY(-2px);
-}
-
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-    .utility-buttons {
-        bottom: env(safe-area-inset-bottom, 1rem); /* For devices with home indicator */
-    }
-}
-.filter-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: medium;
-}
-
-.filter-select {
-    width: 100%;
-    max-width: 300px;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .timeline-item {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-}
-
-[data-theme="dark"] .checklist-item {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .checklist-item input[type="checkbox"] {
-    background: var(--bg-primary);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .checklist-item:hover {
-    background: var(--hover-bg);
-}
-
-[data-theme="dark"] .checklist-label {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .timeline-date {
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .timeline-item {
-    color: #e2e8f0; /* Lighter text color for better contrast */
-}
-
-[data-theme="dark"] .progress-bar {
-    background: #3b82f6; /* Brighter blue for progress bar */
-}
-
-[data-theme="dark"] .checklist-item label {
-    color: #e2e8f0; /* Lighter text */
-}
-
-[data-theme="dark"] .timeline-milestone {
-    color: #e2e8f0; /* Lighter text */
-    background: var(--card-bg);
-}
-
-[data-theme="dark"] .timeline-date {
-    color: #94a3b8; /* Softer secondary text color */
-}
-
-[data-theme="dark"] h3,
-[data-theme="dark"] h4 {
-    color: #f8fafc; /* Very light headings */
-}
-
-img {
-    width: 100%;
-    max-width: 18rem; /* Adjust for desired size */
-    height: auto; /* Maintain aspect ratio */
-}
-
-@media (min-width: 640px) {
-    img {
-        max-width: 24rem;
-    }
-}
-
-@media (min-width: 768px) {
-    img {
-        max-width: 32rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    img {
-        max-width: 36rem;
-    }
-}
-
-
-/* Media query to adjust buttons on mobile */
-@media (max-width: 768px) {
-    .utility-buttons {
-      position: fixed; 
-      bottom: 1rem;
-      right: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      z-index: 1000;
-    }
-   
-    .theme-toggle,
-    .popout-button {
-      width: 2.5rem;
-      height: 2.5rem;
-      padding: 0.5rem;
-    }
-   }
-
+/* Theme Toggle & Utility Buttons */
 .utility-buttons {
     position: fixed;
     bottom: 1rem;
@@ -1532,9 +932,18 @@ img {
     align-items: center;
     justify-content: center;
     background: var(--secondary);
+    color: white;
     border: none;
     border-radius: 4px;
-    color: white;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover,
+.popout-button:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
 }
 
 .theme-toggle i,
@@ -1542,29 +951,674 @@ img {
     font-size: 16px;
 }
 
-/* Ensure course grid resizes dynamically */
-.course-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    min-height: auto; /* Allow it to grow dynamically */
-}
-
-/* Ensure all filtered cards fit properly */
-.course-card {
-    display: block; /* Ensure visibility when needed */
-}
-
-/* Accordion content styling */
+/* Accordion Styles */
 .accordion-content {
-    display: none;
+    display: block;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
     max-height: 0;
+    transition: max-height 0.3s ease-out;
 }
 
 .accordion-content.active {
-    display: block;
-    max-height: 1000px; /* Adjust as needed */
+    max-height: 1000px;
+}
+
+/* =========================================
+   11. Responsive Design
+   ========================================= */
+
+/* Image Scaling */
+img {
+    width: 100%;
+    max-width: 18rem;
+    height: auto;
+}
+
+/* Media Queries */
+@media (min-width: 640px) {
+    img {
+        max-width: 24rem;
+    }
+}
+
+@media (min-width: 768px) {
+    img {
+        max-width: 32rem;
+    }
+    
+    .header {
+        padding: 2rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .menu-toggle {
+        display: none;
+    }
+    
+    .nav-list {
+        display: flex !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    img {
+        max-width: 36rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 1rem;
+    }
+    
+    .grid,
+    .course-grid,
+    .faculty-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
+
+    .nav-list a {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-list a:last-child {
+        border-bottom: none;
+    }
+    
+    .search-container {
+        position: relative;
+        top: 0;
+        margin-top: 1rem;
+    }
+    
+    .filter-controls {
+        flex-direction: column;
+    }
+    
+    .timeline {
+        padding-left: 2rem;
+    }
+
+    .timeline-marker {
+        left: -2rem;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .timeline-marker i {
+        font-size: 1rem;
+    }
+
+    .timeline-content {
+        padding: 1rem;
+    }
+
+    .timeline-note {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .utility-buttons {
+        flex-direction: column;
+    }
+}
+
+/* =========================================
+   12. Accessibility
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* =========================================
+   13. Print Styles
+========================================= */
+
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .card,
+    .section {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .timeline::before {
+        display: none;
+    }
+
+    .timeline-marker {
+        border: none;
+        background: none;
+    }
+
+    .timeline-content {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .checklist-container {
+        border: 1px solid #ddd;
+    }
+    
+    .utility-buttons,
+    .navigation {
+        display: none;
+    }
+}
+
+/* Ensure flex layout works properly for mission/vision/values sections */
+.mission-section, .vision-section, .values-section {
+    margin-bottom: 1.5rem;
+}
+
+/* Fix the header icon layout */
+.mission-section .flex,
+.vision-section .flex,
+.values-section .flex,
+.values-section li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: row; /* Force horizontal layout */
+}
+
+/* Specific vertical alignment for icons */
+.fas.fa-bullseye,
+.fas.fa-eye,
+.fas.fa-heart,
+.fas.fa-check-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 0;  /* Reset any top positioning */
+    margin-top: 0;  /* Reset any margin */
+    margin-bottom: 0;  /* Reset any margin */
+    vertical-align: middle;  /* Improve vertical alignment */
+    transform: translateY(0);  /* Reset any transforms */
+}
+
+/* Ensure text wraps properly */
+.mission-section p,
+.vision-section p,
+.values-section ul {
+    width: 100%;
+}
+
+/* Media query to handle very small screens */
+@media (max-width: 480px) {
+    .mission-section .flex,
+    .vision-section .flex,
+    .values-section .flex {
+        flex-wrap: wrap; /* Allow wrapping on very small screens */
+    }
+}
+
+/* Override any problematic global styles */
+.flex {
+    display: flex !important;
+}
+
+.items-center {
+    align-items: center !important;
+}
+
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+
+
+/* Fix for heading alignment */
+.mission-section h3,
+.vision-section h3,
+.values-section h3 {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+/* Fix for list item alignment */
+.values-section li {
+    margin-bottom: 0.5rem;
+}
+
+.values-section li span {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+/* Grid layout adjustments for better overall alignment */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;  /* Align grid items to the top */
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* NASPAA Accreditation Card Styles */
+
+/* Card base styling */
+.card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Flex container alignment */
+.flex {
+    display: flex !important;
+}
+
+.items-center {
+    align-items: center !important;
+}
+
+.gap-3 {
+    gap: 0.75rem !important;
+}
+
+.gap-4 {
+    gap: 1rem !important;
+}
+
+/* Icon styling for better alignment */
+.fas {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.text-4xl {
+    font-size: 2.25rem !important;
+}
+
+.text-blue-600 {
+    color: var(--medium-blue) !important;
+}
+
+.text-green-500 {
+    color: var(--success) !important;
+}
+
+/* Competency grid layout */
+.grid {
+    display: grid;
+}
+
+.md\:grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Competency item styling */
+.competency-item {
+    padding: 0.75rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.competency-item:hover {
+    background: var(--hover-bg);
+}
+
+/* Typography adjustments */
+h3, h4, h5 {
+    margin-top: 0;
+    color: var(--text-primary);
+}
+
+h3.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+h4.font-semibold {
+    font-size: 1.125rem;
+    line-height: 1.3;
+}
+
+h5.font-medium {
+    font-size: 1rem;
+    line-height: 1.3;
+    margin-bottom: 0.25rem;
+}
+
+/* Spacing utilities */
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+    margin-bottom: 0.75rem;
+}
+
+.space-y-2 > * + * {
+    margin-top: 0.5rem;
+}
+
+.space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+/* Background colors */
+.bg-blue-50 {
+    background-color: rgba(0, 36, 78, 0.05); /* Lighter version of your titan-blue */
+}
+
+.bg-gray-50 {
+    background-color: var(--bg-secondary);
+}
+
+/* Text colors */
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-gray-600 {
+    color: var(--text-secondary);
+}
+
+/* Border radius */
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+/* Padding */
+.p-4 {
+    padding: 1rem;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .bg-blue-50 {
+    background-color: rgba(74, 158, 255, 0.1);
+}
+
+[data-theme="dark"] .bg-gray-50 {
+    background-color: rgba(45, 55, 72, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .flex.items-center {
+        flex-direction: row;
+    }
+}
+
+/* Capstone & Comprehensive Exam Section Styles */
+
+/* Section styling */
+.section {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+}
+
+/* Card styling */
+.card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Alert styling */
+.bg-orange-50 {
+    background-color: rgba(255, 121, 0, 0.1);
+}
+
+.border-l-4 {
+    border-left-width: 4px;
+    border-left-style: solid;
+}
+
+.border-orange-500 {
+    border-color: var(--titan-orange);
+}
+
+.text-orange-500 {
+    color: var(--titan-orange);
+}
+
+.text-orange-700, .text-orange-800 {
+    color: #c05621; /* Darker orange */
+}
+
+/* Spacing utilities */
+.p-4 {
+    padding: 1rem;
+}
+
+.space-x-4 > * + * {
+    margin-left: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mt-1 {
+    margin-top: 0.25rem;
+}
+
+/* Typography */
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+/* Flex alignment */
+.flex {
+    display: flex;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+/* Icon styling */
+.card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.card h3 i {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+/* Exam component styling */
+.exam-component {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.exam-component h4 {
+    font-size: 1.125rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Exam details styling */
+.exam-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exam-details li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.exam-details li:last-child {
+    border-bottom: none;
+}
+
+.exam-details li i {
+    color: var(--primary);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+/* Process steps styling */
+.process-step {
+    border-left: 4px solid var(--primary);
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.process-step:last-child {
+    margin-bottom: 0;
+}
+
+/* Alternate colors for process steps */
+.process-step:nth-child(2) {
+    border-left-color: var(--warning);
+}
+
+.process-step:nth-child(3) {
+    border-left-color: var(--danger);
+}
+
+.process-step h4 {
+    font-size: 1.125rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.process-step::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    background-color: var(--primary);
+    border-radius: 50%;
+}
+
+.process-step:nth-child(2)::before {
+    background-color: var(--warning);
+}
+
+.process-step:nth-child(3)::before {
+    background-color: var(--danger);
+}
+
+/* General content styling */
+ul, ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+ul li, ol li {
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .bg-orange-50 {
+    background-color: rgba(255, 121, 0, 0.15);
+}
+
+[data-theme="dark"] .text-orange-700, 
+[data-theme="dark"] .text-orange-800 {
+    color: #fbd38d; /* Lighter orange for dark mode */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section {
+        padding: 1.5rem;
+    }
+    
+    .card {
+        padding: 1.25rem;
+    }
+    
+    .exam-component {
+        padding: 1rem;
+    }
+    
+    .process-step {
+        padding-left: 1rem;
+    }
 }

@@ -1,28 +1,92 @@
 // Theme Management
+// Theme Management
 function initializeTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Get saved theme or use preferred color scheme as fallback
+    const savedTheme = localStorage.getItem('theme') || 
+                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    // Apply theme to document
     document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    // Update toggle button icon
     updateThemeToggleIcon(savedTheme);
+    
+    console.log('Theme initialized:', savedTheme);
 }
 
 function toggleTheme() {
     const root = document.documentElement;
     const currentTheme = root.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    // Apply new theme
     root.setAttribute('data-theme', newTheme);
+    
+    // Save preference
     localStorage.setItem('theme', newTheme);
+    
+    // Update button icon
     updateThemeToggleIcon(newTheme);
+    
+    console.log('Theme toggled to:', newTheme);
 }
 
 function updateThemeToggleIcon(theme) {
     const icon = document.querySelector('.theme-toggle i');
     if (icon) {
+        // Clear all existing classes first
+        icon.className = '';
+        // Add the appropriate icon class
         icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        console.log('Theme icon updated:', icon.className);
     } else {
-        console.warn('Theme toggle icon not found.');
+        console.warn('Theme toggle icon not found. Looking for .theme-toggle i element.');
     }
 }
 
+// Initialize all functionality
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded - Setting up theme toggle');
+
+    // Initialize theme first
+    initializeTheme();
+    
+    // Add theme toggle event listener
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+        console.log('Theme toggle button listener attached');
+    } else {
+        console.warn('Theme toggle button not found. Looking for .theme-toggle element.');
+    }
+    
+    // Other initializations
+    initializeTabs();
+    initializeChecklists();
+    
+    // These functions might not exist or have errors
+    try {
+        if (typeof initializeFAQ === 'function') initializeFAQ();
+        if (typeof initializeMobileNav === 'function') initializeMobileNav();
+    } catch (error) {
+        console.error('Error initializing optional components:', error);
+    }
+});
+
+// For debugging - add to your HTML
+function checkThemeToggle() {
+    const button = document.querySelector('.theme-toggle');
+    const icon = document.querySelector('.theme-toggle i');
+    const theme = document.documentElement.getAttribute('data-theme');
+    
+    console.log({
+        'Button exists': !!button,
+        'Icon exists': !!icon,
+        'Current theme': theme,
+        'Button HTML': button ? button.outerHTML : 'Not found',
+        'Current icon class': icon ? icon.className : 'Not found'
+    });
+}
 // Concentration Tabs Functionality
 function initializeTabs() {
     const tabs = document.querySelectorAll('.tab');
@@ -176,68 +240,164 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeChecklists();
 });
 
-// Course Filtering and Accordion Functionality
-document.addEventListener('DOMContentLoaded', function () {
-    // Dropdown Filtering Logic
+/**
+ * Course Catalog - Filtering and Accordion Functionality
+ * 
+ * This script provides two main functionalities:
+ * 1. Filtering courses by category (core, HR, finance, etc.)
+ * 2. Expanding/collapsing course details with accordion behavior
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Course Filtering Logic
     const courseFilter = document.getElementById('courseFilter');
     const courses = document.querySelectorAll('.course-card');
     const courseGrid = document.getElementById('courseGrid');
-
+    const resultsCount = document.getElementById('courseResults');
+    
     if (courseFilter) {
-        courseFilter.addEventListener('change', function () {
+        // Initial count display
+        updateResultsCount('all');
+        
+        // Filter change event
+        courseFilter.addEventListener('change', function() {
             const selectedCategory = this.value;
-            let visibleCourses = 0;
-
-            courses.forEach(course => {
-                const categories = course.getAttribute('data-categories').split(' ');
-                
-                if (selectedCategory === 'all' || categories.includes(selectedCategory)) {
-                    course.style.display = 'block';
-                    visibleCourses++;
-                } else {
-                    course.style.display = 'none';
-                }
-            });
+            filterCourses(selectedCategory);
+        });
+    }
+    
+    // Course Accordion Functionality
+    courses.forEach(card => {
+        // Only add click handler to cards with course-details
+        if (card.querySelector('.course-details')) {
+            // Make the whole card header clickable
+            const cardHeader = card.querySelector('h3');
+            if (cardHeader) {
+                cardHeader.style.cursor = 'pointer';
+                cardHeader.addEventListener('click', function(e) {
+                    toggleCourseDetails(card);
+                });
+            }
             
-            // Adjust section height dynamically
-            if (visibleCourses > 0) {
-                courseGrid.style.minHeight = (visibleCourses * 100) + 'px';
+            // Also make the course-header clickable
+            const courseHeader = card.querySelector('.course-header');
+            if (courseHeader) {
+                courseHeader.style.cursor = 'pointer';
+                courseHeader.addEventListener('click', function(e) {
+                    toggleCourseDetails(card);
+                });
+            }
+        }
+    });
+    
+    /**
+     * Filter courses based on selected category
+     * @param {string} category - The category to filter by
+     */
+    function filterCourses(category) {
+        let visibleCourses = 0;
+        
+        courses.forEach(course => {
+            const categories = course.getAttribute('data-categories').split(' ');
+            
+            if (category === 'all' || categories.includes(category)) {
+                course.style.display = 'flex';
+                visibleCourses++;
             } else {
-                courseGrid.style.minHeight = 'auto';
+                course.style.display = 'none';
+            }
+            
+            // Close any open course details when filtering
+            if (course.classList.contains('active')) {
+                course.classList.remove('active');
             }
         });
+        
+        // Update the results count display
+        updateResultsCount(category, visibleCourses);
     }
-
-    // Accordion Functionality
-    const accordions = document.querySelectorAll('.accordion-header');
-
-    if (accordions.length > 0) {
-        accordions.forEach(header => {
-            header.addEventListener('click', function () {
-                const content = this.nextElementSibling;
-                
-                if (!content.classList.contains('active')) {
-                    // Close all open accordions
-                    document.querySelectorAll('.accordion-content').forEach(item => {
-                        item.style.maxHeight = null;
-                        item.classList.remove('active');
-                    });
-                    
-                    // Open clicked accordion
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    content.classList.add('active');
-                    content.style.overflow = 'visible'; // Ensure content is fully shown
-                } else {
-                    content.style.maxHeight = null;
-                    content.classList.remove('active');
-                    content.style.overflow = 'hidden';
+    
+    /**
+     * Toggle the accordion state of a course card
+     * @param {Element} card - The course card element
+     */
+    function toggleCourseDetails(card) {
+        // Toggle active class for this card
+        card.classList.toggle('active');
+        
+        // If we're opening this card, close any others that are open
+        if (card.classList.contains('active')) {
+            courses.forEach(otherCard => {
+                if (otherCard !== card && otherCard.classList.contains('active')) {
+                    otherCard.classList.remove('active');
                 }
             });
-        });
+        }
     }
+    
+    /**
+     * Update the results count display
+     * @param {string} category - The currently selected category
+     * @param {number} count - The number of visible courses
+     */
+    function updateResultsCount(category, count) {
+        if (!resultsCount) return;
+        
+        // If count is undefined (initial load), calculate it
+        if (count === undefined) {
+            count = 0;
+            courses.forEach(course => {
+                const categories = course.getAttribute('data-categories').split(' ');
+                if (category === 'all' || categories.includes(category)) {
+                    count++;
+                }
+            });
+        }
+        
+        // Format the category name for display
+        let categoryName = 'All Courses';
+        if (category !== 'all') {
+            // Convert category ID to display name
+            const categoryMap = {
+                'core': 'Core Requirements',
+                'hr': 'Human Resources',
+                'finance': 'Public Finance',
+                'local': 'Local Government',
+                'policy': 'Public Policy',
+                'advisor': 'Advisor Electives'
+            };
+            categoryName = categoryMap[category] || category;
+        }
+        
+        // Update the results count text
+        resultsCount.textContent = `Showing ${count} ${categoryName} courses`;
+    }
+    
+    // Add keyboard accessibility for accordion
+    courses.forEach(card => {
+        const clickableElements = [
+            card.querySelector('h3'), 
+            card.querySelector('.course-header')
+        ];
+        
+        clickableElements.forEach(element => {
+            if (element) {
+                element.setAttribute('tabindex', '0');
+                element.setAttribute('role', 'button');
+                element.setAttribute('aria-expanded', 'false');
+                
+                element.addEventListener('keydown', function(e) {
+                    // Activate on Enter or Space
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleCourseDetails(card);
+                        this.setAttribute('aria-expanded', card.classList.contains('active').toString());
+                    }
+                });
+            }
+        });
+    });
 });
-
-
 // Mobile Navigation
 function initializeMobileNav() {
     const menuToggle = document.querySelector('.menu-toggle');
