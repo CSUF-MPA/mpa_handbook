@@ -252,18 +252,50 @@ document.addEventListener('DOMContentLoaded', function() {
     // Course Filtering Logic
     const courseFilter = document.getElementById('courseFilter');
     const courses = document.querySelectorAll('.course-card');
-    const courseGrid = document.getElementById('courseGrid');
+    const courseGrid = document.getElementById('courseGrid'); // Keep if needed for future .expanded class
     const resultsCount = document.getElementById('courseResults');
-    
-    if (courseFilter) {
+    const collapseCourseListBtn = document.getElementById('collapseCourseListBtn'); // Get the button
+
+    if (courseFilter) { // This also implies collapseCourseListBtn would only be relevant if courseFilter exists
         // Initial count display
-        updateResultsCount('all');
-        
+        updateResultsCount('all'); // This just updates text, doesn't show/hide courses
+
         // Filter change event
         courseFilter.addEventListener('change', function() {
             const selectedCategory = this.value;
-            filterCourses(selectedCategory);
+            filterCourses(selectedCategory); // This function shows/hides courses
+
+            if (collapseCourseListBtn) { // Check if button exists
+                if (selectedCategory === 'all') {
+                    // Assuming filterCourses('all') makes all courses visible
+                    collapseCourseListBtn.style.display = 'inline-flex';
+                } else {
+                    collapseCourseListBtn.style.display = 'none';
+                }
+            }
         });
+
+        if (collapseCourseListBtn) { // Check if button exists
+            collapseCourseListBtn.addEventListener('click', function() {
+                const numToShow = 3; // Number of courses to show in collapsed state
+                let visibleCount = 0;
+                courses.forEach((course, index) => {
+                    if (index < numToShow) {
+                        course.style.display = 'flex'; // Match display style from filterCourses
+                        visibleCount++;
+                    } else {
+                        course.style.display = 'none';
+                    }
+                });
+                this.style.display = 'none'; // Hide the collapse button itself
+
+                if (resultsCount) {
+                    resultsCount.textContent = `Showing ${visibleCount} courses. Select "All Courses" to expand or choose a filter.`;
+                }
+            });
+        }
+        // No special initial show for collapseCourseListBtn, it starts hidden.
+        // It will only show after user selects "All Courses" filter.
     }
     
     // Course Accordion Functionality

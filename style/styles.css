@@ -420,6 +420,35 @@ a:hover {
     gap: 1rem;
     margin-bottom: 1.5rem;
     width: 100%;
+    align-items: center; /* Added for vertical alignment */
+}
+
+/* New styles for the collapse button */
+.btn-collapse-courses {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary); /* Use a subtle background */
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Match filter-select */
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    display: inline-flex; /* For icon and text alignment */
+    align-items: center;
+}
+
+.btn-collapse-courses:hover {
+    background-color: var(--hover-bg); /* Use theme hover color */
+    border-color: var(--primary); /* Use theme primary color for border emphasis */
+}
+
+.btn-collapse-courses:focus-visible {
+    outline: 2px solid var(--accent); /* Theme accent for focus */
+    outline-offset: 2px;
+}
+
+.btn-collapse-courses i {
+    margin-right: 0.5rem; /* Space between icon and text */
 }
 
 .search-box {
