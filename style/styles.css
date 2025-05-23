@@ -925,12 +925,14 @@ input:focus, select:focus, textarea:focus {
     bottom: 1rem;
     right: 1rem;
     display: flex;
+    flex-direction: column; /* Changed from row to column */
     gap: 0.5rem;
     z-index: 1000;
 }
 
 .theme-toggle,
-.popout-button {
+.popout-button,
+#backToTopBtn { /* Added #backToTopBtn here */
     width: 40px;
     height: 40px;
     padding: 0;
@@ -955,6 +957,25 @@ input:focus, select:focus, textarea:focus {
 .theme-toggle i,
 .popout-button i {
     font-size: 16px;
+}
+
+/* Back to Top Button Specific Styles */
+#backToTopBtn {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#backToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#backToTopBtn:hover { /* Ensures hover styles apply correctly, potentially overriding shared ones if needed */
+    background: var(--accent);
+    transform: translateY(-2px); /* Keep this for hover, adjust if conflicts with show/hide */
 }
 
 /* Accordion Styles */

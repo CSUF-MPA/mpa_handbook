@@ -398,6 +398,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function initializeBackToTopButton() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        console.log('Back to Top button initialized.');
+    } else {
+        console.warn('Back to Top button not found (ID: backToTopBtn).');
+    }
+}
+
 // Mobile Navigation
 function initializeMobileNav() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -444,6 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeTheme();
     initializeTabs();
     initializeChecklists();
+    initializeBackToTopButton(); // Added this line
     initializeFAQ();
     initializeMobileNav();
 
