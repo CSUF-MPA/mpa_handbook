@@ -108,6 +108,25 @@ body {
     transition: background-color 0.3s ease;
 }
 
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 1rem;
+    background: var(--accent);
+    color: #1a1a1a;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    z-index: 1000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    top: 1rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
     margin-top: 0;
@@ -209,7 +228,7 @@ a:hover {
     padding: 1rem;
     background: none;
     border: none;
-    color: var(--text-primary);
+    color: #ffffff;
     cursor: pointer;
     width: 100%;
     text-align: left;
@@ -1034,6 +1053,7 @@ img {
         display: none;
         flex-direction: column;
         padding: 0;
+        width: 100%;
     }
 
     .nav-list.active {
@@ -1047,6 +1067,14 @@ img {
 
     .nav-list a:last-child {
         border-bottom: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--secondary);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
     
     .search-container {

@@ -1,116 +1,84 @@
-// Theme Management
+// Accessibility and Interaction Helpers
+(function () {
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeTheme();
+        setupThemeToggle();
+        initializeTabs();
+        initializeChecklists();
+        initializeCourseCatalog();
+        initializeMobileNav();
+        markDecorativeIcons();
+    });
+})();
+
 // Theme Management
 function initializeTheme() {
-    // Get saved theme or use preferred color scheme as fallback
-    const savedTheme = localStorage.getItem('theme') || 
-                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    
-    // Apply theme to document
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    
-    // Update toggle button icon
-    updateThemeToggleIcon(savedTheme);
-    
-    console.log('Theme initialized:', savedTheme);
+    const storedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    updateThemeToggleIcon(theme);
+    syncThemeToggleState(theme);
 }
 
 function toggleTheme() {
     const root = document.documentElement;
-    const currentTheme = root.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    // Apply new theme
-    root.setAttribute('data-theme', newTheme);
-    
-    // Save preference
-    localStorage.setItem('theme', newTheme);
-    
-    // Update button icon
-    updateThemeToggleIcon(newTheme);
-    
-    console.log('Theme toggled to:', newTheme);
+    const currentTheme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('theme', nextTheme);
+    updateThemeToggleIcon(nextTheme);
+    syncThemeToggleState(nextTheme);
+}
+
+function setupThemeToggle() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (!themeToggle) return;
+    themeToggle.addEventListener('click', toggleTheme);
 }
 
 function updateThemeToggleIcon(theme) {
     const icon = document.querySelector('.theme-toggle i');
-    if (icon) {
-        // Clear all existing classes first
-        icon.className = '';
-        // Add the appropriate icon class
-        icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-        console.log('Theme icon updated:', icon.className);
-    } else {
-        console.warn('Theme toggle icon not found. Looking for .theme-toggle i element.');
-    }
+    if (!icon) return;
+    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.setAttribute('focusable', 'false');
 }
 
-// Initialize all functionality
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded - Setting up theme toggle');
-
-    // Initialize theme first
-    initializeTheme();
-    
-    // Add theme toggle event listener
+function syncThemeToggleState(theme) {
     const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
-        console.log('Theme toggle button listener attached');
-    } else {
-        console.warn('Theme toggle button not found. Looking for .theme-toggle element.');
-    }
-    
-    // Other initializations
-    initializeTabs();
-    initializeChecklists();
-    
-    // These functions might not exist or have errors
-    try {
-        if (typeof initializeFAQ === 'function') initializeFAQ();
-        if (typeof initializeMobileNav === 'function') initializeMobileNav();
-    } catch (error) {
-        console.error('Error initializing optional components:', error);
-    }
-});
-
-// For debugging - add to your HTML
-function checkThemeToggle() {
-    const button = document.querySelector('.theme-toggle');
-    const icon = document.querySelector('.theme-toggle i');
-    const theme = document.documentElement.getAttribute('data-theme');
-    
-    console.log({
-        'Button exists': !!button,
-        'Icon exists': !!icon,
-        'Current theme': theme,
-        'Button HTML': button ? button.outerHTML : 'Not found',
-        'Current icon class': icon ? icon.className : 'Not found'
-    });
+    if (!themeToggle) return;
+    themeToggle.setAttribute('aria-pressed', (theme === 'dark').toString());
 }
 // Concentration Tabs Functionality
 function initializeTabs() {
-    const tabs = document.querySelectorAll('.tab');
-    const tabPanels = document.querySelectorAll('.tab-content');
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const tabPanels = Array.from(document.querySelectorAll('.tab-content'));
 
-    // Set initial state
-    const defaultTab = document.querySelector('.tab.active');
-    if (defaultTab) {
-        const targetPanelId = defaultTab.getAttribute('aria-controls');
-        const targetPanel = document.getElementById(targetPanelId);
-        if (targetPanel) {
-            targetPanel.hidden = false;
-            targetPanel.classList.add('active');
-        }
+    if (!tabs.length || !tabPanels.length) {
+        return;
     }
 
-    // Add event listeners to tabs
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => switchTab(tab));
-        tab.addEventListener('keydown', (e) => handleTabKeydown(e, tab));
+    tabPanels.forEach(panel => {
+        panel.hidden = true;
+        panel.classList.remove('active');
     });
+
+    tabs.forEach(tab => {
+        tab.setAttribute('type', 'button');
+        tab.setAttribute('tabindex', '-1');
+        tab.setAttribute('aria-selected', 'false');
+        tab.addEventListener('click', () => switchTab(tab));
+        tab.addEventListener('keydown', (event) => handleTabKeydown(event, tab));
+    });
+
+    const defaultTab = document.querySelector('.tab.active') || tabs[0];
+    if (defaultTab) {
+        switchTab(defaultTab, false);
+    }
 }
 
-function switchTab(newTab) {
+function switchTab(newTab, focusTab = true) {
     const targetPanelId = newTab.getAttribute('aria-controls');
     const targetPanel = document.getElementById(targetPanelId);
 
@@ -124,46 +92,48 @@ function switchTab(newTab) {
         tab.classList.remove('active');
     });
 
-    newTab.setAttribute('aria-selected', 'true');
-    newTab.setAttribute('tabindex', '0');
-    newTab.classList.add('active');
-    newTab.focus();
-
-    // Update content panels
-    const allPanels = document.querySelectorAll('.tab-content');
-    allPanels.forEach(panel => {
+    document.querySelectorAll('.tab-content').forEach(panel => {
         panel.hidden = true;
         panel.classList.remove('active');
     });
+
+    newTab.setAttribute('aria-selected', 'true');
+    newTab.setAttribute('tabindex', '0');
+    newTab.classList.add('active');
+    if (focusTab) {
+        newTab.focus();
+    }
 
     targetPanel.hidden = false;
     targetPanel.classList.add('active');
 }
 
-function handleTabKeydown(e, tab) {
+function handleTabKeydown(event, tab) {
     const tabs = Array.from(document.querySelectorAll('.tab'));
     const currentIndex = tabs.indexOf(tab);
 
-    switch (e.key) {
+    switch (event.key) {
         case 'ArrowRight':
         case 'ArrowDown':
-            e.preventDefault();
+            event.preventDefault();
             const nextTab = tabs[(currentIndex + 1) % tabs.length];
             switchTab(nextTab);
             break;
         case 'ArrowLeft':
         case 'ArrowUp':
-            e.preventDefault();
+            event.preventDefault();
             const prevTab = tabs[(currentIndex - 1 + tabs.length) % tabs.length];
             switchTab(prevTab);
             break;
         case 'Home':
-            e.preventDefault();
+            event.preventDefault();
             switchTab(tabs[0]);
             break;
         case 'End':
-            e.preventDefault();
+            event.preventDefault();
             switchTab(tabs[tabs.length - 1]);
+            break;
+        default:
             break;
     }
 }
@@ -201,21 +171,24 @@ function updateProgress(section) {
     const checkboxes = section.querySelectorAll('input[type="checkbox"]');
     const progressBar = section.querySelector('.progress-bar');
     const progressLabel = section.querySelector('.progress-container label');
+    const heading = section.querySelector('h3');
+    const sectionLabel = heading ? heading.textContent.trim() : 'this section';
 
     if (!progressBar || !progressLabel) return;
 
     const total = checkboxes.length;
     const checked = section.querySelectorAll('input[type="checkbox"]:checked').length;
-    const percentage = Math.round((checked / total) * 100);
+    const percentage = total === 0 ? 0 : Math.round((checked / total) * 100);
 
     // Update progress bar
     progressBar.style.width = `${percentage}%`;
     progressBar.setAttribute('aria-valuenow', percentage);
     progressBar.setAttribute('aria-valuetext', `${percentage}% complete`);
 
+    progressLabel.textContent = `${sectionLabel} completion progress: ${percentage}%`;
+
     // Announce progress to screen readers
-    const announcement = `${percentage}% of ${section.querySelector('h3').textContent} completed`;
-    announceToScreenReader(announcement);
+    announceToScreenReader(`${percentage}% of ${sectionLabel} completed`);
 }
 
 // Announce changes to screen readers
@@ -235,221 +208,186 @@ function createAriaAnnouncer() {
     return announcer;
 }
 
-// Initialize on DOM load
-document.addEventListener('DOMContentLoaded', () => {
-    initializeChecklists();
-});
-
-/**
- * Course Catalog - Filtering and Accordion Functionality
- * 
- * This script provides two main functionalities:
- * 1. Filtering courses by category (core, HR, finance, etc.)
- * 2. Expanding/collapsing course details with accordion behavior
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Course Filtering Logic
-    const courseFilter = document.getElementById('courseFilter');
-    const courses = document.querySelectorAll('.course-card');
+function initializeCourseCatalog() {
     const courseGrid = document.getElementById('courseGrid');
+    const courseFilter = document.getElementById('courseFilter');
     const resultsCount = document.getElementById('courseResults');
-    
-    if (courseFilter) {
-        // Initial count display
-        updateResultsCount('all');
-        
-        // Filter change event
-        courseFilter.addEventListener('change', function() {
-            const selectedCategory = this.value;
-            filterCourses(selectedCategory);
-        });
+
+    if (!courseGrid) {
+        return;
     }
-    
-    // Course Accordion Functionality
-    courses.forEach(card => {
-        // Only add click handler to cards with course-details
-        if (card.querySelector('.course-details')) {
-            // Make the whole card header clickable
-            const cardHeader = card.querySelector('h3');
-            if (cardHeader) {
-                cardHeader.style.cursor = 'pointer';
-                cardHeader.addEventListener('click', function(e) {
-                    toggleCourseDetails(card);
-                });
-            }
-            
-            // Also make the course-header clickable
-            const courseHeader = card.querySelector('.course-header');
-            if (courseHeader) {
-                courseHeader.style.cursor = 'pointer';
-                courseHeader.addEventListener('click', function(e) {
-                    toggleCourseDetails(card);
-                });
-            }
-        }
-    });
-    
-    /**
-     * Filter courses based on selected category
-     * @param {string} category - The category to filter by
-     */
-    function filterCourses(category) {
-        let visibleCourses = 0;
-        
-        courses.forEach(course => {
-            const categories = course.getAttribute('data-categories').split(' ');
-            
-            if (category === 'all' || categories.includes(category)) {
-                course.style.display = 'flex';
-                visibleCourses++;
-            } else {
-                course.style.display = 'none';
-            }
-            
-            // Close any open course details when filtering
-            if (course.classList.contains('active')) {
-                course.classList.remove('active');
-            }
-        });
-        
-        // Update the results count display
-        updateResultsCount(category, visibleCourses);
+
+    const courses = Array.from(courseGrid.querySelectorAll('.course-card'));
+    if (!courses.length) {
+        return;
     }
-    
-    /**
-     * Toggle the accordion state of a course card
-     * @param {Element} card - The course card element
-     */
-    function toggleCourseDetails(card) {
-        // Toggle active class for this card
-        card.classList.toggle('active');
-        
-        // If we're opening this card, close any others that are open
-        if (card.classList.contains('active')) {
-            courses.forEach(otherCard => {
-                if (otherCard !== card && otherCard.classList.contains('active')) {
-                    otherCard.classList.remove('active');
-                }
-            });
+
+    courses.forEach((card, index) => {
+        const details = card.querySelector('.course-details');
+        if (!details) {
+            return;
         }
-    }
-    
-    /**
-     * Update the results count display
-     * @param {string} category - The currently selected category
-     * @param {number} count - The number of visible courses
-     */
-    function updateResultsCount(category, count) {
-        if (!resultsCount) return;
-        
-        // If count is undefined (initial load), calculate it
-        if (count === undefined) {
-            count = 0;
-            courses.forEach(course => {
-                const categories = course.getAttribute('data-categories').split(' ');
-                if (category === 'all' || categories.includes(category)) {
-                    count++;
-                }
-            });
+
+        if (!details.id) {
+            details.id = `course-details-${index}`;
         }
-        
-        // Format the category name for display
-        let categoryName = 'All Courses';
-        if (category !== 'all') {
-            // Convert category ID to display name
-            const categoryMap = {
-                'core': 'Core Requirements',
-                'hr': 'Human Resources',
-                'finance': 'Public Finance',
-                'local': 'Local Government',
-                'policy': 'Public Policy',
-                'advisor': 'Advisor Electives'
-            };
-            categoryName = categoryMap[category] || category;
-        }
-        
-        // Update the results count text
-        resultsCount.textContent = `Showing ${count} ${categoryName} courses`;
-    }
-    
-    // Add keyboard accessibility for accordion
-    courses.forEach(card => {
-        const clickableElements = [
-            card.querySelector('h3'), 
-            card.querySelector('.course-header')
-        ];
-        
-        clickableElements.forEach(element => {
-            if (element) {
-                element.setAttribute('tabindex', '0');
-                element.setAttribute('role', 'button');
-                element.setAttribute('aria-expanded', 'false');
-                
-                element.addEventListener('keydown', function(e) {
-                    // Activate on Enter or Space
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleCourseDetails(card);
-                        this.setAttribute('aria-expanded', card.classList.contains('active').toString());
+        details.hidden = !card.classList.contains('active');
+
+        const triggers = [card.querySelector('h3'), card.querySelector('.course-header')].filter(Boolean);
+        triggers.forEach(trigger => {
+            trigger.setAttribute('tabindex', '0');
+            trigger.setAttribute('role', 'button');
+            trigger.setAttribute('aria-controls', details.id);
+            trigger.setAttribute('aria-expanded', card.classList.contains('active').toString());
+
+            trigger.addEventListener('click', () => {
+                const shouldExpand = !card.classList.contains('active');
+                courses.forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.classList.remove('active');
+                        updateCourseAriaState(otherCard, false);
                     }
                 });
-            }
-        });
-    });
-});
-// Mobile Navigation
-function initializeMobileNav() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navList = document.querySelector('.nav-list');
-    
-    if (menuToggle && navList) {
-        menuToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            const isExpanded = navList.classList.contains('active');
-            navList.classList.toggle('active');
-            menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
-        });
 
-        // Close menu when clicking a link
-        navList.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navList.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
+                card.classList.toggle('active', shouldExpand);
+                updateCourseAriaState(card, shouldExpand);
+            });
+
+            trigger.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    trigger.click();
+                }
             });
         });
+    });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.navigation') && navList.classList.contains('active')) {
-                navList.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
+    const filterCourses = (category = 'all') => {
+        let visibleCourses = 0;
+
+        courses.forEach(course => {
+            const categories = (course.getAttribute('data-categories') || '')
+                .split(' ')
+                .filter(Boolean);
+            const matches = category === 'all' || categories.includes(category);
+
+            course.style.display = matches ? 'flex' : 'none';
+            course.hidden = !matches;
+
+            if (!matches) {
+                course.classList.remove('active');
+                updateCourseAriaState(course, false);
+            } else {
+                visibleCourses += 1;
             }
         });
 
-        // Add keyboard navigation
-        menuToggle.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                menuToggle.click();
-            }
+        updateResultsCount(category, visibleCourses);
+    };
+
+    const updateResultsCount = (category, count) => {
+        if (!resultsCount) {
+            return;
+        }
+
+        const categoryMap = {
+            core: 'Core Requirements',
+            hr: 'Human Resources',
+            finance: 'Public Finance',
+            local: 'Local Government',
+            policy: 'Public Policy',
+            advisor: 'Advisor Electives'
+        };
+
+        if (typeof count !== 'number') {
+            count = courses.filter(course => {
+                const categories = (course.getAttribute('data-categories') || '')
+                    .split(' ')
+                    .filter(Boolean);
+                return category === 'all' || categories.includes(category);
+            }).length;
+        }
+
+        const categoryName = category === 'all' ? 'All Courses' : (categoryMap[category] || category);
+        resultsCount.textContent = `Showing ${count} ${categoryName} courses`;
+    };
+
+    if (courseFilter) {
+        courseFilter.addEventListener('change', (event) => {
+            filterCourses(event.target.value);
         });
+        filterCourses(courseFilter.value);
+    } else {
+        filterCourses('all');
     }
 }
 
-// Initialize all functionality
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded');
+function updateCourseAriaState(card, expanded) {
+    card.querySelectorAll('[role="button"][aria-controls]').forEach(trigger => {
+        trigger.setAttribute('aria-expanded', expanded.toString());
+    });
 
-    initializeTheme();
-    initializeTabs();
-    initializeChecklists();
-    initializeFAQ();
-    initializeMobileNav();
-
-    // Add theme toggle event listener
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
+    const details = card.querySelector('.course-details');
+    if (details) {
+        details.hidden = !expanded;
     }
-});
+}
+// Mobile Navigation
+function initializeMobileNav() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navList = document.getElementById('primary-navigation') || document.querySelector('.nav-list');
+
+    if (!menuToggle || !navList) {
+        return;
+    }
+
+    const closeMenu = () => {
+        navList.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    menuToggle.addEventListener('click', (event) => {
+        event.preventDefault();
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+        navList.classList.toggle('active', !isExpanded);
+    });
+
+    navList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('.navigation') && menuToggle.getAttribute('aria-expanded') === 'true') {
+            closeMenu();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+            closeMenu();
+            menuToggle.focus();
+        }
+    });
+
+    const desktopQuery = window.matchMedia('(min-width: 769px)');
+    const handleDesktopChange = (event) => {
+        if (event.matches) {
+            closeMenu();
+        }
+    };
+
+    if (typeof desktopQuery.addEventListener === 'function') {
+        desktopQuery.addEventListener('change', handleDesktopChange);
+    } else if (typeof desktopQuery.addListener === 'function') {
+        desktopQuery.addListener(handleDesktopChange);
+    }
+}
+
+function markDecorativeIcons() {
+    const icons = document.querySelectorAll('i[class*="fa-"], i.fas, i.fab, i.far');
+    icons.forEach(icon => {
+        icon.setAttribute('aria-hidden', 'true');
+        icon.setAttribute('focusable', 'false');
+    });
+}

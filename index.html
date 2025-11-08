@@ -8,12 +8,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     
     <aside class="utility-buttons" role="complementary" aria-label="Utility buttons">
         <button class="theme-toggle" aria-label="Toggle dark mode">
             <i class="fas fa-moon"></i>
         </button>
-        <a href="https://csuf-mpa.github.io/mpa_handbook/" target="_blank" class="popout-button" aria-label="Open in new window">
+        <a href="https://csuf-mpa.github.io/mpa_handbook/" target="_blank" rel="noopener noreferrer" class="popout-button" aria-label="Open the handbook in a new tab">
             <i class="fas fa-external-link-alt"></i>
         </a>
     </aside>
@@ -25,10 +26,10 @@
         California State University, Fullerton</p>
     </header>
     <nav class="navigation" aria-label="Main navigation">
-        <button class="menu-toggle" aria-label="Toggle navigation menu">
+        <button type="button" class="menu-toggle" aria-label="Toggle navigation menu" aria-controls="primary-navigation" aria-expanded="false">
             <i class="fas fa-bars"></i> Menu
         </button>
-        <ul class="nav-list">
+        <ul id="primary-navigation" class="nav-list">
             <li><a href="#introduction">Introduction</a></li>
             <li><a href="#requirements">Degree Requirements</a></li>
             <li><a href="#concentrations">Concentrations</a></li>
@@ -40,7 +41,7 @@
         </ul>
         
     </nav>
-    <main class="content">
+    <main id="main-content" class="content">
 
         <!-- Introduction Section -->
         <section id="introduction" class="section">
@@ -54,7 +55,7 @@
                 <div class="text-center mb-6">
                     <h3 class="text-2xl font-bold text-blue-800">Student Handbook 2025-2026</h3>
                     <p class="text-lg mt-2">Your Guide to Success in the Master of Public Administration Program</p>
-                    <p class="text-sm text-gray-600 mt-2">A PDF version of this handbook is available for download <a href="https://raw.githubusercontent.com/CSUF-MPA/mpa_handbook/main/mpa_student_handbook_25-26.pdf" target="_blank" class="text-blue-600 underline">here</a>.</p>
+                    <p class="text-sm text-gray-600 mt-2">A PDF version of this handbook is available for download. <a href="https://raw.githubusercontent.com/CSUF-MPA/mpa_handbook/main/mpa_student_handbook_25-26.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Download the PDF (opens in new tab)</a>.</p>
                  </div>
             </div>
             
@@ -209,7 +210,7 @@
 
     <!-- Prerequisites Card -->
     <div class="card checklist-section">
-        <h3>Prerequisites</h3>
+        <h3 id="prereq-heading">Prerequisites</h3>
         <div class="progress-container">
             <label id="prereq-progress-label" class="sr-only">Prerequisites completion progress</label>
             <div class="progress-bar"
@@ -239,7 +240,7 @@
 
     <!-- Core Courses Card -->
     <div class="card checklist-section">
-        <h3>Core Courses (21 units)</h3>
+        <h3 id="core-heading">Core Courses (21 units)</h3>
         <div class="progress-container">
             <label id="core-progress-label" class="sr-only">Core courses completion progress</label>
             <div class="progress-bar"
@@ -1281,8 +1282,9 @@
             </div>
         </div>
      </div>
+     <div class="timeline" role="list">
         <!-- Orientation -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-star"></i>
             </div>
@@ -1319,7 +1321,7 @@
         </div>
 
         <!-- First Semester -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-book"></i>
             </div>
@@ -1344,7 +1346,7 @@
         </div>
 
         <!-- Second Semester -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-tasks"></i>
             </div>
@@ -1373,7 +1375,7 @@
         </div>
 
         <!-- Mid-Program -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-award"></i>
             </div>
@@ -1402,7 +1404,7 @@
         </div>
 
         <!-- Concentration Phase -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-user-graduate"></i>
             </div>
@@ -1423,7 +1425,7 @@
         </div>
 
         <!-- Capstone Preparation -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-file-signature"></i>
             </div>
@@ -1452,7 +1454,7 @@
         </div>
 
         <!-- Final Steps -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-flag-checkered"></i>
             </div>
@@ -1485,7 +1487,7 @@
         </div>
 
         <!-- Graduation -->
-        <div class="timeline-item">
+        <div class="timeline-item" role="listitem">
             <div class="timeline-marker">
                 <i class="fas fa-graduation-cap"></i>
             </div>
@@ -1567,7 +1569,7 @@
                 <h4>Division of Politics, Administration & Justice</h4>
                 <ul>
                     <li><i class="fas fa-map-marker-alt"></i> Location: Gordon Hall 511</li>
-                    <li><i class="fas fa-envelope"></i> Email: mpaprogram@fullerton.edu
+                    <li><i class="fas fa-envelope"></i> Email: mpaprogram@fullerton.edu</li>
                     <li><i class="fas fa-phone"></i> Phone: (657) 278-3521</li>
                     <li><i class="fas fa-fax"></i> Fax: (657) 278-3524</li>
                     <li><i class="fas fa-clock"></i> Hours: Monday-Friday, 8:00 AM - 5:00 PM</li>
@@ -1587,6 +1589,8 @@
         </ul>
     </div>
 </section>
+
+</main>
 
 <footer role="contentinfo" class="bg-gray-800 text-white py-8">
     <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1650,17 +1654,11 @@
 
 
 <script>
-    // Dynamically set the current year and last updated date
-    document.getElementById("currentYear").textContent = new Date().getFullYear();
-    document.getElementById("lastUpdated").textContent = document.lastModified;
-</script>
-
-<script>
-    // Immediate execution
     (function() {
+        const now = new Date();
         const yearElement = document.getElementById('currentYear');
         if (yearElement) {
-            yearElement.textContent = new Date().getFullYear().toString();
+            yearElement.textContent = now.getFullYear().toString();
         }
         
         const lastUpdatedElement = document.getElementById('lastUpdated');
@@ -1671,8 +1669,6 @@
         }
     })();
 </script>
-
-    </main>
 
     <script src="scripts/scripts.js"></script>
 </body>
