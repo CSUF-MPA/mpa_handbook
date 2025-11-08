@@ -6,6 +6,8 @@
         initializeTabs();
         initializeChecklists();
         initializeCourseCatalog();
+        initializeCourseSectionToggle();
+        initializeBackToTop();
         initializeMobileNav();
         markDecorativeIcons();
     });
@@ -332,6 +334,36 @@ function updateCourseAriaState(card, expanded) {
         details.hidden = !expanded;
     }
 }
+
+function initializeCourseSectionToggle() {
+    const toggle = document.querySelector('.course-section-toggle');
+    const content = document.getElementById('courseCatalogContent');
+    if (!toggle || !content) {
+        return;
+    }
+
+    const toggleText = toggle.querySelector('.toggle-text');
+
+    const setState = (expanded) => {
+        toggle.setAttribute('aria-expanded', expanded.toString());
+        if (toggleText) {
+            toggleText.textContent = expanded ? 'Collapse section' : 'Expand section';
+        }
+
+        if (expanded) {
+            content.removeAttribute('hidden');
+        } else {
+            content.setAttribute('hidden', '');
+        }
+    };
+
+    toggle.addEventListener('click', () => {
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        setState(!isExpanded);
+    });
+
+    setState(toggle.getAttribute('aria-expanded') !== 'false');
+}
 // Mobile Navigation
 function initializeMobileNav() {
     const menuToggle = document.querySelector('.menu-toggle');
@@ -389,5 +421,34 @@ function markDecorativeIcons() {
     icons.forEach(icon => {
         icon.setAttribute('aria-hidden', 'true');
         icon.setAttribute('focusable', 'false');
+    });
+}
+
+function initializeBackToTop() {
+    const button = document.querySelector('.back-to-top');
+    const mainContent = document.getElementById('main-content');
+
+    if (!button) {
+        return;
+    }
+
+    button.removeAttribute('hidden');
+
+    const toggleVisibility = () => {
+        if (window.scrollY > 400) {
+            button.classList.add('visible');
+        } else {
+            button.classList.remove('visible');
+        }
+    };
+
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
+
+    button.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (mainContent) {
+            mainContent.focus({ preventScroll: true });
+        }
     });
 }
