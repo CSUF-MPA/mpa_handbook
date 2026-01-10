@@ -1022,6 +1022,14 @@ input:focus, select:focus, textarea:focus {
     color: var(--titan-orange);
 }
 
+.site-footer .text-blue-400 {
+    color: #EBFBFF !important;
+}
+
+.site-footer .text-blue-400:hover {
+    color: var(--titan-orange) !important;
+}
+
 .site-footer .footer-legal {
     max-width: 1200px;
     margin: 2rem auto 0;
