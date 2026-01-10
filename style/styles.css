@@ -21,7 +21,7 @@
    1. Theme Variables & Color Schemes
    ========================================= */
 
-   :root {
+:root {
     /* CSUF Colors */
     --titan-blue: #00244E;
     --medium-blue: #0F3F8C;
@@ -35,6 +35,8 @@
     --success: #28a745;
     --warning: var(--titan-orange);
     --danger: #dc3545;
+    --link-color: #00244E;
+    --link-hover: var(--titan-orange);
 }
 
 /* Light Theme */
@@ -52,6 +54,8 @@
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
     --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
     --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --link-color: #00244E;
+    --link-hover: var(--accent);
 }
 
 /* Dark Theme */
@@ -69,14 +73,16 @@
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
     --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
     --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+    --link-color: #E2E8F0;
+    --link-hover: var(--accent);
 }
 
 /* Dark Mode Specific Overrides */
-[data-theme="dark"] .course-tag.core { background: #4A9EFF; }
-[data-theme="dark"] .course-tag.hr { background: #3182CE; }
-[data-theme="dark"] .course-tag.finance { background: #38A169; }
-[data-theme="dark"] .course-tag.local { background: #B45309; }
-[data-theme="dark"] .course-tag.policy { background: #805AD5; }
+[data-theme="dark"] .course-tag.core { background: #0D3480; }
+[data-theme="dark"] .course-tag.hr { background: #0F3F8C; }
+[data-theme="dark"] .course-tag.finance { background: #1E6F3C; }
+[data-theme="dark"] .course-tag.local { background: #9A3412; }
+[data-theme="dark"] .course-tag.policy { background: #4338CA; }
 
 [data-theme="dark"] .timeline-note.warning { background: rgba(255, 152, 0, 0.1); }
 [data-theme="dark"] .timeline-note.honor-society { background: rgba(33, 150, 243, 0.1); }
@@ -133,14 +139,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-    color: #00244E; /* Darker CSUF blue */
+    color: var(--link-color);
     font-weight: bold;
     text-decoration: underline;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: var(--accent);
+    color: var(--link-hover);
 }
 
 /* =========================================
@@ -436,10 +442,10 @@ a:hover {
 }
 
 .course-tag.core { background: #0D3480; }
-.course-tag.hr { background: var(--medium-blue); }
-.course-tag.finance { background: var(--success); }
-.course-tag.local { background: var(--warning); }
-.course-tag.policy { background: var(--medium-blue); }
+.course-tag.hr { background: #0F3F8C; }
+.course-tag.finance { background: #1E6F3C; }
+.course-tag.local { background: #9A3412; }
+.course-tag.policy { background: #4338CA; }
 
 .course-details {
     margin-top: auto;
@@ -1357,6 +1363,10 @@ ul li, ol li {
     color: var(--medium-blue) !important;
 }
 
+.text-blue-400 {
+    color: var(--link-color) !important;
+}
+
 .text-green-500 {
     color: var(--success) !important;
 }
@@ -1627,6 +1637,14 @@ h5.font-medium {
     color: #fbd38d; /* Lighter orange for dark mode */
 }
 
+[data-theme="dark"] .text-blue-600 {
+    color: #93c5fd !important;
+}
+
+[data-theme="dark"] .text-blue-400 {
+    color: var(--link-color) !important;
+}
+
 /* =========================================
    8. Responsive Design
    ========================================= */
@@ -1696,7 +1714,7 @@ footer a[href^="tel"], footer a[href^="mailto"] {
 }
 
 .course-tag.core {
-    background-color: #001d3f !important;
+    background-color: #0D3480 !important;
     color: #fdfdff !important; /* Brighter white text */
 }
 

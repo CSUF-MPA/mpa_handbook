@@ -434,12 +434,14 @@ function initializeBackToTop() {
 
     button.removeAttribute('hidden');
 
+    const setVisibility = (isVisible) => {
+        button.classList.toggle('visible', isVisible);
+        button.setAttribute('aria-hidden', (!isVisible).toString());
+        button.tabIndex = isVisible ? 0 : -1;
+    };
+
     const toggleVisibility = () => {
-        if (window.scrollY > 400) {
-            button.classList.add('visible');
-        } else {
-            button.classList.remove('visible');
-        }
+        setVisibility(window.scrollY > 400);
     };
 
     window.addEventListener('scroll', toggleVisibility, { passive: true });
