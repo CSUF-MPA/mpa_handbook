@@ -357,6 +357,54 @@ a:hover {
     display: block;
 }
 
+/* Electives Accordion */
+.electives-accordion {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.elective-group {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-primary);
+}
+
+.elective-group summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.elective-group summary::-webkit-details-marker {
+    display: none;
+}
+
+.elective-group summary::after {
+    content: "+";
+    font-size: 1.2rem;
+    color: var(--secondary);
+}
+
+.elective-group[open] summary::after {
+    content: "-";
+}
+
+.elective-content {
+    padding: 0 1rem 1rem;
+}
+
+.elective-content h4 {
+    margin: 0.8rem 0 0.5rem;
+}
+
+.elective-content ul {
+    margin: 0 0 1rem 1.25rem;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
