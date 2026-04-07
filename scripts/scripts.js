@@ -40,11 +40,16 @@ function setupThemeToggle() {
 }
 
 function updateThemeToggleIcon(theme) {
+    const toggle = document.querySelector('.theme-toggle');
     const icon = document.querySelector('.theme-toggle i');
-    if (!icon) return;
-    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.setAttribute('focusable', 'false');
+    if (icon) {
+        icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.setAttribute('focusable', 'false');
+    }
+    if (toggle) {
+        toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
 }
 
 function syncThemeToggleState(theme) {
@@ -145,7 +150,7 @@ function initializeChecklists() {
     document.querySelectorAll('.checklist-section').forEach(section => {
         const checkboxes = section.querySelectorAll('input[type="checkbox"]');
         const progressBar = section.querySelector('.progress-bar');
-        const progressLabel = section.querySelector('.progress-container label');
+        const progressLabel = section.querySelector('.progress-container .progress-label');
 
         // Load saved state
         checkboxes.forEach(checkbox => {
@@ -172,7 +177,7 @@ function initializeChecklists() {
 function updateProgress(section) {
     const checkboxes = section.querySelectorAll('input[type="checkbox"]');
     const progressBar = section.querySelector('.progress-bar');
-    const progressLabel = section.querySelector('.progress-container label');
+    const progressLabel = section.querySelector('.progress-container .progress-label');
     const heading = section.querySelector('h3');
     const sectionLabel = heading ? heading.textContent.trim() : 'this section';
 
@@ -235,8 +240,16 @@ function initializeCourseCatalog() {
         }
         details.hidden = !card.classList.contains('active');
 
-        const triggers = [card.querySelector('h3'), card.querySelector('.course-header')].filter(Boolean);
-        triggers.forEach(trigger => {
+        const heading = card.querySelector('h3');
+        if (heading) {
+            heading.removeAttribute('role');
+            heading.removeAttribute('tabindex');
+            heading.removeAttribute('aria-controls');
+            heading.removeAttribute('aria-expanded');
+        }
+
+        const trigger = card.querySelector('.course-header');
+        if (trigger) {
             trigger.setAttribute('tabindex', '0');
             trigger.setAttribute('role', 'button');
             trigger.setAttribute('aria-controls', details.id);
@@ -261,7 +274,7 @@ function initializeCourseCatalog() {
                     trigger.click();
                 }
             });
-        });
+        }
     });
 
     const filterCourses = (category = 'all') => {
@@ -392,6 +405,7 @@ function initializeMobileNav() {
     document.addEventListener('click', (event) => {
         if (!event.target.closest('.navigation') && menuToggle.getAttribute('aria-expanded') === 'true') {
             closeMenu();
+            menuToggle.focus();
         }
     });
 
@@ -436,7 +450,7 @@ function initializeBackToTop() {
 
     const setVisibility = (isVisible) => {
         button.classList.toggle('visible', isVisible);
-        button.setAttribute('aria-hidden', (!isVisible).toString());
+        button.hidden = !isVisible;
         button.tabIndex = isVisible ? 0 : -1;
     };
 
@@ -448,7 +462,8 @@ function initializeBackToTop() {
     toggleVisibility();
 
     button.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         if (mainContent) {
             mainContent.focus({ preventScroll: true });
         }
