@@ -27,7 +27,7 @@
             </ol>
         </nav>
         <h1>Accessibility Statement</h1>
-        <p class="last-updated">Last updated: <time datetime="2026-04-07">April 7, 2026</time></p>
+        <p class="last-updated">Last updated: <time datetime="2026-07-11">July 11, 2026</time></p>
     </header>
 
     <main id="policy-main" role="main" tabindex="-1">
@@ -52,23 +52,19 @@
 
         <section aria-labelledby="testing-heading">
             <h2 id="testing-heading">Accessibility Testing</h2>
-            <p>We regularly test this website with assistive technologies to ensure compatibility.</p>
-            
-            <h3>Assistive Technologies Tested</h3>
+            <p>This website is audited against WCAG 2.2 Level AA. The most recent audit was completed in July 2026 and covered all pages in both light and dark color themes.</p>
+
+            <h3>Audit Coverage</h3>
             <ul>
-                <li><strong>Screen readers:</strong> NVDA, JAWS, VoiceOver (Mac/iOS), TalkBack (Android)</li>
-                <li><strong>Keyboard navigation:</strong> Tab key, arrow keys, skip links</li>
-                <li><strong>Screen magnification:</strong> ZoomText, browser zoom up to 200%</li>
-                <li><strong>Voice control:</strong> Dragon NaturallySpeaking, Voice Control (iOS)</li>
+                <li><strong>Automated scanning:</strong> axe-core (WCAG 2.0/2.1/2.2 A and AA rules) and Lighthouse, run in both color themes</li>
+                <li><strong>Keyboard navigation:</strong> Tab order, arrow-key patterns for tabs, skip links, focus visibility, and Escape handling</li>
+                <li><strong>Reflow and magnification:</strong> Verified no horizontal scrolling at 320px viewport width (equivalent to 400% zoom)</li>
+                <li><strong>Color contrast:</strong> All text and interactive states, including hover and focus, in both themes</li>
+                <li><strong>Reduced motion:</strong> Animations and smooth scrolling respect <code>prefers-reduced-motion</code></li>
             </ul>
-            
-            <h3>Automated Testing</h3>
-            <p>We use automated tools including:</p>
-            <ul>
-                <li>WAVE (Web Accessibility Evaluation Tool)</li>
-                <li>Lighthouse Accessibility Audit</li>
-                <li>axe DevTools</li>
-            </ul>
+
+            <h3>Assistive Technology Testing</h3>
+            <p>Markup and ARIA patterns are built and reviewed for screen reader compatibility (NVDA, JAWS, VoiceOver), and manual screen reader testing is part of our ongoing review cycle.</p>
         </section>
 
         <section aria-labelledby="features-heading">

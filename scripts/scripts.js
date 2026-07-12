@@ -159,13 +159,12 @@ function initializeChecklists() {
             const saved = localStorage.getItem(checkbox.id);
             if (saved === 'true') {
                 checkbox.checked = true;
-                checkbox.setAttribute('aria-checked', 'true');
             }
 
-            // Add change listener
+            // Add change listener (native checkboxes expose checked state
+            // themselves — no aria-checked needed)
             checkbox.addEventListener('change', function() {
                 localStorage.setItem(this.id, this.checked);
-                this.setAttribute('aria-checked', this.checked.toString());
                 updateProgress(section);
             });
         });
@@ -256,6 +255,20 @@ function initializeCourseCatalog() {
             trigger.setAttribute('role', 'button');
             trigger.setAttribute('aria-controls', details.id);
             trigger.setAttribute('aria-expanded', card.classList.contains('active').toString());
+
+            // Name the button with course code + title so screen reader users
+            // hear more than "POSC 509 Core" when browsing buttons
+            const code = trigger.querySelector('.course-code');
+            if (code && !code.id) {
+                code.id = `course-code-${index}`;
+            }
+            if (heading && !heading.id) {
+                heading.id = `course-title-${index}`;
+            }
+            const nameIds = [code && code.id, heading && heading.id].filter(Boolean);
+            if (nameIds.length) {
+                trigger.setAttribute('aria-labelledby', nameIds.join(' '));
+            }
 
             trigger.addEventListener('click', () => {
                 const shouldExpand = !card.classList.contains('active');
