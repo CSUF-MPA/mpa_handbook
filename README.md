@@ -12,9 +12,9 @@ The CSUF MPA program prepares students for leadership roles in public administra
 
 The program is accredited by the **Network of Schools of Public Policy, Affairs, and Administration (NASPAA)**.
 
-## Student Handbook (2024-2025)
+## Student Handbook (2026-2027)
 
-This repository includes the digital version of the MPA Student Handbook for 2024-2025. The handbook serves as a comprehensive guide for students, detailing degree requirements, courses, resources, and faculty contacts.
+This repository includes the digital version of the MPA Student Handbook for 2026-2027. The handbook serves as a comprehensive guide for students, detailing degree requirements, courses, resources, and faculty contacts.
 
 ### Key Sections
 
@@ -47,6 +47,6 @@ For questions about the program or resources, please contact:
 
 This organization is maintained by the Division of Politics, Administration & Justice at CSUF.
 
-Last updated: 22 November 2024
+Last updated: 12 July 2026
 
-© 2024 California State University, Fullerton. All rights reserved.
+© 2026 California State University, Fullerton. All rights reserved.
