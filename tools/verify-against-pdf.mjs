@@ -74,10 +74,15 @@ function bulletsBetween(start, end, from = 0) {
 // ----------------------------------------------------------------- compare
 
 const problems = [];
+const notes = [];
 let checks = 0;
+const retired = DATA.retired || {};
 
 function sameSet(label, fromPdf, fromData) {
   checks += 1;
+  // Retired courses are dropped from the site on purpose; flag them while the PDF still prints them.
+  fromPdf.filter(code => retired[code]).forEach(code => notes.push(`${label}: the PDF still lists ${code} (${retired[code]})`));
+  fromPdf = fromPdf.filter(code => !retired[code]);
   const a = new Set(fromPdf);
   const b = new Set(fromData);
   const missing = [...a].filter(x => !b.has(x));
@@ -182,3 +187,7 @@ if (problems.length) {
   process.exit(1);
 }
 console.log(`✓ scripts/handbook-data.js matches ${name} (${checks} checks)`);
+if (notes.length) {
+  console.log(`\n! ${notes.length} note(s) for the next PDF revision:`);
+  notes.forEach(n => console.log(`  - ${n}`));
+}

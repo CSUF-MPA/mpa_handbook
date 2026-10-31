@@ -673,7 +673,7 @@
             const isDone = row.code && !!state.done[doneKey(row)];
             const badges = [];
             if (row.code && row.code !== OTHER && levelOf(row.code) === 400) badges.push('<span class="pl-badge pl-badge-400">400-level</span>');
-            if (row.code === D.internship) badges.push('<span class="pl-badge">300 hours</span>');
+            if (row.code === D.internship) badges.push('<span class="pl-badge">300 hours</span>', '<span class="pl-badge">Outside 400-level limit</span>');
             if (row.code && D.paCore.includes(row.code) && row.group === 'core') {
                 const c = concById(state.c);
                 if (c && c.slots.some(s => s.pick === s.from.length && s.from.includes(row.code))) badges.push(`<span class="pl-badge">Also ${c.abbr} core</span>`);
@@ -791,9 +791,10 @@
                 if (missing > 0) push('todo', `${planned} of ${total} units chosen`, `Choose ${missing} more course${missing === 1 ? '' : 's'} below.`);
                 else push('ok', `${planned} of ${total} units planned`, 'Twelve courses, overlaps counted once.');
 
-                const four = chosen.filter(r => r.code !== OTHER && levelOf(r.code) === 400).map(r => r.code);
+                const exempt = D.rules.exemptFrom400Limit || [];
+                const four = chosen.filter(r => r.code !== OTHER && levelOf(r.code) === 400 && !exempt.includes(r.code)).map(r => r.code);
                 const max = D.rules.max400LevelCourses;
-                if (four.length > max) push('warn', `${four.length} courses at the 400 level`, `The MPA counts no more than ${max} (9 units) toward the degree (§17). This count includes POSC 497 if it’s on your plan; confirm with the MPA Advisor.`);
+                if (four.length > max) push('warn', `${four.length} courses at the 400 level`, `The MPA counts no more than ${max} (9 units) toward the degree (§17). POSC 497 doesn’t count toward this limit.`);
                 else push('ok', `${four.length} of ${max} allowed 400-level courses`, four.length ? four.join(', ') : 'None so far.');
 
                 if (state.intern === 'unknown') push('warn', 'Internship not determined', 'Ask the MPA Advisor or MPA Director early and make sure the answer is on your Study Plan (§10).');

@@ -49,7 +49,6 @@
     'POSC 484': { title: 'Planning Methods', alias: 'POSC/GEOG 484' },
     'POSC 491': { title: 'Applied Policy Research', alias: 'CRJU/POSC 491' },
     'POSC 522': { title: 'Seminar in Public Personnel Administration' },
-    'POSC 539': { title: 'Seminar in Nonprofit Sector Management' },
     'POSC 580': { title: 'Emergency Management in Public Administration' },
     'POSC 582': { title: 'Organizational Development and Change' },
     'POSC 583': { title: 'Public Budgeting and Finance II' },
@@ -142,7 +141,7 @@
           label: 'Concentration Electives (Take One)',
           pick: 1,
           from: [
-            'POSC 421', 'POSC 426', 'POSC 427', 'POSC 428', 'POSC 430', 'POSC 539',
+            'POSC 421', 'POSC 426', 'POSC 427', 'POSC 428', 'POSC 430',
             'CRJU 405', 'CRJU 491', 'ECON 416', 'PUBH 524'
           ]
         }
@@ -156,11 +155,20 @@
     }
   ];
 
+  // Program decisions that override the PDF until its next revision.
+  // The verifier skips these courses in the PDF's lists and warns while
+  // the PDF still prints them.
+  const retired = {
+    'POSC 539': 'Seminar in Nonprofit Sector Management: retired (confirmed by the MPA Director, Oct. 2026)'
+  };
+
   // §8 and §17: rules the Study Plan sketcher checks.
   const rules = {
     totalUnits: 36,
     unitsPerCourse: 3,
-    max400LevelCourses: 3
+    max400LevelCourses: 3,
+    // POSC 497 does not count toward the 400-level limit (MPA Director, Oct. 2026).
+    exemptFrom400Limit: ['POSC 497']
   };
 
   // §7 Cost of Degree, 2026–2027 estimates.
@@ -174,7 +182,7 @@
     return m ? Number(m[0][0]) * 100 : null;
   };
 
-  const DATA = { courses, paCore, breadth, internship, crossListed, concentrations, rules, costs, level };
+  const DATA = { courses, paCore, breadth, internship, crossListed, retired, concentrations, rules, costs, level };
 
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = DATA;
