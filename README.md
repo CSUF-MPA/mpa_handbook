@@ -16,15 +16,28 @@ The program is accredited by the **Network of Schools of Public Policy, Affairs,
 
 This repository includes the digital version of the MPA Student Handbook for 2026-2027. The handbook serves as a comprehensive guide for students, detailing degree requirements, courses, resources, and faculty contacts.
 
-### Key Sections
+### What's on the site
 
-- **Introduction**: Mission and values of the program.
-- **Degree Requirements**: Overview of prerequisites and core coursework.
-- **Concentrations**: Specializations in Human Resources, Public Finance, Local Government, and Public Policy.
-- **Capstone**: Comprehensive exam and seminar details.
-- **Resources**: Campus support services for academic and personal growth.
+The site carries all 24 sections of the PDF handbook, numbered to match, with a "PDF p." link on each section that opens the PDF at that page. Around that content:
 
-The handbook is built using HTML, CSS, and JavaScript for interactive and accessible navigation.
+- **Study Plan Sketcher**: pick a concentration and an internship status, and see how twelve courses reach 36 units with overlaps counted once. It flags the 400-level cap, courses that share a title, and an undetermined internship. Students can tick off completed courses. Choices are saved in the browser only.
+- **Course Finder**: every course named in the requirement lists, filterable by concentration and level, showing every place each course can count.
+- **Concentration explorer**: the four concentrations side by side, generated from the same data.
+- **Tuition estimator**: per-semester and whole-degree tuition at 2026–27 rates for one, two, or three courses a semester.
+- **Search**: press `/` or `Ctrl`/`⌘`+`K`.
+- Milestone checklist, light and dark themes, print styles (including "print my plan"), and deep links to every section and policy.
+
+No build step and no third-party requests: fonts (Public Sans, Source Serif 4; SIL OFL) and icons (Lucide; ISC) are self-hosted.
+
+### Updating for a new academic year
+
+The PDF is the source of truth. Course and concentration lists live in one file, `scripts/handbook-data.js`, which drives the explorer, finder, and sketcher. After editing the PDF or that file:
+
+```bash
+node tools/verify-against-pdf.mjs            # data file vs. the newest mpa_student_handbook_*.pdf
+```
+
+It re-reads the PDF and fails if any core, breadth, concentration, or advisor-approved list, course title, tuition figure, or the 400-level cap has drifted. It needs `pdftotext` (`poppler-utils` on Linux, `brew install poppler` on macOS). Prose sections live in `index.html`; each has a `PDF p.` link whose `#page=` value is the printed page number plus 4.
 
 ## Accessibility
 
@@ -72,6 +85,6 @@ For questions about the program or resources, please contact:
 
 This organization is maintained by the Division of Politics, Administration & Justice at CSUF.
 
-Last updated: 12 July 2026
+Last updated: 31 October 2026
 
 © 2026 California State University, Fullerton. All rights reserved.

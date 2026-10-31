@@ -5,16 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Terms of Use for the CSUF MPA Student Handbook. Guidelines for using this academic resource website.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://dadams.io/mpa_handbook/terms.html">
+    <link rel="canonical" href="https://csuf-mpa.github.io/mpa_handbook/terms.html">
     
     <!-- Open Graph for social sharing -->
     <meta property="og:title" content="Terms of Use | CSUF MPA Handbook">
     <meta property="og:description" content="Terms of Use for the CSUF MPA Student Handbook website">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dadams.io/mpa_handbook/terms.html">
+    <meta property="og:url" content="https://csuf-mpa.github.io/mpa_handbook/terms.html">
     
     <title>Terms of Use | CSUF MPA Handbook</title>
     <link rel="stylesheet" href="style/policy_styles.css">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <script>
+        /* Match the handbook's theme choice before first paint */
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t !== 'light' && t !== 'dark') {
+                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) { /* storage blocked: stay light */ }
+        })();
+    </script>
 </head>
 <body>
     <a class="skip-link" href="#policy-main">Skip to main content</a>
