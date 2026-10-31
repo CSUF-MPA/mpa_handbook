@@ -1,177 +1,196 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
+/*
+ * Policy pages (terms, privacy, accessibility): same type and colour system
+ * as the handbook. Links on the navy header and footer use #FFD34D, which
+ * keeps them above 4.5:1 on navy (see README, contrast rule 2).
+ */
+
+@font-face {
+    font-family: "Public Sans";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src: url("../fonts/public-sans-latin-wght.woff2") format("woff2");
 }
 
-/* Two-color focus ring: navy outline carries 3:1 on the white body,
-   orange halo carries it on the navy header/footer (WCAG 1.4.11) */
+@font-face {
+    font-family: "Source Serif 4";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 900;
+    src: url("../fonts/source-serif-4-latin-wght.woff2") format("woff2");
+}
+
+:root, [data-theme="light"] {
+    color-scheme: light;
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --ink: #141821;
+    --ink-2: #3F4654;
+    --line: #E2DDD2;
+    --brand: #00244E;
+    --link: #0B47A1;
+    --link-hover: #00244E;
+    --band: #00244E;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0B1220;
+    --surface: #121A2B;
+    --ink: #EDF1F8;
+    --ink-2: #C8D0DE;
+    --line: #26324D;
+    --brand: #DCE7FA;
+    --link: #9CC2FF;
+    --link-hover: #FFB273;
+    --band: #0C1E3F;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--ink);
+    background-color: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Two-colour focus ring: blue outline + orange halo carries 3:1 on white and on navy (WCAG 1.4.11) */
+:focus { outline: none; }
 :focus-visible {
-    outline: 3px solid #00447c;
+    outline: 3px solid #3B82F6;
     outline-offset: 2px;
-    box-shadow: 0 0 0 6px rgba(255, 121, 0, 0.9);
+    box-shadow: 0 0 0 6px rgba(255, 121, 0, .6);
+    border-radius: 4px;
 }
 
 .sr-only {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
 }
 
+.skip-link {
+    position: fixed;
+    top: -60px;
+    left: 1rem;
+    z-index: 1000;
+    padding: .6rem 1rem;
+    border-radius: 8px;
+    background: #FF7900;
+    color: #1A1A1A;
+    font-weight: 700;
+    text-decoration: none;
+    transition: top .2s ease;
+}
+.skip-link:focus, .skip-link:focus-visible { top: .75rem; color: #1A1A1A; }
+
+/* Header band */
+header {
+    background-color: var(--band);
+    color: #FFFFFF;
+    padding: 2.25rem 1.25rem 2.5rem;
+    border-bottom: 4px solid #FF7900;
+}
+header > * { max-width: 860px; margin-left: auto; margin-right: auto; }
+header h1 {
+    margin-top: .35rem;
+    margin-bottom: .35rem;
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: clamp(2rem, 1.5rem + 2vw, 2.8rem);
+    font-weight: 650;
+    line-height: 1.1;
+    color: #FFFFFF;
+}
+header p, header .last-updated { color: #DCE6F7; font-size: .92rem; margin-bottom: 0; }
+
+.breadcrumb { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; font-size: .9rem; font-weight: 600; }
+.breadcrumb li { color: #DCE6F7; }
+.breadcrumb li + li::before { content: "/"; margin-right: .4rem; color: #A9BBDB; }
+
+header a, footer a { color: #FFD34D; font-weight: 700; }
+header a:hover, footer a:hover { color: #FFFFFF; }
+
+/* Content card */
+main {
+    max-width: 860px;
+    margin: -1.25rem auto 3rem;
+    padding: 2rem clamp(1.25rem, 4vw, 2.75rem) 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 2px 6px rgba(20, 24, 33, .06), 0 10px 30px rgba(20, 24, 33, .07);
+    position: relative;
+}
+main:focus { outline: none; }
+
+section { margin-bottom: 2.25rem; }
+section:last-child { margin-bottom: .5rem; }
+
+h2 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 620;
+    line-height: 1.2;
+    color: var(--ink);
+    margin: 0 0 .75rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--line);
+}
+h3 { font-size: 1.12rem; margin: 1.5rem 0 .4rem; color: var(--ink); }
+p, li { color: var(--ink-2); }
+p { margin: 0 0 1em; }
+strong { color: var(--ink); }
+ul { padding-left: 1.25rem; }
+ul li { margin-bottom: .45rem; }
+code { font-size: .9em; padding: .05em .35em; border-radius: 5px; background: var(--bg); border: 1px solid var(--line); }
+
+a {
+    color: var(--link);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: .18em;
+}
+a:hover { color: var(--link-hover); }
+
+/* Footer band */
+footer {
+    background-color: var(--band);
+    color: #FFFFFF;
+    padding: 2rem 1.25rem 2.25rem;
+    text-align: center;
+    font-size: .92rem;
+}
+footer p { color: #E6ECF7; margin: .4rem 0; }
+.footer-link { display: inline-block; margin-bottom: .5rem; font-size: 1rem; }
+
+@media (max-width: 640px) {
+    body { font-size: 1rem; }
+    header { padding: 1.5rem 1rem 2rem; }
+    main { margin: -1rem .75rem 2rem; border-radius: 14px; }
+    h2 { font-size: 1.4rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.001ms !important;
+    *, *::before, *::after {
+        animation-duration: .001ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
+        transition-duration: .001ms !important;
         scroll-behavior: auto !important;
     }
 }
 
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 1rem;
-    background: #FF7900;
-    color: #1a1a1a;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    z-index: 1000;
-    font-weight: 600;
-    text-decoration: none;
-    transition: top 0.2s ease;
-}
-
-.skip-link:focus,
-.skip-link:focus-visible {
-    top: 1rem;
-}
-
-header {
-    background-color: #00447c;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-header h1 {
-    font-size: 2rem;
-    margin: 0;
-}
-
-main {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Section Styles */
-section {
-    margin-bottom: 30px;
-}
-
-h2 {
-    font-size: 1.75rem;
-    color: #00447c;
-    border-bottom: 3px solid #00447c;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
-
-h3 {
-    font-size: 1.4rem;
-    margin-top: 20px;
-    color: #222;
-}
-
-p {
-    font-size: 1rem;
-    color: #1A1A1A;
-}
-
-/* Global p color bled into the navy header/footer at 1.76:1 (WCAG 1.4.3) */
-header p,
-footer p {
-    color: #FFFFFF;
-}
-
-/* Lists */
-ul {
-    padding-left: 20px;
-}
-
-ul li {
-    margin-bottom: 10px;
-}
-
-/* Links */
-a {
-    color: #00447c;
-    text-decoration: underline;
-}
-
-a:hover {
-    color: #002a4d;
-}
-
-/* Breadcrumb links sit on the navy header, where the global navy link color is
-   invisible (1:1). Same on-navy link color the footer uses (~6.9:1, WCAG 1.4.3) */
-header a {
-    color: #FFD34D;
-}
-
-header a:hover {
-    color: #ffd700;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #00447c;
-    color: white;
-    margin-top: 30px;
-}
-
-footer a {
-    color: #FFD34D; /* orange was 3.77:1 on navy; this is ~8:1 (WCAG 1.4.3) */
-    text-decoration: underline;
-}
-
-footer a:hover {
-    color: #ffd700;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    main {
-        width: 90%;
-        padding: 15px;
-    }
-
-    header {
-        padding: 15px;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    p {
-        font-size: 0.95rem;
-    }
+@media print {
+    header, footer { background: #FFFFFF; color: #000000; border: 0; }
+    header h1, header p, .breadcrumb li, footer p { color: #000000; }
+    header a, footer a { color: #00244E; }
+    main { box-shadow: none; border: 0; margin: 0 auto; }
+    .skip-link { display: none; }
 }

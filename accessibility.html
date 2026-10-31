@@ -5,16 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accessibility statement for the CSUF MPA Student Handbook. We are committed to WCAG 2.2 Level AA compliance and digital accessibility for all users.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://dadams.io/mpa_handbook/accessibility.html">
+    <link rel="canonical" href="https://csuf-mpa.github.io/mpa_handbook/accessibility.html">
     
     <!-- Open Graph for social sharing -->
     <meta property="og:title" content="Accessibility Statement | CSUF MPA Handbook">
     <meta property="og:description" content="CSUF MPA Program commitment to digital accessibility and WCAG 2.2 compliance">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dadams.io/mpa_handbook/accessibility.html">
+    <meta property="og:url" content="https://csuf-mpa.github.io/mpa_handbook/accessibility.html">
     
     <title>Accessibility Statement | CSUF MPA Handbook</title>
     <link rel="stylesheet" href="style/policy_styles.css">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <script>
+        /* Match the handbook's theme choice before first paint */
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t !== 'light' && t !== 'dark') {
+                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) { /* storage blocked: stay light */ }
+        })();
+    </script>
 </head>
 <body>
     <a class="skip-link" href="#policy-main">Skip to main content</a>
@@ -27,7 +40,7 @@
             </ol>
         </nav>
         <h1>Accessibility Statement</h1>
-        <p class="last-updated">Last updated: <time datetime="2026-07-11">July 11, 2026</time></p>
+        <p class="last-updated">Last updated: <time datetime="2026-10-31">October 31, 2026</time></p>
     </header>
 
     <main id="policy-main" role="main" tabindex="-1">
@@ -52,14 +65,14 @@
 
         <section aria-labelledby="testing-heading">
             <h2 id="testing-heading">Accessibility Testing</h2>
-            <p>This website is audited against WCAG 2.2 Level AA. The most recent audit was completed in July 2026 and covered all pages in both light and dark color themes.</p>
+            <p>This website is audited against WCAG 2.2 Level AA. The most recent audit was completed in October 2026, after the handbook was redesigned for 2026–27, and covered all pages in both light and dark color themes, at desktop and mobile widths, including the interactive Study Plan Sketcher, Course Finder, search, and tuition estimator.</p>
 
             <h3>Audit Coverage</h3>
             <ul>
-                <li><strong>Automated scanning:</strong> axe-core (WCAG 2.0/2.1/2.2 A and AA rules) and Lighthouse, run in both color themes</li>
+                <li><strong>Automated scanning:</strong> axe-core (WCAG 2.0/2.1/2.2 A and AA rules plus best practices), run in both color themes at desktop and mobile widths</li>
                 <li><strong>Keyboard navigation:</strong> Tab order, arrow-key patterns for tabs, skip links, focus visibility, and Escape handling</li>
                 <li><strong>Reflow and magnification:</strong> Verified no horizontal scrolling at 320px viewport width (equivalent to 400% zoom)</li>
-                <li><strong>Color contrast:</strong> All text and interactive states, including hover and focus, in both themes</li>
+                <li><strong>Color contrast:</strong> Every text node measured against its rendered background in both themes, using the contrast audit script in this site’s repository</li>
                 <li><strong>Reduced motion:</strong> Animations and smooth scrolling respect <code>prefers-reduced-motion</code></li>
             </ul>
 
