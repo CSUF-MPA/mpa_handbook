@@ -1018,6 +1018,7 @@ tfoot th, tfoot td { font-weight: 800; border-bottom: 0; background: var(--surfa
 .advising-required-head { margin-bottom: .5rem; }
 .advising-required-head .i { color: var(--orange-ink); margin-right: .25rem; }
 .advising-required ol { margin: 0; }
+.advising-required-foot { max-width: none; margin: .75rem 0 0; padding-top: .7rem; border-top: 1px solid var(--orange-line); }
 
 /* Timeline */
 .milestone-bar {
@@ -1420,6 +1421,7 @@ input[type="checkbox"]:disabled { opacity: .45; cursor: not-allowed; }
 .lvl-400 { background: var(--orange-soft); color: var(--orange-ink); border-color: var(--orange-line); }
 .fcard-title { margin: .3rem 0 .55rem; font-size: 1rem; line-height: 1.3; }
 .fcard-alias { font-size: .78rem; color: var(--ink-3); font-weight: 600; margin: -.35rem 0 .45rem; }
+.fcard-note { font-size: .8rem; font-weight: 700; color: var(--orange-ink); line-height: 1.4; margin: -.2rem 0 .55rem; }
 .roles { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: .3rem; }
 .role { margin: 0; padding: .12rem .5rem; border-radius: 6px; font-size: .74rem; font-weight: 700; line-height: 1.4; background: var(--r-soft); color: var(--r-ink); }
 .role-core    { --r-ink: var(--c-core-ink);    --r-soft: var(--c-core-soft); }

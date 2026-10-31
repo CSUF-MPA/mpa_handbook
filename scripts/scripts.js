@@ -537,6 +537,7 @@
                 <div class="fcard-top"><span class="code">${esc(d.code)}</span><span class="lvl${d.lvl === 400 ? ' lvl-400' : ''}">${d.lvl}-level</span></div>
                 <h3 class="fcard-title">${esc(d.info.title)}</h3>
                 ${d.info.alias ? `<p class="fcard-alias">Listed as ${esc(d.info.alias)}</p>` : ''}
+                ${d.info.note ? `<p class="fcard-note">${esc(d.info.note)}</p>` : ''}
                 <ul class="roles" aria-label="Counts toward">${d.roles.map(r => `<li class="role role-${r.cls}">${esc(r.label)}</li>`).join('')}</ul>
             </li>`).join('');
         const cards = $$('.fcard', grid);
@@ -698,6 +699,7 @@
                 <input type="checkbox" id="${id}-done" data-done="${i}"${isDone ? ' checked' : ''}>
                 <label class="pl-course" for="${id}-done"><span class="code">${esc(row.code)}</span><span class="pl-title">${esc(titleOf(row.code))}</span></label>
                 <span class="pl-badges">${badges.join('')}</span>
+                ${note}
             </li>`;
         }
 
@@ -810,7 +812,7 @@
                 });
                 if (chosen.some(r => r.code === OTHER)) push('info', 'Another approved course', 'Transfer and prior coursework must be evaluated by the MPA Advisor or MPA Director (§15).');
             }
-            push('info', 'POSC 521 comes last', 'Take it in your final semester, after every other core course; the comprehensive exam is part of it.');
+            push('info', 'POSC 521 comes last, by permit', 'Take it in your final semester, after every other core course; the comprehensive exam is part of it. Enrollment is permit-only, so meet with the MPA Advisor first.');
 
             return `
                 <aside class="pl-summary" aria-labelledby="pl-sum-h">
@@ -1055,7 +1057,11 @@
         $('.search-close', dialog).addEventListener('click', closeSearch);
         input.addEventListener('input', run);
         input.addEventListener('keydown', e => {
-            if (e.key === 'ArrowDown') {
+            if (e.key === 'Escape') {
+                // a search field's default Escape only clears the text; close in one press
+                e.preventDefault();
+                closeSearch();
+            } else if (e.key === 'ArrowDown') {
                 const first = $('a', results);
                 if (first) { e.preventDefault(); first.focus(); }
             } else if (e.key === 'Enter') {
