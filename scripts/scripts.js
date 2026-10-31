@@ -381,7 +381,7 @@
             note.classList.remove('is-warn');
             if (semesters > 10) {
                 note.classList.add('is-warn');
-                note.textContent = `One course each fall and spring takes ${semesters} semesters, which is past the five-year (10-semester) time limit in §15. Talk with the MPA Advisor about pacing.`;
+                note.textContent = `One course each fall and spring takes ${semesters} semesters, which is past the five-year (10-semester) time limit in §15; only an approved petition extends it, to seven years. Talk with the MPA Advisor about pacing.`;
             } else if (units === 6) {
                 note.textContent = 'Two courses each fall and spring is the pace the program is designed around: three years.';
             } else if (units === 9) {
@@ -421,7 +421,7 @@
         if (code === D.internship) roles.push({ cls: 'int', label: 'Internship, if required' });
         D.concentrations.forEach(c => {
             c.slots.forEach(s => {
-                if (!s.from.includes(code)) return;
+                if (!s.from.some(x => canon(x) === canon(code))) return;
                 const kind = slotKind(s);
                 const label = kind === 'required' ? `${c.abbr} core` : kind === 'core option' ? `${c.abbr} core option` : `${c.abbr} elective`;
                 roles.push({ cls: c.id, label, conc: c.id });
@@ -658,7 +658,8 @@
         function optionList(row, takenElsewhere) {
             const opts = row.options.filter(code => code === row.code || !takenElsewhere.has(canon(code)));
             const html = [`<option value="">Choose a course…</option>`];
-            const opt = code => `<option value="${esc(code)}"${code === row.code ? ' selected' : ''}>${esc(code)}: ${esc(titleOf(code))}</option>`;
+            const shown = code => (row.group === 'conc' && D.courses[code] && D.courses[code].alias) || code;
+            const opt = code => `<option value="${esc(code)}"${code === row.code ? ' selected' : ''}>${esc(shown(code))}: ${esc(titleOf(code))}</option>`;
             [500, 400].forEach(lv => {
                 const group = opts.filter(code => levelOf(code) === lv);
                 if (group.length) html.push(`<optgroup label="${lv}-level courses">${group.map(opt).join('')}</optgroup>`);
