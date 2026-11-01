@@ -68,7 +68,8 @@
 
   // Codes the PDF prints as one cross-listed course ("CRJU/POSC 491").
   // The sketcher treats each group as a single course.
-  const crossListed = [['CRJU 491', 'POSC 491']];
+  // POSC 424/PUBH 424: the University Catalog says they are the same course.
+  const crossListed = [['CRJU 491', 'POSC 491'], ['POSC 424', 'PUBH 424']];
 
   // §11 Program Concentrations. Each `slots` entry is one requirement group:
   //   pick = how many distinct courses from `from` the student must take.
