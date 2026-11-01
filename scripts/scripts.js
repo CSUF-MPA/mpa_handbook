@@ -14,6 +14,7 @@
     'use strict';
 
     const D = window.MPA_DATA;
+    const CAT = window.MPA_CATALOG || null;
     const $ = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
     const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -502,8 +503,8 @@
         root.innerHTML = `
             <div class="finder-controls">
                 <div class="field">
-                    <label for="finder-q">Search by number or title</label>
-                    <input id="finder-q" type="search" placeholder="e.g. 525, budget, policy" autocomplete="off">
+                    <label for="finder-q">Search by number, title, or topic</label>
+                    <input id="finder-q" type="search" placeholder="e.g. 525, budget, housing" autocomplete="off">
                 </div>
                 <div class="field">
                     <label for="finder-filter">Counts toward</label>
@@ -518,7 +519,10 @@
                     </div>
                 </fieldset>
             </div>
-            <p class="finder-count" id="finder-count" role="status" aria-live="polite"></p>
+            <div class="finder-bar">
+                <p class="finder-count" id="finder-count" role="status" aria-live="polite"></p>
+                ${CAT ? '<button type="button" class="btn btn-quiet btn-small" id="finder-expand" aria-pressed="false">Show all descriptions</button>' : ''}
+            </div>
             <ul class="finder-grid" id="finder-grid"></ul>`;
 
         const codes = Object.keys(D.courses).sort((a, b) => {
@@ -526,7 +530,27 @@
             const nb = Number(b.match(/\d{3}/)[0]);
             return na - nb || a.localeCompare(b);
         });
-        const data = codes.map(code => ({ code, info: D.courses[code], roles: rolesFor(code), lvl: levelOf(code) }));
+        const data = codes.map(code => ({ code, info: D.courses[code], roles: rolesFor(code), lvl: levelOf(code), cat: CAT ? CAT.get(code) : null }));
+
+        const descHtml = d => {
+            if (!d.cat) return '';
+            const c = d.cat;
+            const meta = [
+                c.prereq ? `<div><dt>Prerequisites</dt><dd>${esc(c.prereq)}</dd></div>` : '',
+                c.offered ? `<div><dt>Typically offered</dt><dd>${esc(c.offered)}</dd></div>` : '',
+                c.credit ? `<div><dt>Level</dt><dd>${esc(c.credit)}</dd></div>` : ''
+            ].join('');
+            const flags = [c.consent, c.online ? 'One or more sections may be offered in any online format.' : ''].filter(Boolean);
+            return `
+                <details class="fcard-desc">
+                    <summary>Catalog description<span class="sr-only"> for ${esc(d.code)}</span></summary>
+                    <div class="fcard-desc-body">
+                        <p>${esc(c.desc)}</p>
+                        ${meta ? `<dl class="fcard-meta">${meta}</dl>` : ''}
+                        ${flags.map(f => `<p class="fcard-flag">${esc(f)}</p>`).join('')}
+                    </div>
+                </details>`;
+        };
         const grid = $('#finder-grid');
         const q = $('#finder-q');
         const filter = $('#finder-filter');
@@ -539,8 +563,26 @@
                 ${d.info.alias ? `<p class="fcard-alias">Listed as ${esc(d.info.alias)}</p>` : ''}
                 ${d.info.note ? `<p class="fcard-note">${esc(d.info.note)}</p>` : ''}
                 <ul class="roles" aria-label="Counts toward">${d.roles.map(r => `<li class="role role-${r.cls}">${esc(r.label)}</li>`).join('')}</ul>
+                ${descHtml(d)}
             </li>`).join('');
         const cards = $$('.fcard', grid);
+
+        const expand = $('#finder-expand');
+        const syncExpand = () => {
+            if (!expand) return;
+            const visible = $$('.fcard:not([hidden]) .fcard-desc', grid);
+            const allOpen = visible.length > 0 && visible.every(dt => dt.open);
+            expand.setAttribute('aria-pressed', String(allOpen));
+            expand.textContent = allOpen ? 'Hide all descriptions' : 'Show all descriptions';
+        };
+        if (expand) {
+            expand.addEventListener('click', () => {
+                const open = expand.getAttribute('aria-pressed') !== 'true';
+                $$('.fcard:not([hidden]) .fcard-desc', grid).forEach(dt => { dt.open = open; });
+                syncExpand();
+            });
+            grid.addEventListener('toggle', syncExpand, true);
+        }
 
         const norm = s => s.toLowerCase().replace(/[‐-―]/g, '-');
         const apply = () => {
@@ -550,7 +592,7 @@
             const lvl = ($('input[name="finder-lvl"]:checked', root) || {}).value || 'all';
             let shown = 0;
             data.forEach((d, i) => {
-                const hay = norm(`${d.code} ${d.info.alias || ''} ${d.info.title}`);
+                const hay = norm(`${d.code} ${d.info.alias || ''} ${d.info.title} ${d.cat ? d.cat.desc : ''}`);
                 const matchText = !term || hay.includes(term) || hay.replace(/\s+/g, '').includes(compact);
                 const matchFilter = f === 'all'
                     || (f === 'core' && d.roles.some(r => r.cls === 'core' || r.cls === 'breadth'))
@@ -563,6 +605,7 @@
             });
             const label = f === 'all' ? '' : ` for ${filter.options[filter.selectedIndex].text}`;
             status.textContent = shown ? `Showing ${shown} of ${data.length} courses${label}.` : 'No courses match. Try a different number, word, or filter.';
+            syncExpand();
         };
         q.addEventListener('input', apply);
         filter.addEventListener('change', apply);
@@ -956,7 +999,8 @@
             });
             // one entry per course, pointing at the course finder
             if (D) Object.entries(D.courses).forEach(([code, info]) => {
-                items.push({ course: code, sec: 'Course Finder', title: `${code}: ${info.title}`, text: `${code} ${code.replace(' ', '')} ${info.alias || ''} ${info.title}`, weight: 3 });
+                const cat = CAT ? CAT.get(code) : null;
+                items.push({ course: code, sec: 'Course Finder', title: `${code}: ${info.title}`, text: `${code} ${code.replace(' ', '')} ${info.alias || ''} ${info.title}${cat ? ` ${cat.desc}` : ''}`, weight: 3 });
             });
             items.forEach(it => { it.n = norm(it.text); it.nt = norm(it.title); });
             return items;

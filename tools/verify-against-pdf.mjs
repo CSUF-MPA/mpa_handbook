@@ -178,6 +178,16 @@ if (!flat.includes(`no more than ${words[DATA.rules.max400LevelCourses]} such co
 checks += 1;
 if (!flat.includes(`requires ${DATA.rules.totalUnits} units`)) problems.push(`Total of ${DATA.rules.totalUnits} units not found in PDF`);
 
+// Every course should have a catalog description for the Course Finder (a note, not a failure).
+try {
+  const CATALOG = require(join(ROOT, 'scripts', 'catalog-descriptions.js'));
+  Object.keys(DATA.courses)
+    .filter(code => !(CATALOG.get(code) && CATALOG.get(code).desc))
+    .forEach(code => notes.push(`No catalog description for ${code} in scripts/catalog-descriptions.js`));
+} catch (err) {
+  notes.push(`Could not read scripts/catalog-descriptions.js: ${err.message}`);
+}
+
 // ------------------------------------------------------------------ report
 
 const name = pdf.split('/').pop();
