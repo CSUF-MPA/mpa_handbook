@@ -15,7 +15,11 @@
   // `alias` = cross-listed code printed in the PDF (e.g. "POSC/GEOG 478").
   const courses = {
     'POSC 509': { title: 'Foundations of Public Administration' },
-    'POSC 521': { title: 'Capstone Seminar in Public Administration Theory' },
+    'POSC 521': {
+      title: 'Capstone Seminar in Public Administration Theory',
+      // Permit-only enrollment: MPA Director, Nov. 2026 (not yet in the PDF)
+      note: 'Permit only. Meet with the MPA Advisor before enrolling.'
+    },
     'POSC 523': { title: 'Administrative Research and Analysis' },
     'POSC 526': { title: 'Public Organizational Theory & Behavior' },
     'POSC 571': { title: 'Public Budgeting and Finance' },
