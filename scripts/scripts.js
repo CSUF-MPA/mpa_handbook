@@ -566,6 +566,45 @@
             </li>`).join('');
         const cards = $$('.fcard', grid);
 
+        // Cards in the same row share one closed height, so the "Catalog description"
+        // links line up; an open description grows only its own card.
+        let layoutQueued = false;
+        const equalizeRows = () => {
+            layoutQueued = false;
+            const visible = cards.filter(c => !c.hidden);
+            visible.forEach(c => { c.style.minHeight = ''; });
+            const rows = new Map();
+            visible.forEach(c => {
+                const top = c.offsetTop;
+                if (!rows.has(top)) rows.set(top, []);
+                rows.get(top).push(c);
+            });
+            rows.forEach(row => {
+                if (row.length < 2) return;
+                const parts = row.map(c => {
+                    const d = c.querySelector('.fcard-desc');
+                    const body = d && d.open ? d.querySelector('.fcard-desc-body').getBoundingClientRect().height : 0;
+                    return { c, body, closed: c.getBoundingClientRect().height - body };
+                });
+                const tallest = Math.ceil(Math.max(...parts.map(p => p.closed)));
+                parts.forEach(p => { p.c.style.minHeight = `${tallest + p.body}px`; });
+            });
+        };
+        const queueLayout = () => {
+            if (layoutQueued) return;
+            layoutQueued = true;
+            window.requestAnimationFrame(equalizeRows);
+        };
+        grid.addEventListener('toggle', queueLayout, true);
+        if ('ResizeObserver' in window) {
+            let lastWidth = 0;
+            new ResizeObserver(entries => {
+                const w = Math.round(entries[0].contentRect.width);
+                if (w !== lastWidth) { lastWidth = w; queueLayout(); }
+            }).observe(grid);
+        }
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(queueLayout);
+
         const expand = $('#finder-expand');
         const syncExpand = () => {
             if (!expand) return;
@@ -605,6 +644,7 @@
             const label = f === 'all' ? '' : ` for ${filter.options[filter.selectedIndex].text}`;
             status.textContent = shown ? `Showing ${shown} of ${data.length} courses${label}.` : 'No courses match. Try a different number, word, or filter.';
             syncExpand();
+            queueLayout();
         };
         q.addEventListener('input', apply);
         filter.addEventListener('change', apply);
