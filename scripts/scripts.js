@@ -537,7 +537,6 @@
             const c = d.cat;
             const meta = [
                 c.prereq ? `<div><dt>Prerequisites</dt><dd>${esc(c.prereq)}</dd></div>` : '',
-                c.offered ? `<div><dt>Typically offered</dt><dd>${esc(c.offered)}</dd></div>` : '',
                 c.credit ? `<div><dt>Level</dt><dd>${esc(c.credit)}</dd></div>` : ''
             ].join('');
             const flags = [c.consent, c.online ? 'One or more sections may be offered in any online format.' : ''].filter(Boolean);

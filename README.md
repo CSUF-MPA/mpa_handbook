@@ -21,7 +21,7 @@ This repository includes the digital version of the MPA Student Handbook for 202
 The site carries all 24 sections of the PDF handbook, numbered to match, with a "PDF p." link on each section that opens the PDF at that page. Around that content:
 
 - **Study Plan Sketcher**: pick a concentration and an internship status, and see how twelve courses reach 36 units with overlaps counted once. It flags the 400-level cap, courses that share a title, and an undetermined internship. Students can tick off completed courses. Choices are saved in the browser only.
-- **Course Finder**: every course named in the requirement lists, filterable by concentration and level, showing every place each course can count. Each card opens its University Catalog description, prerequisites, and typical schedule.
+- **Course Finder**: every course named in the requirement lists, filterable by concentration and level, showing every place each course can count. Each card opens its University Catalog description and prerequisites.
 - **Concentration explorer**: the four concentrations side by side, generated from the same data.
 - **Tuition estimator**: per-semester and whole-degree tuition at 2026–27 rates for one, two, or three courses a semester.
 - **Search**: press `/` or `Ctrl`/`⌘`+`K`.
@@ -41,7 +41,7 @@ It re-reads the PDF and fails if any core, breadth, concentration, or advisor-ap
 
 ### Catalog descriptions
 
-`scripts/catalog-descriptions.js` holds the Course Finder's descriptions, copied word for word from the [CSUF University Catalog](https://fullerton.catalog.acalog.com/content.php?catoid=101&navoid=15189). The catalog blocks automated downloads, so update it by hand when the catalog changes: paste a course's description, prerequisite, and "Typically Offered" lines into its entry. Where the program knows better than the catalog (POSC 521 now runs fall and spring), the entry says so in a comment.
+`scripts/catalog-descriptions.js` holds the Course Finder's descriptions, copied word for word from the [CSUF University Catalog](https://fullerton.catalog.acalog.com/content.php?catoid=101&navoid=15189). The catalog blocks automated downloads, so update it by hand when the catalog changes: paste a course's description and prerequisite lines into its entry. "Typically Offered" is deliberately left out, because scheduling follows demand and changes faster than the catalog.
 
 ## Accessibility
 
