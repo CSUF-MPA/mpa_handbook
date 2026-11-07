@@ -131,8 +131,8 @@
       advisor: [
         'CRJU 491', 'ECON 416', 'ECON 417', 'POSC 421', 'POSC 423', 'POSC 424',
         'POSC 425', 'POSC 426', 'POSC 427', 'POSC 430', 'POSC 446', 'POSC 459',
-        'POSC 475', 'POSC 478', 'POSC 484', 'POSC 491', 'POSC 519', 'POSC 525',
-        'POSC 528', 'POSC 580', 'POSC 582', 'POSC 588', 'PUBH 424'
+        'POSC 475', 'POSC 478', 'POSC 484', 'POSC 491', 'POSC 519', 'POSC 522',
+        'POSC 525', 'POSC 528', 'POSC 580', 'POSC 582', 'POSC 588', 'PUBH 424'
       ]
     },
     {
@@ -167,6 +167,12 @@
     'POSC 539': 'Seminar in Nonprofit Sector Management: retired (confirmed by the MPA Director, Oct. 2026)'
   };
 
+  // Courses added to a list before the PDF prints them. The verifier accepts
+  // these and notes them until the PDF catches up.
+  const added = [
+    { conc: 'fin', list: 'advisor', code: 'POSC 522', why: 'advisor-approved elective for Public Finance Management (MPA Director, Nov. 2026)' }
+  ];
+
   // §8 and §17: rules the Study Plan sketcher checks.
   const rules = {
     totalUnits: 36,
@@ -187,7 +193,7 @@
     return m ? Number(m[0][0]) * 100 : null;
   };
 
-  const DATA = { courses, paCore, breadth, internship, crossListed, retired, concentrations, rules, costs, level };
+  const DATA = { courses, paCore, breadth, internship, crossListed, retired, added, concentrations, rules, costs, level };
 
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = DATA;
