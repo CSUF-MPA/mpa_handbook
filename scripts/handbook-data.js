@@ -23,7 +23,7 @@
     'POSC 523': { title: 'Administrative Research and Analysis' },
     'POSC 526': { title: 'Public Organizational Theory & Behavior' },
     'POSC 571': { title: 'Public Budgeting and Finance' },
-    'POSC 572': { title: 'Human Resources Management for Public Organizations' },
+    'POSC 572': { title: 'Human Resource Management for Public Organizations' },
     'POSC 519': { title: 'State and Local Government' },
     'POSC 525': { title: 'Local Government Management' },
     'POSC 528': { title: 'Seminar in Public Policy' },
@@ -44,13 +44,13 @@
     'POSC 425': { title: 'Policy Analysis' },
     'POSC 426': { title: 'Education Politics and Policy' },
     'POSC 427': { title: 'Metropolitan Politics and Policymaking' },
-    'POSC 428': { title: 'Environmental Policy and Politics' },
+    'POSC 428': { title: 'Environmental Politics and Policy' },
     'POSC 430': { title: 'Nonprofit Organizations and Advocacy' },
     'POSC 446': { title: 'Corruption, Ethics and Public Policy' },
     'POSC 459': { title: 'Social Welfare Politics and Policy' },
     'POSC 475': { title: 'Administrative Law' },
     'POSC 478': { title: 'Urban Planning Principles', alias: 'POSC/GEOG 478' },
-    'POSC 484': { title: 'Planning Methods', alias: 'POSC/GEOG 484' },
+    'POSC 484': { title: 'Urban Planning Methods', alias: 'POSC/GEOG 484' },
     'POSC 491': { title: 'Applied Policy Research', alias: 'CRJU/POSC 491' },
     'POSC 522': { title: 'Seminar in Public Personnel Administration' },
     'POSC 580': { title: 'Emergency Management in Public Administration' },
@@ -169,9 +169,9 @@
 
   // Courses added to a list before the PDF prints them. The verifier accepts
   // these and notes them until the PDF catches up.
-  const added = [
-    { conc: 'fin', list: 'advisor', code: 'POSC 522', why: 'advisor-approved elective for Public Finance Management (MPA Director, Nov. 2026)' }
-  ];
+  // POSC 522 (Public Finance Management, advisor-approved) left this list on
+  // 2026-11-07, when the rebuilt PDF began printing it.
+  const added = [];
 
   // §8 and §17: rules the Study Plan sketcher checks.
   const rules = {
