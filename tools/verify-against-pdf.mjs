@@ -78,8 +78,14 @@ const notes = [];
 let checks = 0;
 const retired = DATA.retired || {};
 
-function sameSet(label, fromPdf, fromData) {
+function sameSet(label, fromPdf, fromData, addedHere = []) {
   checks += 1;
+  // Courses added ahead of the PDF are expected to be missing from it; note them until it catches up.
+  addedHere.forEach(a => {
+    if (fromPdf.includes(a.code)) notes.push(`${label}: the PDF now lists ${a.code}; remove it from "added" in scripts/handbook-data.js`);
+    else notes.push(`${label}: the PDF does not list ${a.code} yet (${a.why})`);
+  });
+  fromData = fromData.filter(code => !addedHere.some(a => a.code === code));
   // Retired courses are dropped from the site on purpose; flag them while the PDF still prints them.
   fromPdf.filter(code => retired[code]).forEach(code => notes.push(`${label}: the PDF still lists ${code} (${retired[code]})`));
   fromPdf = fromPdf.filter(code => !retired[code]);
@@ -133,7 +139,8 @@ DATA.concentrations.forEach((c, i) => {
 
   try {
     const { codes } = bulletsBetween('Advisor-Approved Electives', stop, at);
-    sameSet(`${c.short}: Advisor-Approved Electives`, codes, c.advisor);
+    const addedHere = (DATA.added || []).filter(a => a.conc === c.id && a.list === 'advisor');
+    sameSet(`${c.short}: Advisor-Approved Electives`, codes, c.advisor, addedHere);
   } catch (err) {
     problems.push(`${c.short}: ${err.message}`);
   }
